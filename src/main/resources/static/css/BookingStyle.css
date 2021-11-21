@@ -1,0 +1,161 @@
+body{
+  margin: 0;
+  padding: 0;
+  background-color: darkgrey;
+  /* text-align: center; */
+}
+
+.nav-links{
+  width: 100%;
+  background-color: #000d1a;
+  /* position: fixed; */
+  top: 0rem;
+}
+
+.nav-links ul{
+  text-align: center;
+  padding: 0em;
+  margin: 0em;
+}
+
+.nav-links ul li{
+  list-style-type: none;
+  display: inline-block;
+  padding: 1em 5em;
+  color: white;
+}
+
+.my-booking-container .desk{
+  margin-bottom: 3em;
+}
+
+.navbar-link:visited, .navbar-link:link{
+  text-decoration: none;
+  color: white;
+}
+
+.nav-links ul li:hover{
+  background-color: #0066cc;
+}
+
+.date-nav-container{
+  text-align: center;
+  margin-top: 1em;
+}
+
+.date-nav{
+  background-color: lightblue;
+  margin: auto;
+  /* width: 70%; */
+  display: inline-block;
+}
+
+.date-nav ul{
+  margin: auto;
+  text-align: center;
+  padding-left: 0;
+}
+
+.date-nav ul li{
+  list-style-type: none;
+  display: inline-block;
+  padding: 1em 3em;
+}
+
+.date-nav ul li:hover{
+  background-color: #0066cc;
+}
+
+.my-booking-container{
+  width: 60%;
+  padding-left: 3em;
+}
+
+.date-booking-container{
+  height: auto;
+  background-color: white;
+  border: 0.2em solid black;
+  width: 80%;
+  margin: 3em auto;
+  border-radius: 0.8em;
+}
+
+
+.booked-or-available-grid{
+  display: grid;
+  width: 95%;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2em;
+  margin: 2em auto;
+  border-radius: 0.8em;
+}
+
+.booked-or-available-container{
+  width: 80%;
+  margin: auto;
+  background-color: white;
+  border-radius: 0.8em;
+  border: 0.2em solid black;
+}
+
+#available, #booked{
+  width: auto;
+  /* height: 4em; */
+  border: 0.2em solid black;
+  border-radius: 0.8em;
+  margin-top: 1em;
+}
+
+#available{
+  background-color: lightgreen;
+}
+
+#booked{
+  background-color: lightcoral;
+}
+
+.available-desk-list, .booked-desk-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.5em;
+  row-gap: 0.5em;
+  margin-top: 1em;
+  border-radius: 0.8em;
+}
+
+.desk{
+  height: 3em;
+  width: auto;
+  border-radius: 0.4em;
+  border: 0.1em solid black;
+}
+
+.available-desk-list .desk{
+  background-color: lightgreen;
+}
+
+.booked-desk-list .desk{
+  background-color: lightcoral;
+}
+
+.desk p{
+  float: left;
+}
+
+.book-button{
+  float: right;
+  margin-top: 0.6em;
+  margin-right: 1em;
+}
+
+.book-button button{
+    background-color: lightblue;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+.booked-column, .available-column{
+
+}
