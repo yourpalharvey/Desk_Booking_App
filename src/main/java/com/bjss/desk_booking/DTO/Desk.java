@@ -18,6 +18,10 @@ public class Desk {
         this.hasDualMonitor = hasDualMonitor;
     }
 
+    public int getDeskId(){
+        return id;
+    }
+
     public String getName(){
         return name;
     }
@@ -26,4 +30,11 @@ public class Desk {
         return hasStanding;
     }
 
+    public boolean hasWindow(){
+        return hasWindow;
+    }
+
+    public boolean hasDualMonitor(){
+        return hasDualMonitor;
+    }
 }

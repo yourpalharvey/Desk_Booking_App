@@ -12,6 +12,12 @@ public class User {
         this.password = password;
     }
 
+    public int getUserId(){
+        return id;
+    }
 
+    public String getUsername(){
+        return username;
+    }
 
 }
