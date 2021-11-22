@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+
+
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <title>Admin Panel</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="css/fontawesome.css">
+  <link rel="stylesheet" href="css/cards.css">
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+<!--blog card start-->
+<ul class="cards">
+  <li>
+    <a href="" class="card">
+      <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
+      <div class="card__overlay">
+        <div class="card__header">
+          <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+          <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+          <div class="card__header-text">
+            <h3 class="card__title">Batman</h3>
+            <span class="card__status">1 hour ago</span>
+            <button  type="submit"   class="accept_button">Accept</button>
+            <button  type="submit"   class="decline_button">Decline</button>
+            <button  type="submit"   class="hold_button">Hold</button>
+
+          </div>
+        </div>
+        <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+
+      </div>
+    </a>
+  </li>
+  <li>
+    <a href="" class="card">
+      <img th:src="@{/images/multi.png}" class="card__image" alt="" />
+      <div class="card__overlay">
+        <div class="card__header">
+          <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+          <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
+          <div class="card__header-text">
+            <h3 class="card__title">Superman</h3>
+            <span class="card__status">3 hours ago</span>
+            <button  type="submit"   class="accept_button">Accept</button>
+            <button  type="submit"   class="decline_button">Decline</button>
+            <button  type="submit"   class="hold_button">Hold</button>
+          </div>
+        </div>
+        <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+      </div>
+    </a>
+  </li>
+  <li>
+    <a href="" class="card">
+      <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
+      <div class="card__overlay">
+        <div class="card__header">
+          <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+          <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+          <div class="card__header-text">
+            <h3 class="card__title">Iron Man</h3>
+            <span class="card__tagline">Lorem ipsum dolor sit amet consectetur</span>
+            <span class="card__status">1 hour ago</span>
+            <button  type="submit"   class="accept_button">Accept</button>
+            <button  type="submit"   class="decline_button">Decline</button>
+            <button  type="submit"   class="hold_button">Hold</button>
+          </div>
+        </div>
+        <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+      </div>
+    </a>
+  </li>
+  <li>
+    <a href="" class="card">
+      <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
+      <div class="card__overlay">
+        <div class="card__header">
+          <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+          <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
+          <div class="card__header-text">
+            <h3 class="card__title">Wolverin</h3>
+            <span class="card__status">3 hours ago</span>
+            <button  type="submit"   class="accept_button">Accept</button>
+            <button  type="submit"   class="decline_button">Decline</button>
+            <button  type="submit"   class="hold_button">Hold</button>
+          </div>
+        </div>
+        <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+      </div>
+    </a>
+  </li>
+</ul><!-- /.blog-card -->
+
+
+
+
+
+
+
+
+</body>
+</html>
