@@ -18,6 +18,7 @@ public class Desk {
         this.hasDualMonitor = hasDualMonitor;
     }
 
+    //important method to create
     public int getDeskId(){
         return id;
     }
@@ -37,4 +38,15 @@ public class Desk {
     public boolean hasDualMonitor(){
         return hasDualMonitor;
     }
+
+    @Override
+    public String toString(){
+        return "Desk ID: " + id
+                + "\nDesk name: " + name
+                + "\nStanding: " + hasStanding
+                + "\nWindow: " + hasWindow
+                + "\nDualMonitor: " + hasDualMonitor;
+
+    }
+
 }

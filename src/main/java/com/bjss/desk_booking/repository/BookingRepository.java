@@ -1,10 +1,12 @@
 package com.bjss.desk_booking.repository;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import com.bjss.desk_booking.DTO.Booking;
 
-//@Service
+import java.sql.Date;
+
 public interface BookingRepository {
 
-    public Object getDeskById(String name);
+    public void createBooking(Booking booking);
+    public void getBookingId(Booking booking);
+
 }

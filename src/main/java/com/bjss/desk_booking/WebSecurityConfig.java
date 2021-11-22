@@ -22,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().denyAll()
                 .and()
                 .formLogin();
+
+        //had to add this line to enable POST requests
+        http.csrf().disable();
     }
 
     @Autowired

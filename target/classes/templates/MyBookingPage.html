@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>Bookings</title>
+    <title>My Bookings</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/BookingStyle.css">
-    <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
+    <link rel="stylesheet" href="BookingStyle.css">
+    <script src="BookingScript.js" charset="utf-8"></script>
   </head>
   <body>
     <nav class="nav-links">
@@ -16,7 +16,7 @@
     </nav>
 
     <div class="date-booking-container">
-      <div class="date-nav-container">
+      <!-- <div class="date-nav-container">
         <nav class="date-nav">
           <ul>
             <li>Monday</li>
@@ -26,28 +26,11 @@
             <li>Friday</li>
           </ul>
         </nav>
-      </div>
+      </div> -->
 
       <div class="my-booking-container">
-        <h2>Today's Bookings:</h2>
-
-        <form action ="/user/createBooking" method="post">
-          <label for="date">Date:<br><input type="date" id="date" name="date"></label><br>
-          <label for="deskId">Desk ID:<br><input type="number" id="deskId" name="deskId"><br></label>
-          <input type="submit">
-        </form>
-
-
-        <div class="booked-column">
-          <div class="booked-desk-list 2">
-            <div class="desk 1">
-              <p>Desk 1  -  username booked</p>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- <p>No current bookings</p> -->
+        <h2>Upcoming Bookings:</h2>
+        <p>No current bookings</p>
         <!-- ADDED DESK BOOKINGS TO BE SHOWN HERE (via js from DB) -->
 
         <!-- need to add a 'cancel booking' button here if they have
@@ -60,7 +43,7 @@
             these will need to be added based on booking availability
               which will be pulled from the database -->
 
-      <div class="booked-or-available-container">
+      <!-- <div class="booked-or-available-container">
         <div class="booked-or-available-grid">
           <div class="available-column">
             <div id="available">
@@ -126,7 +109,7 @@
                 <p>Desk 12  -  username booked</p>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>

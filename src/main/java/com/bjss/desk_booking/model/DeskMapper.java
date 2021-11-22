@@ -10,10 +10,6 @@ public class DeskMapper implements RowMapper {
 
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-        System.out.println(rs.getInt("id"));
-        System.out.println(rs.getString("name"));
-        System.out.println(rs.getBoolean("hasStanding"));
         return new Desk(
                 rs.getInt("id"),
                 rs.getString("name"),

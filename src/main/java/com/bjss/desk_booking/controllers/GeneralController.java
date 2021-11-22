@@ -16,6 +16,6 @@ public class GeneralController {
     public String adminPage(String name) { return "admin"; }
 
     @RequestMapping(path = "user/booking")
-    public String userPage(String name) { return "user"; }
+    public String userPage(String name) { return "BookingPage"; }
 }
 

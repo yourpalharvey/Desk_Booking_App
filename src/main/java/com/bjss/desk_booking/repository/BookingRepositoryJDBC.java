@@ -1,46 +1,51 @@
 package com.bjss.desk_booking.repository;
 
 import com.bjss.desk_booking.DTO.Booking;
-
-import com.bjss.desk_booking.DTO.Desk;
-import com.bjss.desk_booking.model.DeskMapper;
-import com.mysql.jdbc.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ClassUtils;
 
-import javax.sql.DataSource;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.sql.Date;
+import java.sql.Types;
 
 @Repository
 public class BookingRepositoryJDBC implements BookingRepository{
 
-    private JdbcTemplate jdbcTemplate;
-
+    public JdbcTemplate jdbcTemplate;
 
     @Autowired
     public BookingRepositoryJDBC(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //creates a record in booking table
+    //when this method is called, another must also be called to
+    //update the userbooking table
     @Override
-    public Desk getDeskById(String name) {
-        //ADD CODE HERE TO RETURN BOOKING OBJECT FROM DESK ID (TODAYS DATE)? FROM DESK ID (USE JDBC VID TO CHECK THIS)
-        System.out.println(name);
-        Desk desk = (Desk) this.jdbcTemplate.queryForObject(
-                "select id, name, hasStanding, hasWindow, hasDualMonitor from desk where name=?",
-                new DeskMapper(),
-                new Object[]{name}
-        );
+    public void createBooking(Booking booking) {
+        Date date = booking.getDate();
+        int deskId = booking.getDeskId();
 
-        System.out.println(desk.getName());
-        System.out.println(desk.hasStanding());
-        return desk;
+        System.out.println(date);
+        System.out.println(deskId);
+
+        //Create sql statement to insert to database
+        Object[] params = new Object[]{deskId, date};
+        int[] types = new int[]{Types.INTEGER, Types.TIMESTAMP};
+
+        String insertSql = "INSERT INTO bookings " +
+                "(desk_id, date) " +
+                "VALUES (?, ?)";
+
+
+        int row = jdbcTemplate.update(insertSql, params, types);
+        System.out.println(row + " rows inserted.");
+
+    }
+
+    @Override
+    public void getBookingId(Booking booking){
+
     }
 }
