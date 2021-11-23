@@ -17,11 +17,6 @@ public class GeneralController {
         return "home";
     }
 
-    @RequestMapping(path = "/public/aboutUs")
-    public String aboutUs(String name) {
-        return "aboutUs";
-    }
-
     @RequestMapping(path = "/user/dashboard")
     public String userDashboard(String name) {
         return "BookingPage";
