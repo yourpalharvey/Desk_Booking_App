@@ -30,8 +30,6 @@ public class BookingRepositoryJDBC implements BookingRepository{
         System.out.println(date);
         System.out.println(deskId);
 
-        //todo - will need to add a check here to stop duplicate inserts - can use .bookingExists() to check this
-
         Object[] params = new Object[]{deskId, date};
         int[] types = new int[]{Types.INTEGER, Types.TIMESTAMP};
 
@@ -39,9 +37,15 @@ public class BookingRepositoryJDBC implements BookingRepository{
                 "(desk_id, date) " +
                 "VALUES (?, ?)";
 
+        //If this desk does not exist in desks table - throw an error
+        try{
+            int row = jdbcTemplate.update(insertSql, params, types);
+            System.out.println(row + " rows inserted.");
+        } catch (Exception e) {
+            System.out.println("NO ROWS INSERTED - DOES THIS DESK EXIST");
+            //todo - do something when this error is thrown
+        }
 
-        int row = jdbcTemplate.update(insertSql, params, types);
-        System.out.println(row + " rows inserted.");
 
     }
 
