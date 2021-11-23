@@ -13,22 +13,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers("/css/**").permitAll()
+                .mvcMatchers("/css/**").permitAll() // all files in the Css directory can be seen by all
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/public/**").permitAll()
-                .mvcMatchers("/user/**").hasRole("USER")
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/user/**").hasRole("USER") // Pages with /user need users to be signed in with the role USER
+                .mvcMatchers("/admin/**").hasRole("ADMIN") // Pages with /admin need users to be signed in with the role of ADMIN
                 .anyRequest().denyAll()
                 .and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .logout().logoutSuccessUrl("/public/home").permitAll(); // Logout redirects to home page
 
-        //had to add this line to enable POST requests
-        //http.csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        /* User details are stored here. Can be done via the users on the database later*/
         auth
                 .inMemoryAuthentication()
                 .withUser("user").password("{noop}password").roles("USER");
