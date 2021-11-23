@@ -28,12 +28,27 @@
         </nav>
       </div>
 
+
+      <!-- THE BELOW FORMS ARE FOR TESTING THE LINKED POST METHODS -->
       <div class="my-booking-container">
         <h2>Today's Bookings:</h2>
 
+       <h2>Create booking database test:</h2>
         <form action ="/user/createBooking" method="POST">
           <label for="date">Date:<br><input type="date" id="date" name="date"></label><br>
           <label for="deskId">Desk ID:<br><input type="number" id="deskId" name="deskId"><br></label>
+          <input type="submit">
+        </form>
+
+        <h2>Create desk database test: (this will be admin-restricted later)</h2>
+
+        <form action ="/user/addDesk" method="POST">
+          <label for="name">Desk name: <br><input type="text" id="name" name="name"></label><br>
+          <label for="hasStanding">Standing desk?:<br><input type="checkbox" id="hasStanding" name="hasStanding"><br></label>
+          <label for="hasWindow">Window desk?:<br><input type="checkbox" id="hasWindow" name="hasWindow"><br></label>
+          <label for="hasDualMonitor">Dual Monitor?:<br><input type="checkbox" id="hasDualMonitor" name="hasDualMonitor"><br></label>
+
+
           <input type="submit">
         </form>
 

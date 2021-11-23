@@ -1,23 +1,24 @@
 package com.bjss.desk_booking.DTO;
 
-public class Desk {
+public class CreateDeskDTO {
 
-    private int id;
     private String name;
     private boolean hasStanding;
     private boolean hasWindow;
     private boolean hasDualMonitor;
 
-    public Desk(int id, String name, boolean hasStanding, boolean hasWindow, boolean hasDualMonitor) {
-        this.id = id;
+    public CreateDeskDTO(String name, Boolean hasStanding, Boolean hasWindow, Boolean hasDualMonitor) {
         this.name = name;
-        this.hasStanding = hasStanding;
-        this.hasWindow = hasWindow;
-        this.hasDualMonitor = hasDualMonitor;
+        this.hasStanding = falseIfNull(hasStanding);
+        this.hasWindow = falseIfNull(hasWindow);
+        this.hasDualMonitor = falseIfNull(hasDualMonitor);
     }
 
-    public int getDeskId(){
-        return id;
+    //Added this method because the checkbox in HTML form returns null if not checked.
+    //As a boolean cannot be null, I've used a Boolean object in constructor arguments then called this method
+    //todo - look for a way to improve this from the HTML directly
+    public boolean falseIfNull(Boolean b){
+        return b != null;
     }
 
     public String getName(){
@@ -38,8 +39,7 @@ public class Desk {
 
     @Override
     public String toString(){
-        return "Desk ID: " + id
-                + "\nDesk name: " + name
+        return "Desk name: " + name
                 + "\nStanding: " + hasStanding
                 + "\nWindow: " + hasWindow
                 + "\nDualMonitor: " + hasDualMonitor;

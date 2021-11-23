@@ -1,5 +1,6 @@
 package com.bjss.desk_booking.controllers;
 
+import com.bjss.desk_booking.DTO.CreateDeskDTO;
 import com.bjss.desk_booking.repository.DeskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class DeskController {
         this.deskRepo = deskRepo;
     }
 
-
+    //todo - this can be changed later as I'm not sure if we will need to use it
     //Get desk object by inputting desk name as parameter - e.g. 'Desk 1'
     @RequestMapping(path = "/user/getDeskByName", method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value="name", defaultValue = "Desk 8") String name){
@@ -41,6 +42,12 @@ public class DeskController {
         return mav;
     }
 
+    //todo - change this to an admin-only method after testing
+    @RequestMapping(path= "user/addDesk", method = RequestMethod.POST)
+    public String addDesk(CreateDeskDTO createDeskDTO){
+        deskRepo.addDesk(createDeskDTO);
+        return "redirect:/";
+    }
 
 
 
