@@ -13,15 +13,11 @@
 <h1> ADMIN </h1>
 <p> Logged in user: <span sec:authentication="name"></span></p>
 <p> Logged in user roles: <span sec:authentication="principal.authorities"></span></p>
-admin page
-admin page
-admin page
-admin page
-admin page
+<p>This is the admin page for admin functions</p>
 
 <div>
     <form action="#" th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout">
+        <input type="submit" value="Logout" />
     </form>
 </div>
 

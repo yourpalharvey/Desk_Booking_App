@@ -17,14 +17,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/css/**").permitAll()
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/public/**").permitAll()
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/user/**").hasRole("USER")
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 .formLogin();
 
         //had to add this line to enable POST requests
-        http.csrf().disable();
+        //http.csrf().disable();
     }
 
     @Autowired
