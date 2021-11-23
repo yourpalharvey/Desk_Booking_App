@@ -24,12 +24,12 @@ public class GeneralController {
 
     @RequestMapping(path = "/user/dashboard")
     public String userDashboard(String name) {
-        return "user";
+        return "BookingPage";
     }
 
     @RequestMapping(path = "/admin/dashboard")
     public String adminDashboard(String name) {
-        return "admin";
+        return "adminPanel";
     }
 
 }

@@ -7,6 +7,7 @@
     <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
   </head>
   <body>
+  <header th:replace="fragments/header :: header"></header>
     <nav class="nav-links">
       <ul>
         <a class="navbar-link" href="MyBookingPage.html"><li>My Bookings</li></a>
@@ -132,7 +133,11 @@
       </div>
 
 
-
-
+    <div>
+      <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+      </form>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
   </body>
 </html>
