@@ -45,8 +45,6 @@ public class BookingRepositoryJDBC implements BookingRepository{
             System.out.println("NO ROWS INSERTED - DOES THIS DESK EXIST");
             //todo - do something when this error is thrown
         }
-
-
     }
 
     @Override
