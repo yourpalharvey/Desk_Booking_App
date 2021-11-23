@@ -2,15 +2,15 @@ package com.bjss.desk_booking.DTO;
 
 import java.sql.Date;
 
+//This class is only used for creating records in the database
+//Doesn't have a booking ID, as they are added incrementally in the DB
 
-public class Booking {
+public class CreateBookingDTO {
 
-    private int id;
     private Date date;
     private int deskId;
 
-    public Booking(int id, int deskId, Date date){
-        this.id = id;
+    public CreateBookingDTO(int deskId, Date date){
         this.date = date;
         this.deskId = deskId;
     }
@@ -21,14 +21,6 @@ public class Booking {
 
     public int getDeskId(){
         return deskId;
-    }
-
-    public int getId(){
-        return id;
-    }
-
-    public String toString(){
-        return "ID: " + id + "\nDate: " + date + "\nDesk ID: " + deskId;
     }
 
 }

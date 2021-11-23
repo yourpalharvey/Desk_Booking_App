@@ -20,9 +20,8 @@ public class DeskRepositoryJDBC implements DeskRepository {
 
     @Override
     public Desk getDeskByName(String name) {
-        //ADD CODE HERE TO RETURN BOOKING OBJECT FROM DESK ID (TODAYS DATE)? FROM DESK ID (USE JDBC VID TO CHECK THIS)
         Desk desk = (Desk) this.jdbcTemplate.queryForObject(
-                "select id, name, hasStanding, hasWindow, hasDualMonitor from desk where name=?",
+                "select id, name, hasStanding, hasWindow, hasDualMonitor from desks where name=?",
                 new DeskMapper(),
                 new Object[]{name}
         );
