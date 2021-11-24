@@ -16,6 +16,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/css/**").permitAll() // all files in the Css directory can be seen by all
+                .mvcMatchers("/js/**").permitAll()
+                .mvcMatchers("/images/**").permitAll()
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/public/**").permitAll()
                 .mvcMatchers("/user/**").hasRole("USER") // Pages with /user need users to be signed in with the role USER

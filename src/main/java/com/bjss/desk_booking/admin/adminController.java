@@ -9,9 +9,8 @@ public class adminController {
 
 
 
-        @RequestMapping("/admindashboard")
-        public String root()
-        {
-            return ("adminPanel");
-        }
+    @RequestMapping(path = "/admin/dashboard")
+    public String adminDashboard(String name) {
+        return "adminPanel";
+    }
 }

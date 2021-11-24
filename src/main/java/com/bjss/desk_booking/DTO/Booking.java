@@ -1,18 +1,35 @@
 package com.bjss.desk_booking.DTO;
 
+import javax.persistence.*;
 import java.sql.Date;
 
+import static javax.persistence.FetchType.LAZY;
 
+
+@Entity
 public class Booking {
 
-    private int id;
+
+
+    @Id
+    private int bookingId;
     private Date date;
     private int deskId;
+    private boolean booked;
+    @ManyToOne  //creating Many to one relation with user
+    @JoinColumn(name = "userId", nullable = false) //UserId from user class will be the foreign key in the booking table
+    private  User user;
 
     public Booking(int id, int deskId, Date date){
-        this.id = id;
+        this.bookingId = id;
         this.date = date;
         this.deskId = deskId;
+
+
+    }
+
+    public Booking() {
+
     }
 
     public Date getDate(){
@@ -24,11 +41,11 @@ public class Booking {
     }
 
     public int getId(){
-        return id;
+        return bookingId;
     }
 
     public String toString(){
-        return "ID: " + id + "\nDate: " + date + "\nDesk ID: " + deskId;
+        return "ID: " + bookingId + "\nDate: " + date + "\nDesk ID: " + deskId;
     }
 
 }

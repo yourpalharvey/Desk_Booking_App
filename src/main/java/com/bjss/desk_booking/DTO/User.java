@@ -1,21 +1,35 @@
 package com.bjss.desk_booking.DTO;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class User {
 
-    private int id;
+    @Id
+    private int userId;
     private String username;
     private String password;
     private boolean isAdmin;
+    @OneToMany(mappedBy = "user")  //Creating one to many relation with booking class and Using user object from Booking class
+    List<Booking> bookingList=new ArrayList<>();
 
     public User(int id, String username, String password, boolean isAdmin){
-        this.id = id;
+        this.userId = id;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
     }
 
+    public User() {
+
+    }
+
     public int getUserId(){
-        return id;
+        return userId;
     }
 
     public String getUsername(){

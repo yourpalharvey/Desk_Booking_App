@@ -22,10 +22,7 @@ public class GeneralController {
         return "BookingPage";
     }
 
-    @RequestMapping(path = "/admin/dashboard")
-    public String adminDashboard(String name) {
-        return "adminPanel";
-    }
+
 
 }
 

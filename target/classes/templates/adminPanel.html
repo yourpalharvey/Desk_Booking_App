@@ -24,12 +24,16 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 
 
 
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="css/fontawesome.css">
-  <link rel="stylesheet" href="css/cards.css">
+  <!--<link rel="stylesheet" href="/css/cards.css">
+  <link rel="stylesheet" href="BookingStyle.css">-->
+  <!--<link th:href="@{/css/cards.css}" rel="stylesheet" />-->
+  <link th:href="@{/css/BookingStyle.css}" rel="stylesheet" />
 
 
 
@@ -40,21 +44,15 @@
 <body>
 <header th:replace="fragments/header :: header"></header>
 
-
-
-
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <nav class="main-nav">
-
-          <!-- ***** Menu End ***** -->
-        </nav>
-      </div>
-    </div>
-  </div>
+  <nav class="nav-links">
+    <ul>
+      <a class="navbar-link" href="MyBookingPage.html"><li>All Booking</li></a>
+      <a class="navbar-link" href="BookingPage.html"><li>Previous Booking</li></a>
+      <li>Desk Status</li>
+    </ul>
+  </nav>
 </header>
 <!-- ***** Header Area End ***** -->
 <!--blog card start-->
@@ -139,11 +137,6 @@
     </a>
   </li>
 </ul><!-- /.blog-card -->
-
-
-
-
-
 
 <footer th:replace="fragments/footer :: footer"></footer>
 

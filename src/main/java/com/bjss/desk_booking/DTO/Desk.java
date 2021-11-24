@@ -1,8 +1,13 @@
 package com.bjss.desk_booking.DTO;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Desk {
 
-
+    @Id
     private int id;
     private String name;
     private boolean hasStanding;
@@ -16,6 +21,10 @@ public class Desk {
         this.hasStanding = hasStanding;
         this.hasWindow = hasWindow;
         this.hasDualMonitor = hasDualMonitor;
+    }
+
+    public Desk() {
+
     }
 
     //important method to create
