@@ -1,3 +1,15 @@
+#mainNavbar {
+    background-color: #EAEDED;
+}
+
+#mainNavbar .nav-link:hover {
+    color: #0275d8;
+}
+
+#mainNavbar .navbar-brand {
+    color: #0275d8;
+}
+
 h1 {
     color: red;
 }

@@ -34,19 +34,18 @@
   <link rel="stylesheet" href="BookingStyle.css">-->
   <!--<link th:href="@{/css/cards.css}" rel="stylesheet" />-->
   <link th:href="@{/css/BookingStyle.css}" rel="stylesheet" />
-
-
-
-
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/MyStyle.css">
+  <link rel="stylesheet" href="/css/BookingStyle.css">
 </head>
 
 <body>
+
 <header th:replace="fragments/header :: header"></header>
 
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
-  <nav class="nav-links">
+  <nav id="adminNavbar" class="nav-links">
     <ul>
       <a class="navbar-link" href="dashboard"><li>All Booking</li></a>
       <a class="navbar-link" href="BookingPage.html"><li>Previous Booking</li></a>
