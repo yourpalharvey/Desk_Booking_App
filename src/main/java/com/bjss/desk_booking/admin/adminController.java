@@ -13,4 +13,21 @@ public class adminController {
     public String adminDashboard(String name) {
         return "adminPanel";
     }
+
+    @RequestMapping(path = "/admin/deskstatus")
+    public String deskStatus(String name) {
+        return "deskStatus";
+    }
+
+    @RequestMapping(path = "/admin/previousbooking")
+    public String previousBooking(String name) {
+        return "deskStatus";
+
+    }
+    @RequestMapping(path = "/admin/adddesk")
+    public String addDesk(String name) {
+        return "addDesk";
+    }
+
+
 }

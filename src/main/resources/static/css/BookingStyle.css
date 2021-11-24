@@ -363,3 +363,27 @@ body {
 
 }
 
+.add_desk
+{
+  border: none;
+  transition-duration: 0.4s;
+  padding: 5px 15px;
+
+  border-radius: 12px;
+  margin: auto;
+  position:relative;
+  top:50%;
+  left:50%;
+
+
+}
+.add_desk:hover
+{
+  background-color: #4caf50;
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+
+
+
