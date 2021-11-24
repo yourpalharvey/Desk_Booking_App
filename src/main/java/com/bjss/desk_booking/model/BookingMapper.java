@@ -11,10 +11,9 @@ public class BookingMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Booking(
-                rs.getInt("id"),
+                rs.getInt("booking_id"),
                 rs.getInt("desk_id"),
                 rs.getDate("date"));
-
-    }
+        }
 
 }

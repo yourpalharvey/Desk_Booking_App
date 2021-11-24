@@ -9,10 +9,12 @@ public class CreateBookingDTO {
 
     private Date date;
     private int deskId;
+    //private int userId;
 
-    public CreateBookingDTO(int deskId, Date date){
+    public CreateBookingDTO(int deskId, Date date/*, int userId*/){
         this.date = date;
         this.deskId = deskId;
+    //    this.userId = userId;
     }
 
     public Date getDate(){
@@ -22,5 +24,9 @@ public class CreateBookingDTO {
     public int getDeskId(){
         return deskId;
     }
+
+//    public int getUserId(){
+//        return userId;
+//    }
 
 }

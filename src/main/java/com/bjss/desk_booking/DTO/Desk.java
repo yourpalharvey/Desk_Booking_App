@@ -3,14 +3,14 @@ package com.bjss.desk_booking.DTO;
 
 import org.springframework.data.annotation.Transient;
 
-import javax.persistence.Entity;
-
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Desk {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "desk_id", updatable = false, nullable = false)
     private int deskID;
     private String name;
     private boolean hasStanding;
@@ -27,7 +27,7 @@ public class Desk {
     }
 
     public Desk(int deskID, String name, boolean hasStanding, boolean hasWindow, boolean hasDualMonitor) {
-        this.deskID = Desk.this.deskID;
+        this.deskID = deskID;
         this.name = name;
         this.hasStanding = hasStanding;
         this.hasWindow = hasWindow;

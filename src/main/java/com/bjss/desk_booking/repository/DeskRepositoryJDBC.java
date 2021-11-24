@@ -24,7 +24,7 @@ public class DeskRepositoryJDBC implements DeskRepository {
     @Override
     public Desk getDeskByName(String name) {
         Desk desk = (Desk) this.jdbcTemplate.queryForObject(
-                "select id, name, hasStanding, hasWindow, hasDualMonitor from desks where name=?",
+                "select desk_id, name, has_standing, has_window, has_dual_monitor from desk where name=?",
                 new DeskMapper(),
                 new Object[]{name}
         );
@@ -40,7 +40,7 @@ public class DeskRepositoryJDBC implements DeskRepository {
 
         System.out.println(name + hasStanding + hasWindow + hasDualMonitor);
 
-        String insertSql = "INSERT INTO desks (name, hasStanding, hasWindow, hasDualMonitor) " +
+        String insertSql = "INSERT INTO desk (name, has_standing, has_window, has_dual_monitor) " +
                 "VALUES (?, ?, ?, ?)";
 
         Object[] params = new Object[]{name, hasStanding, hasWindow, hasDualMonitor};
@@ -50,6 +50,7 @@ public class DeskRepositoryJDBC implements DeskRepository {
             int row = jdbcTemplate.update(insertSql, params, types);
             System.out.println(row + " rows inserted.");
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("NO ROWS INSERTED");
             //todo - do something when this error is thrown
         }

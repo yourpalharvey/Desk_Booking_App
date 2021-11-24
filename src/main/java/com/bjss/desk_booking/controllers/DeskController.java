@@ -22,7 +22,7 @@ public class DeskController {
         this.deskRepo = deskRepo;
     }
 
-    //todo - this can be changed later as I'm not sure if we will need to use it
+    //todo - add error handling -> this can all be changed later as I'm not sure if we will need to use it
     //Get desk object by inputting desk name as parameter - e.g. 'Desk 1'
     @RequestMapping(path = "/user/getDeskByName", method = RequestMethod.GET)
     public ModelAndView search(@RequestParam(value="name", defaultValue = "Desk 8") String name){

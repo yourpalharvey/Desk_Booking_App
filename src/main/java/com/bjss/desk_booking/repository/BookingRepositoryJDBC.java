@@ -20,37 +20,39 @@ public class BookingRepositoryJDBC implements BookingRepository{
     }
 
     //creates a record in booking table
-    //when this method is called, another must also be called to
-    //      update the userbookings table
+
     @Override
     public void createBooking(CreateBookingDTO createBooking) {
         Date date = createBooking.getDate();
         int deskId = createBooking.getDeskId();
+        //int userId = createBooking.getUserId();
 
         System.out.println(date);
         System.out.println(deskId);
+        //System.out.println(userId);
 
-        Object[] params = new Object[]{deskId, date};
-        int[] types = new int[]{Types.INTEGER, Types.TIMESTAMP};
+        Object[] params = new Object[]{date, deskId};
+        int[] types = new int[]{Types.TIMESTAMP, Types.INTEGER};
 
-        String insertSql = "INSERT INTO bookings " +
-                "(desk_id, date) " +
-                "VALUES (?, ?)";
+        //todo: currently hard-coded to user_id = 1 (update this later)
+        String insertSql = "INSERT INTO booking " +
+                "(date, desk_id, user_id) " +
+                "VALUES (?, ?, 1)";
 
         //If this desk does not exist in desks table - throw an error
-        try{
+//        try{
             int row = jdbcTemplate.update(insertSql, params, types);
             System.out.println(row + " rows inserted.");
-        } catch (Exception e) {
-            System.out.println("NO ROWS INSERTED - DOES THIS DESK EXIST");
-            //todo - do something when this error is thrown
-        }
+//        } catch (Exception e) {
+//            System.out.println("NO ROWS INSERTED - DOES THIS DESK EXIST");
+ //           //todo - do something when this error is thrown
+  //      }
     }
 
     @Override
     public Booking getBookingByDeskAndDate(int deskId, Date date){
         Booking booking = (Booking) this.jdbcTemplate.queryForObject(
-                "select id, desk_id, date from bookings where desk_id=? and date=?",
+                "select booking_id, desk_id, date from booking where desk_id=? and date=?",
                 new BookingMapper(),
                 new Object[]{deskId, date}
         );

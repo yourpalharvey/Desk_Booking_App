@@ -11,11 +11,11 @@ public class DeskMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Desk(
-                rs.getInt("id"),
+                rs.getInt("desk_id"),
                 rs.getString("name"),
-                rs.getBoolean("hasStanding"),
-                rs.getBoolean("hasWindow"),
-                rs.getBoolean("hasDualMonitor"));
+                rs.getBoolean("has_standing"),
+                rs.getBoolean("has_window"),
+                rs.getBoolean("has_dual_monitor"));
 
     }
 

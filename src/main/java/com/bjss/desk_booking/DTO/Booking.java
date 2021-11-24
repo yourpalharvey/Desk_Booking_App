@@ -12,10 +12,11 @@ public class Booking {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
     private Date date;
     private int deskId;
-    private boolean booked;
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "userId", nullable = false) //UserId from user class will be the foreign key in the booking table
     private  User user;
