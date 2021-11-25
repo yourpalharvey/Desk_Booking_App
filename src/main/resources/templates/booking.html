@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../static/css/booking.css" th:href="@{/css/b.css}">
+<body>
+<h1 id="title">Form</h1>
+<p id="description">Test Form......</p>
+<form id="survey-form">
+    <label id="name-lable" for="name">username:</label>
+    <input  type="text" name="name"id="name" ><br><br>
+
+    <label id="email-lable" for="eamil">email:</label>
+    <input  type="email"name="email" id="email"><br><br>
+
+    <label id="number-lable" for="number" >age:</label>
+    <input  type="number" name="age" id="number" min="0" max="100"><br><br>
+    which fruit do you like?<br>
+    <select id="dropdown" name="fruit">
+        <option value="apple">apple</option>
+        <option value="banana">banana</option>
+        <option value="grape">grape</option>
+        <option value="watermelon">watermelon</option>
+    </select><br><br>
+
+    sex:<br><input type="radio" name="sex" value="male">male<br>
+    <input type="radio" name="sex" value="female">female<br><br>
+
+    which sports do you like?<br>
+    <input type="checkbox" name="sports" value="football">football<br>
+    <input type="checkbox" name="sports" value="swim">swim<br>
+    <input type="checkbox" name="sports"value="basketball">basketball <br>
+    <input type="checkbox" name="sports" value="volleyball">volleyball<br><br>
+    additional information...... <br>
+    <textarea name="message" rows="10" cols="60">
+        </textarea><br>
+    <button type="submit" id="submit">submit</button>
+    <br>
+</form>
+</body>
+
+</body>
+</html>

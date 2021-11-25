@@ -15,9 +15,9 @@
 
 
 
-    <link rel="stylesheet" href="../static/reset.css">
-    <link rel="stylesheet" href="../static/public.css">
-    <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" href="../static/css/reset.css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" href="../static/css/public.css" th:href="@{/css/public.css}">
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
     <!-- 这个顺序引入更规范 -->
 
 </head>
@@ -25,10 +25,6 @@
 <body>
 <!-- 这是网页的头部版心盒子 -->
 <div class="header_con">
-    <!-- h1里面放logo哦 -->
-    <h1>
-        <img src="../image/lsogo.jfif" alt="">
-    </h1>
     <!-- 头部右侧表单标签-->
     <form action="">
         <input type="text" class="search" value="SEARCH...">
@@ -43,10 +39,9 @@
     <div class="nav_con">
         <ul>
             <li class="margin-left"><a href="#">Home</a></li>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Register</a></li>
-            <li><a href="#">Office desk</a></li>
-            <li><a href="#">Contact us</a></li>
+            <li><a href="booking.html">Booking desk</a></li>
+            <li><a href="mybooking.html">My booking</a></li>
+            <li><a href="contact.html">Contact us</a></li>
         </ul>
     </div>
 </div>
@@ -57,37 +52,6 @@
         <!-- <img src="./images/banner1_02.jpg"> -->
     </div>
 </div>
-<!-- 新闻列表的版心部分 -->
-<div class="news_con">
-    <!-- 最左侧的盒子 -->
-    <div class="news_l">
-        <h3 class="news_title">Booking Information</h3>
-        <ul class="news_list">
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-            <li>
-                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
-                <span>1998-09-15</span>
-            </li>
-        </ul>
 
     </div>
     <!-- 右边的盒子 -->
