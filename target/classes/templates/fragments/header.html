@@ -23,11 +23,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/user/dashboard">BOOK DESK</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        USER
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- todo: Change page names to correct names, work on pages need and correct order (most useful first)-->
+                        <!-- All user pages go to dashboard for now-->
+                        <a class="dropdown-item" href="/user/dashboard">DASHBOARD</a>
+                        <a class="dropdown-item" href="/user/dashboard">MY BOOKINGS</a>
+                        <a class="dropdown-item" href="/user/dashboard">ALL BOOKINGS</a>
+                        <a class="dropdown-item" href="/user/dashboard">CALENDAR</a>
+                    </div>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/admin/dashboard">ADMIN</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ADMIN
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- todo: Change page names to correct names, work on pages need and correct order (most useful first)-->
+                        <a class="dropdown-item" href="/admin/dashboard">DASHBOARD</a>
+                        <a class="dropdown-item" href="/admin/deskstatus">DESK STATUS</a>
+                        <a class="dropdown-item" href="/admin/previousbooking">PREVIOUS BOOKINGS</a>
+                        <a class="dropdown-item" href="/admin/adddesk">ADD DESK</a>
+                    </div>
                 </li>
             </ul>
             <form class="form-inline" action="#" th:action="@{/logout}" method="post">
