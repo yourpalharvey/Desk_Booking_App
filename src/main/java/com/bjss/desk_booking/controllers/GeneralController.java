@@ -22,7 +22,10 @@ public class GeneralController {
         return "BookingPage";
     }
 
-
+    @RequestMapping(path = "/user/mybookings")
+    public String userBookings(String name) {
+        return "MyBookingPage";
+    }
 
 }
 
