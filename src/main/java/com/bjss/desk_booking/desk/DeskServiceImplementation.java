@@ -21,7 +21,7 @@ public class DeskServiceImplementation implements DeskService {
     }
 
 
-    
+
     @Override
     public Desk findById(int id) {
         Optional<Desk> result = deskRepo.findById(id);
