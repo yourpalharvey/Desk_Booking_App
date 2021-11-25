@@ -9,12 +9,31 @@
 #mainNavbar .navbar-brand {
     color: #0275d8;
 }
+
+#mainNavbar .dropdown-menu {
+    background-color: #EAEDED;
+    border: none;
+}
+
+/* Ensure that in small screen the dropdown is only displayed when clicked
+bigger screens will allow hover */
+@media only screen and (min-width: 768px) {
+    #mainNavbar .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+#mainNavbar .dropdown-item:hover{
+    background-color: #EAEDED;
+    color: #0275d8;
+}
+
 h1 {
     color: #0275d8;
 }
 
 #imageText {
-    background-color: rgba(234,237,237,1);
+    background-color: rgba(234,237,237,0.9);
     padding: 0 1.5rem 1.5rem 1.5rem;
     border-radius: 25px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -27,9 +46,10 @@ h1 {
     height: 100vh;
 }
 
-@media (max-width: 775px) {
+@media (max-width: 768px) {
     #imageText {
         background-color: rgba(234,237,237,0);
         box-shadow: none;
     }
 }
+
