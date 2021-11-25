@@ -24,10 +24,7 @@ public class adminController {
         return "deskStatus";
 
     }
-    @RequestMapping(path = "/admin/adddesk")
-    public String addDesk(String name) {
-        return "addDesk";
-    }
+
 
 
 }
