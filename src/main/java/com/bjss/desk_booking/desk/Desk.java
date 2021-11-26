@@ -1,9 +1,12 @@
 package com.bjss.desk_booking.desk;
 
 
+import com.bjss.desk_booking.DTO.Booking;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Desk {
@@ -16,15 +19,20 @@ public class Desk {
      String desktype;
      String deskPosition;
      int monitorOption;
-     boolean booked;  //check if the desk is booked or not for a day
+     boolean booked;
 
 
 
 
     String deskImageName;
 
+    public String getDeskImageName() {
+        return deskImageName;
+    }
 
 
+    @OneToMany(mappedBy = "desk")  //Creating one to many relation with booking class and Using user object from Booking class
+    List<Booking> bookingList=new ArrayList<>();
 
     public void setDeskImageName(String deskImageName) {
         this.deskImageName = deskImageName;
@@ -44,17 +52,15 @@ public class Desk {
     @Transient
     public String getImageName()
     {
-
+        System.out.println("here");
         if (deskImageName== null) return null;
 
 
         return "/desk/" + deskID + "/" + deskImageName;
     }
 
-    public String getDeskImageName() {
-        return deskImageName;
-    }
-//important method to create
+
+    //important method to create
 
 
     public boolean isBooked() {
@@ -65,9 +71,7 @@ public class Desk {
         this.booked = booked;
     }
 
-    public int getdeskID(){
-        return deskID;
-    }
+
 
     public int getDeskID() {
         return deskID;
