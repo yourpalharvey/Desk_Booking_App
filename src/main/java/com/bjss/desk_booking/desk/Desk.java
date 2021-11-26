@@ -23,9 +23,8 @@ public class Desk {
 
     String deskImageName;
 
-    public String getDeskImageName() {
-        return deskImageName;
-    }
+
+
 
     public void setDeskImageName(String deskImageName) {
         this.deskImageName = deskImageName;
@@ -52,8 +51,10 @@ public class Desk {
         return "/desk/" + deskID + "/" + deskImageName;
     }
 
-
-    //important method to create
+    public String getDeskImageName() {
+        return deskImageName;
+    }
+//important method to create
 
 
     public boolean isBooked() {

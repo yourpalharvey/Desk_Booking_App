@@ -29,11 +29,10 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <!--<link rel="stylesheet" href="/css/cards.css">
-    <link rel="stylesheet" href="BookingStyle.css">-->
-    <!--<link th:href="@{/css/cards.css}" rel="stylesheet" />-->
     <link th:href="@{/css/BookingStyle.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <link rel="stylesheet" href="/css/BookingStyle.css">
 
 
 
@@ -57,85 +56,28 @@
 <!-- ***** Header Area End ***** -->
 <!--blog card start-->
 <ul class="cards">
-    <li>
+    <li th:each="desk : ${deskList}">
         <a href="" class="card">
             <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
             <div class="card__overlay">
                 <div class="card__header">
-                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                    <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+
                     <div class="card__header-text">
-                        <h3 class="card__title">Batman</h3>
-                        <span class="card__status">1 hour ago</span>
-                        <button  type="submit"   class="accept_button">Accept</button>
-                        <button  type="submit"   class="decline_button">Decline</button>
-                        <button  type="submit"   class="hold_button">Hold</button>
+                        <h3 class="card__title" th:text="${desk.deskName}"></h3>
+                        <span class="card__status" th:text="${desk.desktype}" ></span>
+                        <form action="adminbooking" >
+                            <input type="submit" value="Booking" class="book" />
+                        </form>
+
 
                     </div>
                 </div>
-                <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+                <p class="card__description" th:text="${desk.deskPosition}"></p>
 
             </div>
         </a>
     </li>
-    <li>
-        <a href="" class="card">
-            <img th:src="@{/images/multi.png}" class="card__image" alt="" />
-            <div class="card__overlay">
-                <div class="card__header">
-                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                    <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                    <div class="card__header-text">
-                        <h3 class="card__title">Superman</h3>
-                        <span class="card__status">3 hours ago</span>
-                        <button  type="submit"   class="accept_button">Accept</button>
-                        <button  type="submit"   class="decline_button">Decline</button>
-                        <button  type="submit"   class="hold_button">Hold</button>
-                    </div>
-                </div>
-                <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>
-    <li>
-        <a href="" class="card">
-            <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
-            <div class="card__overlay">
-                <div class="card__header">
-                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                    <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
-                    <div class="card__header-text">
-                        <h3 class="card__title">Iron Man</h3>
-                        <span class="card__tagline">Lorem ipsum dolor sit amet consectetur</span>
-                        <span class="card__status">1 hour ago</span>
-                        <button  type="submit"   class="accept_button">Accept</button>
-                        <button  type="submit"   class="decline_button">Decline</button>
-                        <button  type="submit"   class="hold_button">Hold</button>
-                    </div>
-                </div>
-                <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>
-    <li>
-        <a href="" class="card">
-            <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
-            <div class="card__overlay">
-                <div class="card__header">
-                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                    <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                    <div class="card__header-text">
-                        <h3 class="card__title">Wolverin</h3>
-                        <span class="card__status">3 hours ago</span>
-                        <button  type="submit"   class="accept_button">Accept</button>
-                        <button  type="submit"   class="decline_button">Decline</button>
-                        <button  type="submit"   class="hold_button">Hold</button>
-                    </div>
-                </div>
-                <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>
+
 </ul>
 
 <!-- /.blog-card -->
