@@ -10,39 +10,30 @@
   </head>
   <body>
     <header th:replace="fragments/header :: header"></header>
-    <nav id="bookingNavbar" class="nav-links">
-      <ul>
-        <a class="navbar-link" href="MyBookingPage.html"><li>My Bookings</li></a>
-        <a class="navbar-link" href="BookingPage.html"><li>All Bookings</li></a>
-        <li>View Calendar</li>
-      </ul>
-    </nav>
+
+
 
     <div class="date-booking-container">
       <div class="date-nav-container">
+        <h2>29 November - 3 December 2021</h2>
         <nav class="date-nav">
           <ul>
-            <li>Monday</li>
-            <li>Tuesday</li>
-            <li>Wednesday</li>
-            <li>Thursday</li>
-            <li>Friday</li>
+            <li>Monday<br>29</li>
+            <li>Tuesday<br>30</li>
+            <li>Wednesday<br>1</li>
+            <li>Thursday<br>2</li>
+            <li>Friday<br>3</li>
           </ul>
         </nav>
       </div>
+      <br><br>
 
 
       <!-- THE BELOW FORMS ARE FOR TESTING THE LINKED HTTP POST METHODS -->
       <div class="my-booking-container">
         <h2>Today's Bookings:</h2>
 
-       <h2>Create booking database test:</h2>
-        <form action ="/user/createBooking" method="POST">
-          <label for="date">Date:<br><input type="date" id="date" name="date"></label><br>
-          <label for="deskId">Desk ID:<br><input type="number" id="deskId" name="deskId"><br></label>
-          <input type="submit">
-        </form>
-
+        <!--
         <h2>Create desk database test: (this will be admin-restricted later)</h2>
 
         <form action ="/user/addDesk" method="POST">
@@ -54,12 +45,15 @@
 
           <input type="submit">
         </form>
-
+        -->
 
         <div class="booked-column">
           <div class="booked-desk-list 2">
             <div class="desk 1">
               <p>Desk 1  -  username booked</p>
+              <div class="book-button-container">
+                <button type="button" name="button" class="cancel_button">Cancel</button>
+              </div>
             </div>
 
           </div>
@@ -87,26 +81,26 @@
             <div class="available-desk-list 1">
               <div class="desk 5">
                 <p>Desk 5</p>
-                <div class="book-button">
-                  <button type="button" name="button">Book</button>
+                <div class="book-button-container">
+                  <button type="button" name="button" class="book_button">Book</button>
                 </div>
               </div>
               <div class="desk 6">
                 <p>Desk 6</p>
-                <div class="book-button">
-                  <button type="button" name="button">Book</button>
+                <div class="book-button-container">
+                  <button type="button" name="button" class="book_button">Book</button>
                 </div>
               </div>
               <div class="desk 7">
                 <p>Desk 7</p>
-                <div class="book-button">
-                  <button type="button" name="button">Book</button>
+                <div class="book-button-container">
+                  <button type="button" name="button" class="book_button">Book</button>
                 </div>
               </div>
               <div class="desk 8">
                 <p>Desk 8</p>
-                <div class="book-button">
-                  <button type="button" name="button">Book</button>
+                <div class="book-button-container">
+                  <button type="button" name="button" class="book_button">Book</button>
                 </div>
               </div>
             </div>
@@ -118,6 +112,9 @@
             <div class="booked-desk-list 2">
               <div class="desk 1">
                 <p>Desk 1  -  username booked</p>
+                <div class="book-button-container">
+                  <button type="button" name="button" class="cancel_button">Cancel</button>
+                </div>
               </div>
               <div class="desk 2">
                 <p>Desk 2  -  username booked</p>
@@ -141,8 +138,27 @@
                 <p>Desk 12  -  username booked</p>
               </div>
               <div class="desk 4">
-                <p>Desk 12  -  username booked</p>
+                <p>Desk 13  -  username booked</p>
               </div>
+              <div class="desk 4">
+                <p>Desk 14  -  username booked</p>
+              </div>
+              <div class="desk 4">
+                <p>Desk 15  -  username booked</p>
+              </div>
+              <div class="desk 4">
+                <p>Desk 16  -  username booked</p>
+              </div>
+              <div class="desk 4">
+                <p>Desk 17  -  username booked</p>
+              </div>
+              <div class="desk 4">
+                <p>Desk 18  -  username booked</p>
+              </div>
+              <div class="desk 4">
+                <p>Desk 19  -  username booked</p>
+              </div>
+
             </div>
           </div>
 

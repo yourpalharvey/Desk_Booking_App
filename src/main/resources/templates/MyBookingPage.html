@@ -11,15 +11,6 @@
   <body>
   <header th:replace="fragments/header :: header"></header>
 
-  <!-- TODO: This navbar once all sites are linked in the mainNavbar-->
-    <nav class="nav-links">
-      <ul>
-        <a class="navbar-link" href="MyBookingPage.html"><li>My Bookings</li></a>
-        <a class="navbar-link" href="BookingPage.html"><li>All Bookings</li></a>
-        <li>View Calendar</li>
-      </ul>
-    </nav>
-
     <div class="date-booking-container">
       <!-- <div class="date-nav-container">
         <nav class="date-nav">
@@ -34,12 +25,23 @@
       </div> -->
 
       <div class="my-booking-container">
+        <br>
         <h2>Upcoming Bookings:</h2>
         <p>No current bookings</p>
-        <!-- ADDED DESK BOOKINGS TO BE SHOWN HERE (via js from DB) -->
 
         <!-- need to add a 'cancel booking' button here if they have
             a booking -->
+
+      </div>
+    </div>
+    <div class="date-booking-container">
+      <div class="my-booking-container">
+        <br>
+        <h2>Create quick booking:</h2>
+        <form action ="/user/createBooking" method="POST">
+          <label for="date">Date:<br><input type="date" id="date" name="date"></label><br>
+          <input type="submit"><br><br>
+        </form>
 
       </div>
     </div>
