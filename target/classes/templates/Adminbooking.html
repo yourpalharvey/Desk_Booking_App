@@ -87,111 +87,55 @@
 </header>
 
 <div class="testbox">
-    <form class="booking_form"  th:action="@{/admin/adminbooking}"  th:object="${booking}"  method="post">
-        <div class="banner">
-            <h1>Hotel Reservation Form</h1>
-        </div>
+    <form class="booking_form"  th:action="@{/admin/adminbooking}"    method="post">
+
         <br/>
-        <fieldset>
-            <legend>Reservation Details</legend>
-            <div class="columns">
-                <div class="item">
-                    <label for="userId">ID<span>*</span></label>
-                    <input id="userId" type="text"  name="userId" />
-                </div>
-            </div>
 
-
-        </fieldset>
         <br/>
         <fieldset>
             <legend>Dates</legend>
             <div class="columns">
                 <div class="item">
-                    <label for="checkindate">Check-in Date <span>*</span></label>
-                    <input id="checkindate" type="date" name="checkindate" />
+                    <label for="startdate">Start Date <span>*</span></label>
+                    <input id="startdate" type="date" name="startdate" />
                     <i class="fas fa-calendar-alt"></i>
                 </div>
                 <div class="item">
-                    <label for="checkoutdate">Check-out Date <span>*</span></label>
-                    <input id="checkoutdate" type="date" name="checkoutdate" />
+                    <label for="enddate">End Date <span></span></label>
+                    <input id="enddate" type="date" name="enddate" />
                     <i class="fas fa-calendar-alt"></i>
                 </div>
-                <div class="item">
-                    <p>Check-in Time </p>
-                    <select>
-                        <option value="" disabled selected>Select time</option>
-                        <option value="1" >Morning</option>
-                        <option value="2">Afternoon</option>
-                        <option value="3">Evening</option>
-                    </select>
-                </div>
-                <div class="item">
-                    <p>Check-out Time </p>
-                    <select>
-                        <option  value="4" disabled selected>Select time</option>
-                        <option value="5" >Morning</option>
-                        <option value="6">Afternoon</option>
-                        <option value="7">Evening</option>
-                    </select>
-                </div>
-                <div class="item">
-                    <p>How many adults are coming?</p>
-                    <select>
-                        <option value="8" disabled selected>Number of adults</option>
-                        <option value="9" >1</option>
-                        <option value="10">2</option>
-                        <option value="11">3</option>
-                        <option value="12">4</option>
-                        <option value="13">5</option>
-                    </select>
-                </div>
-                <div class="item">
-                    <p>How many children are coming?</p>
-                    <select>
-                        <option value="14" disabled selected>Number of children</option>
-                        <option value="15" >0</option>
-                        <option value="16">1</option>
-                        <option value="17">2</option>
-                        <option value="18">3</option>
-                        <option value="19">4</option>
-                        <option value="19">5</option>
-                    </select>
-                </div>
-                <div class="item" style=width:100%>
-                    <label for="room">Number of rooms</label>
-                    <input id="room" type="number" name="room" />
-                </div>
-                <div class="item">
-                    <p>Room 1 type</p>
-                    <select>
-                        <option value="20" selected></option>
-                        <option value="21">Standard</option>
-                        <option value="22">Deluxe</option>
-                        <option value="23">Suite</option>
-                    </select>
-                </div>
-                <div class="item">
-                    <p>Room 2 type</p>
-                    <select>
-                        <option value="24"  selected></option>
-                        <option value="25">Standard</option>
-                        <option value="26">Deluxe</option>
-                        <option value="27">Suite</option>
-                    </select>
-                </div>
             </div>
-            <div class="item">
-                <label for="instruction">Special Instructions</label>
-                <textarea id="instruction" rows="3"></textarea>
-            </div>
+
         </fieldset>
-        <div class="btn-block">
-            <button type="submit" href="/">Submit</button>
-        </div>
+        <form action="adminbooking" >
+            <input type="submit" value="Booking" class="book" />
+        </form>
     </form>
 </div>
-<!-- ***** Header Area End ***** -->
+
+<!--<ul class="cards">
+    <li th:each="booking : ${bookingList}">
+        <a href="" class="card">
+            <img th:src="@{/images/standing.jpg}" class="card__image" alt="" />
+            <div class="card__overlay">
+                <div class="card__header">
+
+                    <div class="card__header-text">
+                        <h3 class="card__title" th:text="${booking.bookingId}"></h3>
+                        <span class="card__status" th:text="${booking.startdate}" ></span>
+
+
+
+                    </div>
+                </div>
+                <p class="card__description" th:text="${desk.deskPosition}"></p>
+
+            </div>
+        </a>
+    </li>
+
+</ul>-->
 
 
 

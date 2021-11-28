@@ -17,8 +17,10 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
-    @Temporal(TemporalType.DATE)
-    private Date date;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startdate;
+
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
@@ -39,9 +41,7 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+
 
 
 
@@ -55,7 +55,7 @@ public class Booking {
 
     public Booking(int id, int deskId, Date date){
         this.bookingId = id;
-        this.date = date;
+
 
 
 
@@ -65,9 +65,7 @@ public class Booking {
 
     }
 
-    public Date getDate(){
-        return date;
-    }
+
 
 
     public int getDeskId()
@@ -88,8 +86,19 @@ public class Booking {
         return bookingId;
     }
 
-    public String toString(){
-        return "ID: " + bookingId + "\nDate: " + date + "\nDesk ID: ";
+    public Date getStartdate() {
+        return startdate;
     }
 
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
+
+    public String toString(){
+        return "ID: " + bookingId + "\nDate: "  + "\nDesk ID: ";
+    }
+
+    public Date getDate() {
+        return startdate;
+    }
 }

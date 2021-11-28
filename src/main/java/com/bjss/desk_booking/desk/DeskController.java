@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -19,9 +20,11 @@ public class DeskController {
     @Autowired
     private DeskService deskService;
 
+
+
+    /*Adding Desk Method*/
     @RequestMapping(path = "/admin/adddesk")
     public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file) throws IOException,NullPointerException
-
 
     {
 
@@ -38,7 +41,7 @@ public class DeskController {
         }
 
         if (desk.getDeskName() != null) {
-            desk.setBooked(false);
+
             deskService.save(desk);
 
 
@@ -54,6 +57,8 @@ public class DeskController {
 
     }
 
+
+    /*Show Desk*/
     @GetMapping(value = "/admin/deskstatus")
     public String deskstatus(Model model)
 
@@ -65,6 +70,8 @@ public class DeskController {
 
 
     }
+
+
 
 
 

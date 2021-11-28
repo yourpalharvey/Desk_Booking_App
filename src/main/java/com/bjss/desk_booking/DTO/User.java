@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false, nullable = false)
-    private int userId;
+     int userId;
     private String username;
     private String password;
     private boolean isAdmin;
@@ -28,12 +28,43 @@ public class User {
 
     }
 
-    public int getUserId(){
+    public int getUserId() {
         return userId;
     }
 
-    public String getUsername(){
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public List<Booking> getBookingList() {
+        return bookingList;
+    }
+
+    public void setBookingList(List<Booking> bookingList) {
+        this.bookingList = bookingList;
+    }
 }

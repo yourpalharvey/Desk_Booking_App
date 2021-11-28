@@ -19,7 +19,7 @@ public class Desk {
      String desktype;
      String deskPosition;
      int monitorOption;
-     boolean booked;
+     String deskStatus;
 
 
 
@@ -63,14 +63,13 @@ public class Desk {
     //important method to create
 
 
-    public boolean isBooked() {
-        return booked;
+    public String getDeskStatus() {
+        return deskStatus;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setDeskStatus(String deskStatus) {
+        this.deskStatus = deskStatus;
     }
-
 
 
     public int getDeskID() {
