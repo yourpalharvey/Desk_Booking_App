@@ -172,6 +172,7 @@ body{
 }
 
 body {
+  /* HB- I have commented out this font change so the font is the same across the whole site */
   /*font-family: 'Noto Sans JP', sans-serif;*/
   background-color: #fef8f8;
 }
