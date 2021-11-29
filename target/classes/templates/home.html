@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- 声明文档类型-->
+<html lang="en">
+<!-- 确定语言形态 -->
+<head>
+    <meta charset="UTF-8">
+    <!--控制网页的编码格式 utf-8 国际性编码-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--控制视口比例以及缩放-->
+    <title>Home</title>
+    <!-- 先引入重置样式表和公共样式表以及主页样式表 -->
+<!--    <link rel="stylesheet" href="./static/reset.css">-->
+<!--    <link rel="stylesheet" href="./static/public.css">-->
+<!--    <link rel="stylesheet" href="./static/index.css">-->\
+
+
+
+    <link rel="stylesheet" href="../static/css/reset.css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" href="../static/css/public.css" th:href="@{/css/public.css}">
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+    <!-- 这个顺序引入更规范 -->
+
+</head>
+
+<body>
+<!-- 这是网页的头部版心盒子 -->
+<div class="header_con">
+    <!-- h1里面放logo哦 -->
+    <h1>
+        <img src="../static/image/logo.jfif" alt="">
+    </h1>
+    <!-- 头部右侧表单标签-->
+    <form action="">
+        <input type="text" class="search" value="SEARCH...">
+        <div>
+            <input type="button" class="btn">
+        </div>
+    </form>
+</div>
+<!-- 导航栏平铺部分：会显示黑色啦 -->
+<div id="nav">
+    <!-- 导航栏版心部分 -->
+    <div class="nav_con">
+        <ul>
+            <li class="margin-left"><a href="#">Home</a></li>
+            <li><a href="login.html">Log in</a></li>
+            <li><a href="#">Register</a></li>
+            <li><a href="#">Office desk</a></li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+    </div>
+</div>
+<!-- banner的平铺部分 -->
+<div id="banner">
+
+    <div class="banner_con">
+        <!-- <img src="./images/banner1_02.jpg"> -->
+    </div>
+</div>
+<!-- 新闻列表的版心部分 -->
+<div class="news_con">
+    <!-- 最左侧的盒子 -->
+    <div class="news_l">
+        <h3 class="news_title">Booking Information</h3>
+        <ul class="news_list">
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+            <li>
+                <a>震惊！一小伙深夜在电脑屏幕前狂笑，原因竟是...</a>
+                <span>1998-09-15</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- 右边的盒子 -->
+    <div class="news_r">
+        <h3 class="news_title">Milestone</h3>
+        <p class="txt3">太有趣了，99%的人看了都会笑!快转发给你身边的朋友...</p>
+        <a href="#"><img src="./images/btn_img_05.jpg" alt=""></a>
+
+    </div>
+</div>
+<!-- 市场项目那一部分 -->
+<div class="case_con">
+    <h3>Office Desk pictures</h3>
+    <div class="case_box">
+        <dl>
+            <dt><img src="./images/case1_05.jpg" alt=""></dt>
+            <dd>有一说一，这个点了，不会还有人在写作业吧</dd>
+        </dl>
+        <dl>
+            <dt><img src="./images/case1_05.jpg" alt=""></dt>
+            <dd>有一说一，这个点了，不会还有人在写作业吧</dd>
+        </dl>
+        <dl>
+            <dt><img src="./images/case1_05.jpg" alt=""></dt>
+            <dd>有一说一，这个点了，不会还有人在写作业吧</dd>
+        </dl>
+        <dl>
+            <dt><img src="./images/case1_05.jpg" alt=""></dt>
+            <dd>有一说一，这个点了，不会还有人在写作业吧</dd>
+        </dl>
+    </div>
+</div>
+<!-- 产品中心那一部分的平铺-->
+<div id="links">
+    <!-- 这个顺序引入更规范 -->
+    <div class="links_con">
+        <!-- 版心部分 -->
+        <!-- 左边的盒子 -->
+        <div class="links_l">
+            <h3 class="links_title">About us</h3>
+            <ul class="links_list">
+
+                <li>
+                    <a href="#">快写完了1</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
