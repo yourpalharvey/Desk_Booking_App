@@ -4,166 +4,70 @@
     <title>Bookings</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/BookingStyle.css">
+<!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
     <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
   </head>
   <body>
     <header th:replace="fragments/header :: header"></header>
 
-
-
-    <div class="date-booking-container">
-      <div class="date-nav-container">
-        <h2>29 November - 3 December 2021</h2>
-        <nav class="date-nav">
-          <ul>
-            <li>Monday<br>29</li>
-            <li>Tuesday<br>30</li>
-            <li>Wednesday<br>1</li>
-            <li>Thursday<br>2</li>
-            <li>Friday<br>3</li>
-          </ul>
-        </nav>
-      </div>
-      <br><br>
-
-
-      <!-- THE BELOW FORMS ARE FOR TESTING THE LINKED HTTP POST METHODS -->
-      <div class="my-booking-container">
-        <h2>Today's Bookings:</h2>
-
-        <!--
-        <h2>Create desk database test: (this will be admin-restricted later)</h2>
-
-        <form action ="/user/addDesk" method="POST">
-          <label for="name">Desk name: <br><input type="text" id="name" name="name"></label><br>
-          <label for="hasStanding">Standing desk?:<br><input type="checkbox" id="hasStanding" name="hasStanding"><br></label>
-          <label for="hasWindow">Window desk?:<br><input type="checkbox" id="hasWindow" name="hasWindow"><br></label>
-          <label for="hasDualMonitor">Dual Monitor?:<br><input type="checkbox" id="hasDualMonitor" name="hasDualMonitor"><br></label>
-
-
-          <input type="submit">
-        </form>
-        -->
-
-        <div class="booked-column">
-          <div class="booked-desk-list 2">
-            <div class="desk 1">
-              <p>Desk 1  -  username booked</p>
-              <div class="book-button-container">
-                <button type="button" name="button" class="cancel_button">Cancel</button>
-              </div>
-            </div>
-
-          </div>
+    <div class="container-fluid mt-100" id="dateBox">
+      <div class="card col d-flex justify-content-center">
+        <div class="card-body">
+          <h5 class="card-title">Select Date</h5>
+          <form action ="" method="POST">
+            <label for="date"><input type="date" id="date" name="date"></label>
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Submit</button>
+          </form>
         </div>
-
-        <!-- <p>No current bookings</p> -->
-        <!-- ADDED DESK BOOKINGS TO BE SHOWN HERE (via js from DB) -->
-
-        <!-- need to add a 'cancel booking' button here if they have
-            a booking -->
-
       </div>
     </div>
 
-      <!-- grid container where available/booked desks are shown
-            these will need to be added based on booking availability
-              which will be pulled from the database -->
-
-      <div class="booked-or-available-container">
-        <div class="booked-or-available-grid">
-          <div class="available-column">
-            <div id="available">
-              <h2>Available Desks</h2>
-            </div>
-            <div class="available-desk-list 1">
-              <div class="desk 5">
-                <p>Desk 5</p>
-                <div class="book-button-container">
-                  <button type="button" name="button" class="book_button">Book</button>
-                </div>
-              </div>
-              <div class="desk 6">
-                <p>Desk 6</p>
-                <div class="book-button-container">
-                  <button type="button" name="button" class="book_button">Book</button>
-                </div>
-              </div>
-              <div class="desk 7">
-                <p>Desk 7</p>
-                <div class="book-button-container">
-                  <button type="button" name="button" class="book_button">Book</button>
-                </div>
-              </div>
-              <div class="desk 8">
-                <p>Desk 8</p>
-                <div class="book-button-container">
-                  <button type="button" name="button" class="book_button">Book</button>
+    <div class="container-fluid mt-100" id="deskListBox">
+      <div class="card col d-flex justify-content-center" id="innerCard">
+        <div class="card-body">
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card" id="deskCard">
+                <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-text">Desk 1</h5>
+                  <button id="bookDeskButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Book Desk</button>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="booked-column">
-            <div id="booked">
-              <h2>Booked Desks</h2>
-            </div>
-            <div class="booked-desk-list 2">
-              <div class="desk 1">
-                <p>Desk 1  -  username booked</p>
-                <div class="book-button-container">
-                  <button type="button" name="button" class="cancel_button">Cancel</button>
+            <div class="col">
+              <div class="card" id="deskCard">
+                <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-text">Desk 2</h5>
+                  <button id="bookDeskButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Book Desk</button>
                 </div>
               </div>
-              <div class="desk 2">
-                <p>Desk 2  -  username booked</p>
+            </div>
+            <div class="col">
+              <div class="card" id="deskCard">
+                <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-text">Desk 3</h5>
+                  <button id="bookDeskButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Book Desk</button>
+                </div>
               </div>
-              <div class="desk 3">
-                <p>Desk 3  -  username booked</p>
+            </div>
+            <div class="col">
+              <div class="card" id="deskCardBooked">
+                <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-text">Desk 4</h5>
+                  <button id="bookDeskButton" class="btn btn-outline-danger my-2 my-sm-0 disabled" type="submit">Already Booked</button>
+                </div>
               </div>
-              <div class="desk 4">
-                <p>Desk 4  -  username booked</p>
-              </div>
-              <div class="desk 1">
-                <p>Desk 9  -  username booked</p>
-              </div>
-              <div class="desk 2">
-                <p>Desk 10  -  username booked</p>
-              </div>
-              <div class="desk 3">
-                <p>Desk 11  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 12  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 13  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 14  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 15  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 16  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 17  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 18  -  username booked</p>
-              </div>
-              <div class="desk 4">
-                <p>Desk 19  -  username booked</p>
-              </div>
-
             </div>
           </div>
-
         </div>
       </div>
+    </div>
+
     <footer th:replace="fragments/footer :: footer"></footer>
   </body>
 </html>

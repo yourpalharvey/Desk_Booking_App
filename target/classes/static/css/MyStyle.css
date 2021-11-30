@@ -1,3 +1,4 @@
+/* NavBar css */
 #mainNavbar {
     background-color: #EAEDED;
 }
@@ -28,10 +29,7 @@ bigger screens will allow hover */
     color: #0275d8;
 }
 
-h1 {
-    color: #0275d8;
-}
-
+/*homePage Css*/
 #homeButtonBox {
     margin: 10px
 }
@@ -61,4 +59,59 @@ h1 {
     }
 }
 
+/*All Pages*/
+h1 {
+    color: #4777a1;
+}
 
+body {
+    background-color: #A29C9B;
+}
+
+
+#dateBox, #deskListBox {
+    width: 75%;
+    background-color: #EAEDED;
+    padding: 0 1.5rem;
+    margin-top: 20px;
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#dateBox .card {
+    background-color: #EAEDED;
+    border: none;
+}
+
+#innerCard {
+    background-color: #EAEDED;
+    border: none;
+}
+
+#deskCard {
+    border: solid #5cb85c 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#deskCard .card-body{
+    padding: 0.5rem;
+}
+
+.card-text {
+    display: inline-block;
+    margin: 0.25rem
+}
+
+#bookDeskButton {
+    display: inline-block;
+    float: right;
+}
+
+#deskCardBooked {
+    border: solid #d9534f 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#deskCardBooked .card-body{
+    padding: 0.5rem;
+}
