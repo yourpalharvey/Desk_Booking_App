@@ -1,8 +1,6 @@
 package com.bjss.desk_booking.admin;
 
-import com.bjss.desk_booking.DTO.Booking;
-import com.bjss.desk_booking.desk.Desk;
-import com.bjss.desk_booking.desk.DeskRepo;
+import com.bjss.desk_booking.booking.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

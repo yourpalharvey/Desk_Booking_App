@@ -1,8 +1,7 @@
 package com.bjss.desk_booking.admin;
 
-import com.bjss.desk_booking.DTO.Booking;
+import com.bjss.desk_booking.booking.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 import java.util.List;

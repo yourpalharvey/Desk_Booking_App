@@ -1,4 +1,6 @@
-package com.bjss.desk_booking.DTO;
+package com.bjss.desk_booking.user;
+
+import com.bjss.desk_booking.booking.Booking;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,11 +1,10 @@
-package com.bjss.desk_booking.DTO;
+package com.bjss.desk_booking.booking;
 
+import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.desk.Desk;
 
 import javax.persistence.*;
 import java.util.Date;
-
-import static javax.persistence.FetchType.LAZY;
 
 
 @Entity
@@ -26,7 +25,7 @@ public class Booking {
 
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "userId", nullable = false) //UserId from user class will be the foreign key in the booking table
-    private  User user;
+    private User user;
 
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "deskID", nullable = false) //UserId from user class will be the foreign key in the booking table

@@ -1,7 +1,7 @@
 package com.bjss.desk_booking.desk;
 
 
-import com.bjss.desk_booking.DTO.Booking;
+import com.bjss.desk_booking.booking.Booking;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;

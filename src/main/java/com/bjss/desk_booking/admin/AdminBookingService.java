@@ -1,7 +1,6 @@
 package com.bjss.desk_booking.admin;
 
-import com.bjss.desk_booking.DTO.Booking;
-import com.bjss.desk_booking.desk.Desk;
+import com.bjss.desk_booking.booking.Booking;
 
 import java.util.List;
 
