@@ -4,7 +4,8 @@ import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.desk.Desk;
 
 import javax.persistence.*;
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 
 @Entity
@@ -28,6 +29,14 @@ public class Booking {
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "deskID", nullable = false) //UserId from user class will be the foreign key in the booking table
     private Desk desk;
+
+    //this constructor is for the quick booking system - todo: I think we should remove the endDate and just insert one booking per day
+    public Booking(Date startdate, User user, Desk desk){
+        this.startdate = startdate;
+        this.user = user;
+        this.desk = desk;
+    }
+
 
 
     public int getBookingId() {

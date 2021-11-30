@@ -29,7 +29,6 @@ public class BookingServiceImplementation implements BookingService{
 
         Booking booking = null;
 
-
         if(result.isPresent()){
             booking = result.get();
         } else {

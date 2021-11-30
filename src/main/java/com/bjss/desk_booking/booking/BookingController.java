@@ -1,6 +1,9 @@
 package com.bjss.desk_booking.booking;
 
+import com.bjss.desk_booking.desk.Desk;
 import com.bjss.desk_booking.desk.DeskService;
+import com.bjss.desk_booking.user.User;
+import com.bjss.desk_booking.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class BookingController {
@@ -21,8 +25,12 @@ public class BookingController {
     @Autowired
     DeskService deskService;
 
-    // display bookings on the mybookings screen
-    // todo - update this method to only return bookings with user_id of current user
+    @Autowired
+    UserService userService;
+
+
+    // display user bookings on the mybookings screen - currently hardcoded to display all bookings
+    // todo - update this method to only return bookings with user_id of current user (if we have time)
     @GetMapping(value = "/user/mybookings")
     public String myBookingStatus(Model model) {
         List<Booking> bookingList = bookingService.findAll();
@@ -36,7 +44,7 @@ public class BookingController {
     public String bookingStatus(
             Model model,
             @RequestParam Date date
-    ) {
+            ) {
         List<Booking> bookingList = bookingService.findAll();
         List<Booking> bookingListByDate = new ArrayList<>();
         System.out.println(date);
@@ -53,7 +61,29 @@ public class BookingController {
 
     }
 
-    // Create a quick booking
+    // Create a quick booking for a random desk
+    // todo - this should be be changed to choose the worst desks first once we sort desk attributes out in db
+    // todo - we could also add a couple of checkboxes under the quick booking in case the user wants standing desk
 
-    //@PostMapping
+    @PostMapping(value = "user/quickBooking")
+    public void addQuickBooking(@RequestParam Date date){
+
+
+        // set desk and user object values for the booking
+        Desk randomDesk = null;
+        Random random = new Random();
+
+        List<Desk> allDesks = deskService.findAll();
+        int randomInt = random.nextInt(allDesks.size()) + 1;
+        for(Desk d: allDesks){
+            if(d.getDeskID() == randomInt){
+                randomDesk = d;
+            }
+        }
+
+        // CURRENTLY HARDCODED TO USER WITH USERID = 1;
+        User currentUser = userService.findById(1);
+
+        bookingService.save(new Booking(date, currentUser, randomDesk));
+    }
 }
