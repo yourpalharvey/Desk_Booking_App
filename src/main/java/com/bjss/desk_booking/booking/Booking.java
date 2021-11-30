@@ -10,8 +10,6 @@ import java.util.Date;
 @Entity
 public class Booking {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", updatable = false, nullable = false)
@@ -40,10 +38,6 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-
-
-
-
     public User getUser() {
         return user;
     }
@@ -54,23 +48,13 @@ public class Booking {
 
     public Booking(int id, int deskId, Date date){
         this.bookingId = id;
-
-
-
-
     }
 
     public Booking() {
-
     }
 
-
-
-
-    public int getDeskId()
-    {
+    public int getDeskId() {
         return desk.getDeskID();
-
     }
 
     public Date getEndDate() {

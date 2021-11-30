@@ -10,7 +10,6 @@ public interface AdminBookingService {
 
     public Booking findById(int bookingId);
 
-
     public void save(Booking booking);
 
     public void deleteById(int bookingId);

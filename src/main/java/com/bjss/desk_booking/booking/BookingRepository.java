@@ -1,10 +1,10 @@
 package com.bjss.desk_booking.booking;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.sql.Date;
 
-public interface BookingRepository {
-    
-    public Object getBookingByDeskAndDate(int deskId, Date date);
-    public boolean bookingExists(int deskId, Date date);
+public interface BookingRepository extends JpaRepository<Booking, Integer> {
+
 
 }
