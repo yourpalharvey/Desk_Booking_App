@@ -32,6 +32,14 @@ h1 {
     color: #0275d8;
 }
 
+#homeButtonBox {
+    margin: 10px
+}
+
+#homeButtonBox .btn {
+    margin: 5px;
+}
+
 #imageText {
     background-color: rgba(234,237,237,0.9);
     padding: 0 1.5rem 1.5rem 1.5rem;
@@ -52,4 +60,5 @@ h1 {
         box-shadow: none;
     }
 }
+
 
