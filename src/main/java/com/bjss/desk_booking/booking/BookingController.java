@@ -31,10 +31,9 @@ public class BookingController {
 
     // display user bookings on the mybookings screen - currently hardcoded to display all bookings
     // todo - update this method to only return bookings with user_id of current user (if we have time)
-    @GetMapping(value = "/user/mybookings")
+    @GetMapping(value = "/user/myBookings")
     public String myBookingStatus(Model model) {
         List<Booking> bookingList = bookingService.findAll();
-
         model.addAttribute("bookingList", bookingList);
         return "MyBookingPage";
     }
@@ -45,20 +44,21 @@ public class BookingController {
             Model model,
             @RequestParam Date date
             ) {
-        List<Booking> bookingList = bookingService.findAll();
+        // get all bookings from database, and create a new list of all bookings with date given in parameter
         List<Booking> bookingListByDate = new ArrayList<>();
-        System.out.println(date);
 
-        for (Booking b: bookingList) {
-            if (b.getDate() == date){
+        for (Booking b: bookingService.findAll()) {
+            if (b.getDate().equals(date)){
                 bookingListByDate.add(b);
             }
+        }
+        //print to console - testing purposes only
+        for (Booking b: bookingListByDate){
             System.out.println(b);
         }
 
         model.addAttribute("bookingListByDate", bookingListByDate);
         return "BookingPage";
-
     }
 
     // Create a quick booking for a random desk
@@ -69,23 +69,15 @@ public class BookingController {
     public String addQuickBooking(@RequestParam Date date){
 
         // set random desk object for booking
-        Desk randomDesk = null;
         Random random = new Random();
-
-        List<Desk> allDesks = deskService.findAll();
-        int randomInt = random.nextInt(allDesks.size()) + 1;
-        for(Desk d: allDesks){
-            if(d.getDeskID() == randomInt){
-                randomDesk = d;
-                break;
-            }
-        }
+        int randomInt = random.nextInt(deskService.findAll().size()) + 1;
+        Desk randomDesk = deskService.findById(randomInt);
 
         // Set current user for booking
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
         User currentUser = userService.findById(1);
 
-        // Add booking to database
+        // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, randomDesk));
 
         return "MyBookingPage";

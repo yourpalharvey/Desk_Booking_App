@@ -27,7 +27,7 @@ public class Booking {
     private User user;
 
     @ManyToOne  //creating Many to one relation with user
-    @JoinColumn(name = "deskID", nullable = false) //UserId from user class will be the foreign key in the booking table
+    @JoinColumn(name = "deskId", nullable = false) //UserId from user class will be the foreign key in the booking table
     private Desk desk;
 
     //this constructor is for the quick booking system - todo: I think we should remove the endDate and just insert one booking per day

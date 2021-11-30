@@ -23,6 +23,8 @@ public class BookingServiceImplementation implements BookingService{
 
     //if a booking with the selected id is found in the db, return Booking object.
     //else, return null
+    //todo - add some error handling/error message for when this happens
+
     @Override
     public Booking findById(int bookingId) {
         Optional<Booking> result = bookingRepo.findById(bookingId);

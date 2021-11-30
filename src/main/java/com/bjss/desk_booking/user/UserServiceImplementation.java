@@ -32,7 +32,7 @@ public class UserServiceImplementation implements UserService {
         if(result.isPresent()){
             user = result.get();
         } else {
-            throw new RuntimeException("Did not find booking with ID: " + userId);
+            throw new RuntimeException("Did not find user with ID: " + userId);
         }
 
         return user;
@@ -41,11 +41,6 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void save(User user) {
         userRepo.save(user);
-    }
-
-    @Override
-    public void deleteById(int userId) {
-        userRepo.deleteById(userId);
     }
 
 
