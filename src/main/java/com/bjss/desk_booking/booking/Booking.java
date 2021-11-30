@@ -16,10 +16,10 @@ public class Booking {
     @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startdate;
+    //@Temporal(TemporalType.DATE)
+    private Date startDate;
 
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     private Date endDate;
 
     @ManyToOne  //creating Many to one relation with user
@@ -31,8 +31,8 @@ public class Booking {
     private Desk desk;
 
     //this constructor is for the quick booking system - todo: I think we should remove the endDate and just insert one booking per day
-    public Booking(Date startdate, User user, Desk desk){
-        this.startdate = startdate;
+    public Booking(Date startDate, User user, Desk desk){
+        this.startDate = startDate;
         this.user = user;
         this.desk = desk;
     }
@@ -79,18 +79,18 @@ public class Booking {
     }
 
     public Date getStartdate() {
-        return startdate;
+        return startDate;
     }
 
     public void setStartdate(Date startdate) {
-        this.startdate = startdate;
+        this.startDate = startdate;
     }
 
     public String toString(){
-        return "ID: " + bookingId + "\nDate: "  + "\nDesk ID: ";
+        return "ID: " + bookingId + "\nDate: " + startDate + "\nDesk ID: " + desk.getDeskID();
     }
 
     public Date getDate() {
-        return startdate;
+        return startDate;
     }
 }

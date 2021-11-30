@@ -66,10 +66,9 @@ public class BookingController {
     // todo - we could also add a couple of checkboxes under the quick booking in case the user wants standing desk
 
     @PostMapping(value = "user/quickBooking")
-    public void addQuickBooking(@RequestParam Date date){
+    public String addQuickBooking(@RequestParam Date date){
 
-
-        // set desk and user object values for the booking
+        // set random desk object for booking
         Desk randomDesk = null;
         Random random = new Random();
 
@@ -78,12 +77,17 @@ public class BookingController {
         for(Desk d: allDesks){
             if(d.getDeskID() == randomInt){
                 randomDesk = d;
+                break;
             }
         }
 
-        // CURRENTLY HARDCODED TO USER WITH USERID = 1;
+        // Set current user for booking
+        // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
         User currentUser = userService.findById(1);
 
+        // Add booking to database
         bookingService.save(new Booking(date, currentUser, randomDesk));
+
+        return "MyBookingPage";
     }
 }

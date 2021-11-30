@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
+import java.sql.Date;
 
 @Controller
 public class AdminBooking {
@@ -33,36 +34,28 @@ public class AdminBooking {
     @RequestMapping (value = "/admin/adminbooking")
     public String adminbooking(Model model, @RequestParam(required = false) String startdate, String enddate) throws ParseException {
 
+        //         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        //         String d="2021-11-27";
+        //         Date date=format.parse(d);
 
-         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-         String d="2021-11-27";
-         Date date=format.parse(d);
-       Booking book=adminBookingService.findById(1);
-       book.setStartdate(date);
+        String dateString = "2021-11-27";
+        Date date= Date.valueOf(dateString);
 
-         adminBookingService.save(book);
+        Booking book=adminBookingService.findById(1);
+        book.setStartdate(date);
 
-         List <Booking> bookedList=adminBookingService.findAll();
-         List <Booking> freeList =new ArrayList<>();
-         for(int i=0;i<bookedList.size();i++)
-         {
+             adminBookingService.save(book);
 
-         }
+             List <Booking> bookedList=adminBookingService.findAll();
+             List <Booking> freeList =new ArrayList<>();
+             for(int i=0;i<bookedList.size();i++)
+             {
 
-
-
-
-
-
-
-
-
+             }
 
         try {
-            Date startDate = format.parse(startdate);
-            Date endtDate = format.parse(enddate);
-
-
+            Date startDate = Date.valueOf(dateString); //format.parse(startdate);
+            Date endtDate = Date.valueOf(dateString); //format.parse(enddate);
 
             for(int i=0;i<bookedList.size();i++)
             {
@@ -77,25 +70,16 @@ public class AdminBooking {
             }
 
 
-
-
-
         }
         catch ( Exception e)
         {
 
         }
 
-
-
-
-
         List<Desk> deskList=deskService.findAll();
 
         model.addAttribute("deskList", deskList);
         return "Adminbooking";
-
-
 
     }
 }
