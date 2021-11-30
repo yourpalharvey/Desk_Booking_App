@@ -14,7 +14,7 @@ public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int deskID;
+     private int deskID;
      String deskName;
      String desktype;
      String deskPosition;
