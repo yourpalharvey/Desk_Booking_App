@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Date;
-import java.util.List;
-import java.util.Random;
 
 @Controller
 public class BookingController {
@@ -39,7 +37,7 @@ public class BookingController {
     }
 
     // display bookings based on the date chosen in calendar on user dashboard
-    @GetMapping(value = "user/getBookingsByDate")
+    @GetMapping(value = "/user/getBookingsByDate")
     public String bookingStatus(
             Model model,
             @RequestParam Date date
@@ -52,13 +50,32 @@ public class BookingController {
                 bookingListByDate.add(b);
             }
         }
-        //print to console - testing purposes only
-        for (Booking b: bookingListByDate){
-            System.out.println(b);
+
+        //loop through all desks and bookings, and create a full list of desks both booked and unbooked
+        //value in hashmap is true if booked, false if not booked for that day
+        Map<Desk, Boolean> allDeskMap = new LinkedHashMap<>();
+
+        //loop through desks and bookings to see which desks are associated with bookings
+        for(Desk d: deskService.findAll()){
+            boolean deskBooked = false;
+            for(Booking b: bookingListByDate){
+                if(b.getDesk().getDeskID() == d.getDeskID()){
+                    deskBooked = true;
+                    break;
+                }
+            }
+            allDeskMap.put(d, deskBooked);
         }
 
-        model.addAttribute("bookingListByDate", bookingListByDate);
-        return "BookingPage";
+        //print to console for testing
+        for(Desk d: allDeskMap.keySet()){
+            System.out.println(d);
+            System.out.println(allDeskMap.get(d));
+        }
+
+
+        model.addAttribute("allDeskMap", allDeskMap);
+        return "BookingPageDated";
     }
 
     // Create a quick booking for a random desk

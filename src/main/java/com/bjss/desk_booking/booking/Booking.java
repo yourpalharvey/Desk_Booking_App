@@ -37,7 +37,9 @@ public class Booking {
         this.desk = desk;
     }
 
-
+    public Desk getDesk(){
+        return desk;
+    }
 
     public int getBookingId() {
         return bookingId;
