@@ -1,6 +1,6 @@
 /* NavBar css */
 #mainNavbar {
-    background-color: #EAEDED;
+    background-color: #f8f9fb;
 }
 
 #mainNavbar .nav-link:hover {
@@ -12,7 +12,7 @@
 }
 
 #mainNavbar .dropdown-menu {
-    background-color: #EAEDED;
+    background-color: #f8f9fb;
     border: none;
 }
 
@@ -25,7 +25,7 @@ bigger screens will allow hover */
 }
 
 #mainNavbar .dropdown-item:hover{
-    background-color: #EAEDED;
+    background-color: #f8f9fb;
     color: #0275d8;
 }
 
@@ -39,9 +39,9 @@ bigger screens will allow hover */
 }
 
 #imageText {
-    background-color: rgba(234,237,237,0.9);
+    background-color: rgba(248,249,251,0.9);
     padding: 0 1.5rem 1.5rem 1.5rem;
-    border-radius: 25px;
+    border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -54,7 +54,7 @@ bigger screens will allow hover */
 
 @media (max-width: 768px) {
     #imageText {
-        background-color: rgba(234,237,237,0);
+        background-color: rgba(248,249,251,0);
         box-shadow: none;
     }
 }
@@ -65,26 +65,21 @@ h1 {
 }
 
 body {
-    background-color: #A29C9B;
+    background-color: #edf6f9;
 }
 
 
 #dateBox, #deskListBox {
     width: 75%;
-    background-color: #EAEDED;
+    background-color: #f8f9fb;
     padding: 0 1.5rem;
     margin-top: 20px;
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #dateBox .card {
-    background-color: #EAEDED;
-    border: none;
-}
-
-#innerCard {
-    background-color: #EAEDED;
+    background-color: #f8f9fb;
     border: none;
 }
 
@@ -93,13 +88,17 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-#deskCard .card-body{
+#deskCard .card-header{
     padding: 0.5rem;
 }
 
 .card-text {
     display: inline-block;
     margin: 0.25rem
+}
+
+.col {
+    padding: 15px 15px;
 }
 
 #bookDeskButton {
@@ -112,6 +111,15 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-#deskCardBooked .card-body{
+#deskCardBooked .card-header{
+    padding: 0.5rem;
+}
+
+#deskCardCancel {
+    border: solid #f0ad4e 2px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#deskCardCancel .card-header{
     padding: 0.5rem;
 }
