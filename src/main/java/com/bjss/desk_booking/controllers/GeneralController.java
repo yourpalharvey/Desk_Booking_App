@@ -22,6 +22,12 @@ public class GeneralController {
         return "BookingPage";
     }
 
+    //Test site
+    @RequestMapping(path = "/user/dashboardtwo")
+    public String userDashboardTwo(String name) {
+        return "BookingPageTwo";
+    }
+
     @RequestMapping(path = "/user/quickbooking")
     public String userQuickBooking(String name) {
         return "QuickBookingPage";
