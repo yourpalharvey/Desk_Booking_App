@@ -23,6 +23,27 @@
     </div>
 </div>
 
+<div th:if="${fulldesk != null}" class="container-fluid mt-100" id="dateBox">
+    <div class="card col d-flex justify-content-center">
+        <div class="card-body">
+            <h5 class="card-title">All desks full sir</h5>
+        </div>
+    </div>
+</div>
+
+<div th:if="${deskBooked != null}" class="container-fluid mt-100" id="dateBox">
+    <div class="card col d-flex justify-content-center">
+        <div class="card-body">
+            <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> booked :)</h5>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //alert("ALL DESKS BOOKED");
+</script>
+
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

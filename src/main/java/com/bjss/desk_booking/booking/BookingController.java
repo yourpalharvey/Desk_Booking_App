@@ -1,3 +1,5 @@
+
+
 package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.desk.Desk;
@@ -41,12 +43,12 @@ public class BookingController {
     public String bookingStatus(
             Model model,
             @RequestParam Date date
-            ) {
+    ) {
         // get all bookings from database, and create a new list of all bookings with date given in parameter
         List<Booking> bookingListByDate = new ArrayList<>();
 
-        for (Booking b: bookingService.findAll()) {
-            if (b.getDate().equals(date)){
+        for (Booking b : bookingService.findAll()) {
+            if (b.getDate().equals(date)) {
                 bookingListByDate.add(b);
             }
         }
@@ -57,10 +59,10 @@ public class BookingController {
 
         //loop through desks and bookings to see which desks are associated with bookings
         //add Desk to hashmap as a key, with boolean as value
-        for(Desk d: deskService.findAll()){
+        for (Desk d : deskService.findAll()) {
             boolean deskBooked = false;
-            for(Booking b: bookingListByDate){
-                if(b.getDesk().getDeskID() == d.getDeskID()){
+            for (Booking b : bookingListByDate) {
+                if (b.getDesk().getDeskID() == d.getDeskID()) {
                     deskBooked = true;
                     break;
                 }
@@ -69,7 +71,7 @@ public class BookingController {
         }
 
         //print to console - testing purposes only
-        for(Desk d: allDeskMap.keySet()){
+        for (Desk d : allDeskMap.keySet()) {
             System.out.println(d);
             System.out.println(allDeskMap.get(d));
         }
@@ -84,7 +86,8 @@ public class BookingController {
     // todo - we could also add a couple of checkboxes under the quick booking in case the user wants standing desk
 
     @PostMapping(value = "user/quickBooking")
-    public String addQuickBooking(@RequestParam Date date){
+    public String addQuickBooking(@RequestParam Date date,
+                                  Model model) {
         //get lists of bookings and desks
         List<Desk> deskList = deskService.findAll();
         List<Booking> bookingList = bookingService.findAll();
@@ -92,15 +95,17 @@ public class BookingController {
         //get list of bookings for the 'date' parameter
         //if number of desks = number of bookings for that day, return an error page
         List<Booking> datedBookingList = new ArrayList<>();
-        for(Booking b : bookingList){
-            if(b.getDate().equals(date)){
+        for (Booking b : bookingList) {
+            if (b.getDate().equals(date)) {
                 datedBookingList.add(b);
             }
         }
         // TODO - make this actually return some kind of error page
-        if(deskList.size() == datedBookingList.size()){
+        if (deskList.size() == datedBookingList.size()) {
             System.out.println("ERROR - ALL DESKS FULL!!!!");
-            return "home";
+            model.addAttribute("fulldesk", true);
+            return "QuickBookingPage";
+
         }
 
 
@@ -112,9 +117,9 @@ public class BookingController {
         //loop through bookings for that date and compare IDs to make sure not to duplicate desks
         //if the desk is already booked that day, get another random int and restart the loop
         int count = 0;
-        while(count < deskList.size()){
-            for(Booking b: bookingList){
-                if(b.getDesk().getDeskID() == randomInt && b.getDate().equals(date)){
+        while (count < deskList.size()) {
+            for (Booking b : bookingList) {
+                if (b.getDesk().getDeskID() == randomInt && b.getDate().equals(date)) {
                     randomInt = random.nextInt(deskList.size()) + 1;
                     System.out.println("randomInt 2: " + randomInt);
                     count = 0;
@@ -134,6 +139,7 @@ public class BookingController {
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, randomDesk));
 
+        model.addAttribute("deskBooked", randomInt);
         return "QuickBookingPage";
     }
 
@@ -142,7 +148,7 @@ public class BookingController {
     @PostMapping(value = "user/bookDesk")
     public String addQuickBooking(@RequestParam Date date,
                                   @RequestParam int deskId,
-                                  Model model){
+                                  Model model) {
         Desk deskToBook = deskService.findById(deskId);
 
         //user is currently hardcoded to userId '1'
@@ -154,8 +160,8 @@ public class BookingController {
         // get all bookings from database, and create a new list of all bookings with date given in parameter
         List<Booking> bookingListByDate = new ArrayList<>();
 
-        for (Booking b: bookingService.findAll()) {
-            if (b.getDate().equals(date)){
+        for (Booking b : bookingService.findAll()) {
+            if (b.getDate().equals(date)) {
                 bookingListByDate.add(b);
             }
         }
@@ -166,10 +172,10 @@ public class BookingController {
 
         //loop through desks and bookings to see which desks are associated with bookings
         //add Desk to hashmap as a key, with boolean as value
-        for(Desk d: deskService.findAll()){
+        for (Desk d : deskService.findAll()) {
             boolean deskBooked = false;
-            for(Booking b: bookingListByDate){
-                if(b.getDesk().getDeskID() == d.getDeskID()){
+            for (Booking b : bookingListByDate) {
+                if (b.getDesk().getDeskID() == d.getDeskID()) {
                     deskBooked = true;
                     break;
                 }
@@ -178,7 +184,7 @@ public class BookingController {
         }
 
         //print to console - testing purposes only
-        for(Desk d: allDeskMap.keySet()){
+        for (Desk d : allDeskMap.keySet()) {
             System.out.println(d);
             System.out.println(allDeskMap.get(d));
         }
@@ -189,5 +195,4 @@ public class BookingController {
 
 
     }
-
 }
