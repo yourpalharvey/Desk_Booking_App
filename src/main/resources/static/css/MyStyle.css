@@ -101,6 +101,15 @@ body {
     padding: 15px 15px;
 }
 
+.desk-container{
+    min-width: 25%;
+}
+
+.booking-button-form{
+    display: inline-block;
+    float: right;
+}
+
 .bookDeskButton {
     display: inline-block;
     float: right;

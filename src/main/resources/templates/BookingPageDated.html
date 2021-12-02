@@ -21,24 +21,33 @@
     </div>
 </div>
 
-<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox">
+<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox"> <!-- removed 'col' as class -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
 
         <!-- Loop through the keySet and display Book or Booked item based on the boolean key value-->
         <!-- if boolean value is true, desk is booked. -->
-        <div th:each="key, status : ${allDeskMap.keySet()}" class="col">
+        <div th:each="key, status : ${allDeskMap.keySet()}" class="col desk-container">
 
             <!-- Display this is desk is not booked (ie. boolean hashmap value = false) -->
             <div th:if="${not allDeskMap.get(key)}" class="card deskCard">
                 <div class="card-header deskCardExpand">
                     <h5 class="card-text">Desk <span th:text="${status.index + 1}"></span></h5>
-                    <button class="bookDeskButton btn btn-success my-2 my-sm-0" type="submit">Book</button>
+
+                    <!-- form for book button -->
+                    <form class="booking-button-form" action ="/user/bookDesk" method="POST">
+                        <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
+                        <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
+                        <button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
+                    </form>
+
+                    <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->
                     <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                         </svg>
                     </button>
                 </div>
+                <!-- increment the ids here to display each picture -->
                 <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
                     <div class="card-body">
                         <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
@@ -46,7 +55,7 @@
                 </div>
             </div>
 
-            <!-- Display this is desk is booked (ie. boolean hashmap value = true) -->
+            <!-- Display this if desk is booked (ie. boolean hashmap value = true) -->
             <div th:if="${allDeskMap.get(key)}" class="card deskCardBooked">
                 <div class="card-header deskCardExpand">
                     <h5 class="card-text">Desk <span th:text="${status.index + 1}"></span></h5>
