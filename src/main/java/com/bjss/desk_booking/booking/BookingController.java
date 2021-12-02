@@ -51,11 +51,12 @@ public class BookingController {
             }
         }
 
-        //loop through all desks and bookings, and create a full list of desks both booked and unbooked
-        //value in hashmap is true if booked, false if not booked for that day
+        //loop through all desks and bookings, and create a LinkedHashMap of desks both booked and unbooked
+        //value in hashmap is true if booked, false if not booked (for that day)
         Map<Desk, Boolean> allDeskMap = new LinkedHashMap<>();
 
         //loop through desks and bookings to see which desks are associated with bookings
+        //add Desk to hashmap as a key, with boolean as value
         for(Desk d: deskService.findAll()){
             boolean deskBooked = false;
             for(Booking b: bookingListByDate){
@@ -67,7 +68,7 @@ public class BookingController {
             allDeskMap.put(d, deskBooked);
         }
 
-        //print to console for testing
+        //print to console - testing purposes only
         for(Desk d: allDeskMap.keySet()){
             System.out.println(d);
             System.out.println(allDeskMap.get(d));
@@ -84,10 +85,46 @@ public class BookingController {
 
     @PostMapping(value = "user/quickBooking")
     public String addQuickBooking(@RequestParam Date date){
+        //get lists of bookings and desks
+        List<Desk> deskList = deskService.findAll();
+        List<Booking> bookingList = bookingService.findAll();
+
+        //get list of bookings for the 'date' parameter
+        //if number of desks = number of bookings for that day, return an error page
+        List<Booking> datedBookingList = new ArrayList<>();
+        for(Booking b : bookingList){
+            if(b.getDate().equals(date)){
+                datedBookingList.add(b);
+            }
+        }
+        // TODO - make this actually return some kind of error page
+        if(deskList.size() == datedBookingList.size()){
+            System.out.println("ERROR - ALL DESKS FULL!!!!");
+            return "home";
+        }
+
 
         // set random desk object for booking
         Random random = new Random();
-        int randomInt = random.nextInt(deskService.findAll().size()) + 1;
+        int randomInt = random.nextInt(deskList.size()) + 1;
+        System.out.println("randomInt 1: " + randomInt);
+
+        //loop through bookings for that date and compare IDs to make sure not to duplicate desks
+        //if the desk is already booked that day, get another random int and restart the loop
+        int count = 0;
+        while(count < deskList.size()){
+            for(Booking b: bookingList){
+                if(b.getDesk().getDeskID() == randomInt && b.getDate().equals(date)){
+                    randomInt = random.nextInt(deskList.size()) + 1;
+                    System.out.println("randomInt 2: " + randomInt);
+                    count = 0;
+                    break;
+                }
+            }
+            count++;
+        }
+
+
         Desk randomDesk = deskService.findById(randomInt);
 
         // Set current user for booking
@@ -97,6 +134,6 @@ public class BookingController {
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, randomDesk));
 
-        return "MyBookingPage";
+        return "QuickBookingPage";
     }
 }
