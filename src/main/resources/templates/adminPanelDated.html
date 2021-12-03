@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
-    <title>User Dashboard</title>
+    <title>Admin Dashboard</title>
     <meta charset="utf-8">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
+    <!--  <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/BookingScript.js" charset="utf-8"></script>
+
 </head>
+
 <body>
+
 <header th:replace="fragments/header :: header"></header>
+
+<!-- Banner added to communicate that this is an admin page-->
+<div class="adminBanner">
+    <h5 class="card-title adminBannerText"> Admin view</h5>
+</div>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
     <div class="card-body">
         <h5 class="card-title">Select Date</h5>
-        <form action ="/user/getBookingsByDate" method="GET">
+        <form action ="/admin/getBookingsByDate" method="GET">
             <label for="date"><input type="date" id="date" name="date"></label>
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
         </form>
@@ -37,7 +47,7 @@
                     <form class="booking-button-form" action ="/user/bookDesk" method="POST">
                         <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
                         <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
-                        <button onclick="displayDeskBooked()" class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
+                        <button class="bookDeskButton btn btn-success my-2 my-sm-0 disabled" th:id="'book-button'+${status.index+1}" type="submit">Available</button>
                     </form>
 
                     <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->
@@ -55,16 +65,27 @@
                 </div>
             </div>
 
+
             <!-- Display this if desk is booked (ie. boolean hashmap value = true) -->
-            <div th:if="${allDeskMap.get(key)}" class="card deskCardBooked">
+            <div th:if="${allDeskMap.get(key)}" class="card deskCardCancel">
                 <div class="card-header deskCardExpand">
                     <h5 class="card-text">Desk <span th:text="${status.index + 1}"></span></h5>
-                    <button class="bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled" type="submit">Booked</button>
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#deskFourImg" aria-expanded="true" aria-controls="deskImg">
+
+                    <!-- form for cancel button -->
+                    <form class="booking-button-form" action ="/admin/cancelDeskBooking" method="POST">
+                        <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
+                        <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
+                        <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" th:id="'cacnel-button'+${status.index+1}" type="submit">Cancel</button>
+                    </form>
+
+                    <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                         </svg>
                     </button>
+
+
                 </div>
                 <div class="deskFourImg collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
                     <div class="card-body">
@@ -74,13 +95,12 @@
             </div>
         </div>
 
+
+
     </div>
 </div>
 
-<script>
-</script>
-
-
 <footer th:replace="fragments/footer :: footer"></footer>
+
 </body>
 </html>

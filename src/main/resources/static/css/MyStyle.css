@@ -68,6 +68,15 @@ body {
     background-color: #2f3e46;
 }
 
+.adminBanner {
+    background-color: #f0ad4e;
+    padding: 2px;
+}
+
+.adminBannerText {
+    margin: 4px;
+}
+
 /* Body of quickbooking page. Fix for mybookings re-route button on notification*/
 .quickBookingBody {
     background-color: #2f3e46;

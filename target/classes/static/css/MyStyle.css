@@ -61,14 +61,31 @@ bigger screens will allow hover */
 
 /*All Pages*/
 h1 {
-    color: #4777a1;
+    color: #2f3e46;
 }
 
 body {
     background-color: #2f3e46;
 }
 
+.adminBanner {
+    background-color: #f0ad4e;
+    padding: 2px;
+}
 
+.adminBannerText {
+    margin: 4px;
+}
+
+/* Body of quickbooking page. Fix for mybookings re-route button on notification*/
+.quickBookingBody {
+    background-color: #2f3e46;
+    z-index: -2;
+    position: relative;
+}
+
+
+/* Desk cards and buttons UI and notifications*/
 #dateBox, .deskListBox {
     width: 75%;
     background-color: #f8f9fb;
@@ -78,22 +95,64 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-#dateBox .card {
-    background-color: #f8f9fb;
+/* Notification is behind datebox to allow it to slide from underneath*/
+.notificationBox {
+    width: 50%;
+    background-color: #0275d8;
+    color: #f8f9fb;
+    padding: 0 1.5rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: -1;
+    position: relative;
+    animation: slideDown ease-in-out 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+/* Sliding animation also has fade in*/
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* Disabling Bootstrap default cards */
+#dateBox .card, .notificationBox .card {
+    background: none;
     border: none;
 }
 
-.deskCard {
-    border: solid #5cb85c 2px;
+
+/* Styling for buttons within desk cards*/
+.deskCard, .deskCardBooked, .deskCardCancel {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
 }
 
-.deskCard .card-header{
+.deskCard {
+    border: solid #5cb85c 2px;
+}
+
+.deskCardBooked {
+    border: solid #d9534f 2px;
+}
+
+.deskCardCancel {
+    border: solid #f0ad4e 2px;
+}
+
+.deskCard .card-header, .deskCardBooked .card-header, .deskCardCancel .card-header{
     padding: 0.5rem;
 }
 
-.card-text {
+.card-text, h5 {
     display: inline-block;
     margin: 0.25rem
 }
@@ -106,32 +165,10 @@ body {
     min-width: 25%;
 }
 
-.booking-button-form{
+.booking-button-form, .bookDeskButton ,.myBookingButton{
     display: inline-block;
     float: right;
 }
 
-.bookDeskButton {
-    display: inline-block;
-    float: right;
-}
 
-.deskCardBooked {
-    border: solid #d9534f 2px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-}
 
-.deskCardBooked .card-header{
-    padding: 0.5rem;
-}
-
-.deskCardCancel {
-    border: solid #f0ad4e 2px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-}
-
-.deskCardCancel .card-header{
-    padding: 0.5rem;
-}
