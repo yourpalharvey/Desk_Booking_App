@@ -2,6 +2,8 @@ package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.desk.Desk;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 //import java.util.Date;

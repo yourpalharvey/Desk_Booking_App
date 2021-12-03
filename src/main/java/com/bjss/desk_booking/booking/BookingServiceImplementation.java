@@ -3,6 +3,7 @@ package com.bjss.desk_booking.booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,24 @@ public class BookingServiceImplementation implements BookingService{
         }
 
         return booking;
+    }
+
+    public List<Booking> findByUserId(int userId){
+        List<Booking> userBookings = new ArrayList<>();
+        List<Booking> allBookings = bookingRepo.findAll();
+
+        for(Booking b: allBookings){
+            if(b.getUser().getUserId() == userId){
+                userBookings.add(b);
+            }
+        }
+
+        for(Booking b : userBookings){
+            System.out.println(b);
+        }
+
+        return userBookings;
+
     }
 
     @Override

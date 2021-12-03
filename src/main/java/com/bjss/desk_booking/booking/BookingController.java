@@ -36,12 +36,18 @@ public class BookingController {
 
     // display user bookings on the mybookings screen - currently hardcoded to display all bookings
     // todo - update this method to only return bookings with user_id of current user (if we have time)
-    @GetMapping(value = "/user/myBookings")
-    public String myBookingStatus(Model model) {
-        List<Booking> bookingList = bookingService.findAll();
-        model.addAttribute("bookingList", bookingList);
-        return "MyBookingPage";
-    }
+//    @PostMapping(value = "/user/myBookingsPage")
+//    public String myBookingStatus(Model model) {
+//        //currently hardcoded for userId = 1
+//        List<Booking> userBookingList = bookingService.findByUserId(1);
+//
+//        for (Booking b : userBookingList){
+//            System.out.println(b);
+//        }
+//
+//        model.addAttribute("userBookingList", userBookingList);
+//        return "MyBookingPage";
+//    }
 
     // display bookings based on the date chosen in calendar on user dashboard
     @GetMapping(value = "user/getBookingsByDate")
