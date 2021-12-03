@@ -36,12 +36,13 @@
         <div class="card-body">
             <!--TODO Insert correct date the user has selected to the notification message-->
             <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
-            <h5 class="card-title">Booking for desk <span th:text="${deskBooked}"></span> has been cancelled</h5>
+            <h5 class="card-title">Booking for desk <span th:value="${deskBooked}"></span> has been cancelled</h5>
         </div>
     </div>
 </div>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox"> <!-- removed 'col' as class -->
+    <h5 class="card-title">Showing all desks for <span th:text="${viewingDate}"></span></h5>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
 
         <!-- Loop through the keySet and display Book or Booked item based on the boolean key value-->
