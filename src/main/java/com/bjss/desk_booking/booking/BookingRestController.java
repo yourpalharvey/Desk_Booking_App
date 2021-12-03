@@ -24,7 +24,7 @@ public class BookingRestController {
             bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId()));
         }
 
-
+        System.out.println("HELLOOOOO");
         String jsonString = JSONArray.toJSONString(bookingDTOList);
 
         return jsonString;
