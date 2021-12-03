@@ -16,33 +16,90 @@
 </head>
 <body>
 <header th:replace="fragments/header :: header"></header>
-<!--******************      THE BELOW IS A TEMPLATE - DISPLAYING THE PAGE IS DONE WITH THE loadUserBookings() FUNCTION      ******************-->
 
-<!--<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox">-->
-<!--  <div class="card-body">-->
-<!--    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">-->
-<!--      <div class="col">-->
-<!--        <div class="card deskCardCancel">-->
-<!--          <div class="card-header deskCardExpand">-->
-<!--            <h5 class="card-text">Desk 7</h5>-->
-<!--            <p>08/12/2021</p>-->
-<!--            <button class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>-->
-<!--            <button class="btn btn-link" data-toggle="collapse" data-target="#deskFourImg" aria-expanded="true" aria-controls="deskImg">-->
-<!--              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
-<!--                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
-<!--              </svg>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <div id="deskFourImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">-->
-<!--            <div class="card-body">-->
-<!--              <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+
+<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox">
+  <div class="card-body">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+      <div class="col">
+        <div class="card deskCardCancel">
+          <div class="card-header deskCardExpand">
+            <h5 class="card-text">Desk 3</h5>
+            <p>02/12/2021</p>
+            <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>
+            <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
+            <div class="card-body">
+              <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card deskCardCancel">
+          <div class="card-header deskCardExpand">
+            <h5 class="card-text">Desk 6</h5>
+            <p>04/12/2021</p>
+            <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>
+            <button class="btn btn-link" data-toggle="collapse" data-target="#deskTwoImg" aria-expanded="true" aria-controls="deskImg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="deskTwoImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
+            <div class="card-body">
+              <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card deskCardCancel">
+          <div class="card-header deskCardExpand">
+            <h5 class="card-text">Desk 1</h5>
+            <p>05/12/2021</p>
+            <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>
+            <button class="btn btn-link" data-toggle="collapse" data-target="#deskThreeImg" aria-expanded="true" aria-controls="deskImg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="deskThreeImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
+            <div class="card-body">
+              <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card deskCardCancel">
+          <div class="card-header deskCardExpand">
+            <h5 class="card-text">Desk 7</h5>
+            <p>08/12/2021</p>
+            <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>
+            <button class="btn btn-link" data-toggle="collapse" data-target="#deskFourImg" aria-expanded="true" aria-controls="deskImg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="deskFourImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
+            <div class="card-body">
+              <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
