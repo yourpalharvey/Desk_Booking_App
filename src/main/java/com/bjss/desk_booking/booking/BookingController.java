@@ -86,7 +86,7 @@ public class BookingController {
     // todo - this should be be changed to choose the worst desks first once we sort desk attributes out in db
     // todo - we could also add a couple of checkboxes under the quick booking in case the user wants standing desk
 
-    @PostMapping(value = "user/quickBooking")
+    @PostMapping(value = "user/quickbooking")
     public String addQuickBooking(@RequestParam Date date,
                                   Model model) {
         //get lists of bookings and desks

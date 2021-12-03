@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/BookingScript.js" charset="utf-8"></script>
 </head>
-<body>
+<body class="bookingPageDatedBody">
 <header th:replace="fragments/header :: header"></header>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
@@ -18,6 +18,19 @@
             <label for="date"><input type="date" id="date" name="date"></label>
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
         </form>
+    </div>
+</div>
+
+<div id="bookNotification" class="container-fluid mt-100 notificationBox">
+    <div class="card col d-flex justify-content-center">
+        <div class="card-body">
+            <!--TODO Insert correct date the user has selected to the notification message-->
+            <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+            <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> has been booked</h5>
+            <a href="/user/mybookings">
+                <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+            </a>
+        </div>
     </div>
 </div>
 
@@ -37,7 +50,7 @@
                     <form class="booking-button-form" action ="/user/bookDesk" method="POST">
                         <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
                         <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
-                        <button onclick="displayDeskBooked()" class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
+                        <button onclick="showBookNotification()" class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
                     </form>
 
                     <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->
