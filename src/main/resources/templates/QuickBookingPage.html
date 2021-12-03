@@ -7,8 +7,10 @@
 <!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/QuickBookingPageScript.js" charset="utf-8"></script>
+    <script src="BookingScript.js" charset="utf-8"></script>
+    <script src="/js/showLogout.js"></script>
 </head>
-<body class="quickBookingBody">
+<body class="quickBookingBody" onload="showLogoutButton()">
 <header th:replace="fragments/header :: header"></header>
 
 <div class="container-fluid mt-100" id="dateBox">
@@ -22,7 +24,6 @@
         </div>
     </div>
 </div>
-
 
 <div th:if="${fulldesk != null}" class="container-fluid mt-100 notificationBox">
     <div class="card col d-flex justify-content-center">

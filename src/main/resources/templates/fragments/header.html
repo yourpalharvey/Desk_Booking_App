@@ -52,9 +52,11 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline" action="#" th:action="@{/logout}" method="post">
-                <input type="submit" class="btn btn-primary my-2 my-sm-0" value="Logout" />
-            </form>
+            <div id="logoutButton" style="display: none">
+                <form class="form-inline" action="#" th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn-primary my-2 my-sm-0" value="Logout" />
+                </form>
+            </div>
         </div>
     </nav>
 </header>

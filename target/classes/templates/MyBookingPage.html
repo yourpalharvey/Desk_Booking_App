@@ -12,10 +12,11 @@
     });
 
   </script>
+  <script src="/js/BookingScript.js" charset="utf-8"></script>
+  <script src="/js/showLogout.js"></script>
 </head>
-<body class="myBookingPageBody">
+<body class="myBookingPageBody" onload="showLogoutButton()">
 <header th:replace="fragments/header :: header"></header>
-<!--******************      THE BELOW IS A TEMPLATE - DISPLAYING THE PAGE IS DONE WITH THE loadUserBookings() FUNCTION      ******************-->
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
   <div class="card-body">
