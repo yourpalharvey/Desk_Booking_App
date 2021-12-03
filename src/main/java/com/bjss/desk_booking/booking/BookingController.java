@@ -83,7 +83,16 @@ public class BookingController {
 
 
         // Create new booking, and add to database
-        bookingService.save(new Booking(date, currentUser, randomDesk));
+        Booking booking=new Booking(date,currentUser,randomDesk);
+        bookingService.save(booking);
+        try
+        {
+            QuickemailSender(booking);
+        }
+        catch (Exception e)
+        {
+
+        }
 
         return "MyBookingPage";
     }
@@ -92,9 +101,9 @@ public class BookingController {
 
 
 
-    public void emailSender(Booking booking) throws MessagingException
+    public void QuickemailSender(Booking booking) throws MessagingException
     {
-        if(booking.getUser().getUserEmail()==null) {
+        if(booking.getUser().getUserEmail()!=null) {
 
             String from = "deskbookingt05@gmail.com";
             String to = booking.getUser().getUserEmail();
@@ -104,7 +113,7 @@ public class BookingController {
             message.setFrom(from);
             message.setTo(to);
             message.setSubject("Desk Booking information");
-            message.setText("Thank you for you booking.Your booking ID is"+booking.getBookingId());
+            message.setText("Thank you for you booking.Your booking ID is"+booking.getBookingId()+"\nBooking Date is "+booking.getDate());
             mailSender.send(message);
 
 
@@ -119,4 +128,33 @@ public class BookingController {
         }
 
     }
+
+    public void emailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()==null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking information");
+            message.setText("Thank you for you booking.Your booking ID is"+booking.getBookingId()+"\nBooking Date is "+booking.getDate());
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
 }
