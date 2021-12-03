@@ -7,11 +7,12 @@ const displayDeskCancelled = () => {
     alert("Desk has been cancelled");
 }
 
-
+// Todo - div defaults to not display and displays on button click, however as page is currently refreshing on click therefore div goes back to default
 function showBookNotification() {
     document.getElementById("bookNotification").style.display = "block";
 }
 
+// Adding inner html to div
 // function showBookNotification() {
 //     document.getElementById("bookNotification").innerHTML = "<div class=\"container-fluid mt-100 notificationBox\">\n" +
 //         "        <div class=\"card col d-flex justify-content-center\">\n" +
