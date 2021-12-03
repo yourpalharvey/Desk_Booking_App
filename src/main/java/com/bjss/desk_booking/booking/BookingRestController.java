@@ -1,12 +1,18 @@
 package com.bjss.desk_booking.booking;
 
+
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import net.minidev.json.JSONArray;
+import com.fasterxml.jackson.databind.util.JSONWrappedObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BookingRestController {
@@ -30,5 +36,15 @@ public class BookingRestController {
         return jsonString;
     }
 
+    @DeleteMapping(value = "/user/cancelMyBooking")
+    public void cancelABooking(@RequestBody Map<?, ?> bookingId){
+
+
+
+        System.out.println(bookingId);
+
+//        bookingService.deleteById(bookingId);
+//        myBookingStatus();
+    }
 
 }

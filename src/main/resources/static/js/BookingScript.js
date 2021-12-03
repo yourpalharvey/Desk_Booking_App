@@ -34,7 +34,9 @@ const displayUserBookings = (jsonResponse) => {
     for(let i = 0; i < jsonResponse.length; i++) {
 
 
-        console.log(jsonResponse[i].deskId);
+        // console.log(jsonResponse[i].deskId);
+        // console.log(jsonResponse[i].date);
+        // console.log(jsonResponse[i].bookingId);
 
         const div4 = document.createElement("div");
         div4.setAttribute('class', "col");
@@ -56,7 +58,9 @@ const displayUserBookings = (jsonResponse) => {
 
         const cancelButton = document.createElement("button");
         cancelButton.setAttribute("class", "bookDeskButton btn btn-warning my-2 my-sm-0");
+        cancelButton.setAttribute("id", "cancelBookingId-" + jsonResponse[i].bookingId);
         cancelButton.type = "submit";
+        cancelButton.setAttribute("onclick", "cancelBooking(" + jsonResponse[i].bookingId +")");
         const cancelButtonText = document.createTextNode("Cancel");
         cancelButton.append(cancelButtonText);
 
@@ -117,10 +121,7 @@ const displayUserBookings = (jsonResponse) => {
 
     document.body.append(div1);
 
-
-}
-
-//                  template below
+    //                  template below
 
 // <div className="card col d-flex justify-content-center container-fluid mt-100 deskListBox">
 //     <div className="card-body">
@@ -151,3 +152,28 @@ const displayUserBookings = (jsonResponse) => {
 //         </div>
 //     </div>
 // </div>
+
+
+}
+
+const cancelBooking = async (bookingId) => {
+
+
+    console.log(bookingId);
+    // Call user/cancelMyBooking to cancel a booking,
+    // and return JSON from /user/getMyBookings
+    let response = await fetch('/user/cancelMyBooking', {
+        method: "DELETE",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({bookingId: bookingId.toString()})
+    });
+    response = await response.json();
+
+    displayUserBookings(response);
+    console.log(bookingId);
+
+
+}
