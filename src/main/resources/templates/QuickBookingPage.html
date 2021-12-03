@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="BookingScript.js" charset="utf-8"></script>
 </head>
-<body>
+<body class="quickBookingBody">
 <header th:replace="fragments/header :: header"></header>
 
 <div class="container-fluid mt-100" id="dateBox">
@@ -23,26 +23,28 @@
     </div>
 </div>
 
-<div th:if="${fulldesk != null}" class="container-fluid mt-100" id="dateBox">
+<div th:if="${fulldesk != null}" class="container-fluid mt-100 notificationBox">
     <div class="card col d-flex justify-content-center">
         <div class="card-body">
-            <h5 class="card-title">All desks full sir</h5>
+            <!--TODO Insert correct date the user has selected to the notification message-->
+            <!--Sorry, all desks for (Insert date selected) (this is wrong<span th:text="${startDate}"></span>) are booked-->
+            <h5 class="card-title">Sorry, all desks for the day selected are booked</h5>
         </div>
     </div>
 </div>
 
-<div th:if="${deskBooked != null}" class="container-fluid mt-100" id="dateBox">
+<div th:if="${deskBooked != null}" class="container-fluid mt-100 notificationBox">
     <div class="card col d-flex justify-content-center">
         <div class="card-body">
-            <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> booked :)</h5>
+            <!--TODO Insert correct date the user has selected to the notification message-->
+            <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+            <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> has been booked</h5>
+            <a href="/user/mybookings">
+                <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+            </a>
         </div>
     </div>
 </div>
-
-
-<script>
-    //alert("ALL DESKS BOOKED");
-</script>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
