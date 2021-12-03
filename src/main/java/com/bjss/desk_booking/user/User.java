@@ -16,6 +16,25 @@ public class User {
     private String username;
     private String password;
     private boolean isAdmin;
+    int rating;
+    String userEmail;
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     @OneToMany(mappedBy = "user")  //Creating one to many relation with booking class and Using user object from Booking class
     List<Booking> bookingList=new ArrayList<>();
 
