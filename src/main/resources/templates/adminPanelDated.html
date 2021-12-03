@@ -31,6 +31,16 @@
     </div>
 </div>
 
+<div id="cancelNotification" class="container-fluid mt-100 notificationBox">
+    <div class="card col d-flex justify-content-center">
+        <div class="card-body">
+            <!--TODO Insert correct date the user has selected to the notification message-->
+            <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+            <h5 class="card-title">Booking for desk <span th:text="${deskBooked}"></span> has been cancelled</h5>
+        </div>
+    </div>
+</div>
+
 <div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox"> <!-- removed 'col' as class -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
 
@@ -75,7 +85,7 @@
                     <form class="booking-button-form" action ="/admin/cancelDeskBooking" method="POST">
                         <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
                         <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
-                        <button onclick="displayDeskCancelled()" class="bookDeskButton btn btn-warning my-2 my-sm-0" th:id="'cacnel-button'+${status.index+1}" type="submit">Cancel</button>
+                        <button onclick="showCancelNotification()" class="bookDeskButton btn btn-warning my-2 my-sm-0" th:id="'cacnel-button'+${status.index+1}" type="submit">Cancel</button>
                     </form>
 
                     <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->

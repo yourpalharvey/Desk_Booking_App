@@ -78,7 +78,7 @@ body {
 }
 
 /* Body of quickbooking page. Fix for mybookings re-route button on notification*/
-.quickBookingBody {
+.quickBookingBody, .bookingPageDatedBody, .myBookingPageBody {
     background-color: #2f3e46;
     z-index: -2;
     position: relative;
@@ -121,6 +121,11 @@ body {
         transform: translateY(0);
     }
 
+}
+
+#bookNotification, #cancelNotification {
+    z-index: -3;
+    position: relative;
 }
 
 /* Disabling Bootstrap default cards */
