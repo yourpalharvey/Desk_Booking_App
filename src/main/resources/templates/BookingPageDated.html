@@ -7,8 +7,9 @@
     <!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/BookingScript.js" charset="utf-8"></script>
+    <script src="/js/showLogout.js"></script>
 </head>
-<body class="bookingPageDatedBody">
+<body class="bookingPageDatedBody" onload="showLogoutButton()" >
 <header th:replace="fragments/header :: header"></header>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">

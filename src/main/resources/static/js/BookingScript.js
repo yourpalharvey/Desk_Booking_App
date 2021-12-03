@@ -31,3 +31,4 @@ function showBookNotification() {
 function showCancelNotification() {
     document.getElementById("cancelNotification").style.display = "block";
 }
+
