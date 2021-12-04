@@ -49,15 +49,12 @@ public class Desk {
     }
 
         /*save image method*/
-    @Transient
-    public String getImageName()
-    {
-        System.out.println("here");
-        if (deskImageName== null) return null;
+        @Transient
+        public String getPhotosImagePath() {
+            if (deskName == null || deskId == -1) return null;
 
-
-        return "/desk/" + deskId + "/" + deskImageName;
-    }
+            return "desk/" + deskId + "/" + deskImageName;
+        }
 
 
     //important method to create

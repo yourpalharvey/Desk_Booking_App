@@ -43,6 +43,7 @@ public class DeskController {
         if (desk.getDeskName() != null) {
 
             deskService.save(desk);
+            System.out.println("done");
 
 
 
@@ -59,17 +60,7 @@ public class DeskController {
 
 
     /*Show Desk*/
-    @GetMapping(value = "/admin/deskstatus")
-    public String deskstatus(Model model)
 
-    {
-        List <Desk> deskList=deskService.findAll();
-        model.addAttribute("deskList", deskList);
-        return "deskStatus";
-
-
-
-    }
 
 
 

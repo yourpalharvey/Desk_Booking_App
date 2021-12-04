@@ -113,7 +113,8 @@ public class BookingController {
             message.setFrom(from);
             message.setTo(to);
             message.setSubject("Desk Booking information");
-            message.setText("Thank you for you booking.Your booking ID is"+booking.getBookingId()+"\nBooking Date is "+booking.getDate());
+            message.setText("Thank you for you booking.Your booking ID: "+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
+                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
 
 
@@ -131,7 +132,7 @@ public class BookingController {
 
     public void emailSender(Booking booking) throws MessagingException
     {
-        if(booking.getUser().getUserEmail()==null) {
+        if(booking.getUser().getUserEmail()!=null) {
 
             String from = "deskbookingt05@gmail.com";
             String to = booking.getUser().getUserEmail();
@@ -141,7 +142,8 @@ public class BookingController {
             message.setFrom(from);
             message.setTo(to);
             message.setSubject("Desk Booking information");
-            message.setText("Thank you for you booking.Your booking ID is"+booking.getBookingId()+"\nBooking Date is "+booking.getDate());
+            message.setText("Thank you for you booking.Your booking ID: "+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
+            +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
 
 
