@@ -19,6 +19,7 @@ public class BookingDTO {
 
     private boolean booked;
 
+    //this is for returning desk bookings to the myBookings page
     public BookingDTO(int bookingId, String date, int deskId){
         this.bookingId = bookingId;
         this.date = date;

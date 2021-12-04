@@ -1,8 +1,5 @@
 const loadDailyBookings = async () => {
-    console.log("load daily bookings");
-    console.log(document.getElementById('date').value);
-    console.log(document.getElementById('date').value.toString());
-    //load the daily bookings as JSON from /user/loadDailyBookings
+    //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
     const params = {
         date : document.getElementById('date').value
     }
@@ -21,7 +18,28 @@ const loadDailyBookings = async () => {
     displayDailyBookings(response);
 }
 
+//if no desks in database, display the below
+const displayEmpty = () => {
+    const div3 = document.createElement("div");
+    div3.setAttribute('class', "col desk-container");
+
+    const div4 = document.createElement("div");
+    div4.setAttribute('class', "card deskCard");
+
+    document.getElementById("bookings-container").append(div3);
+    div3.append(div4)
+
+    const p = document.createElement("p");
+    const noBookings = document.createTextNode("NO Desks!!");
+    div4.append(p);
+    p.append(noBookings);
+}
+
 const displayDailyBookings = (jsonResponse) => {
+
+    if(document.body.contains(document.getElementById("mainDiv"))){
+        document.getElementById("mainDiv").remove();
+    }
 
     const div1 = document.createElement("div");
     div1.setAttribute('class', "card col d-flex justify-content-center container-fluid mt-100 deskListBox");
@@ -37,10 +55,10 @@ const displayDailyBookings = (jsonResponse) => {
     div1.append(div2);
     document.body.append(div1);
 
-    // if(jsonResponse.length === 0){
-    //     displayEmpty();
-    //     return;
-    // }
+    if(jsonResponse.length === 0){
+        displayEmpty();
+        return;
+    }
 
     //json response needs to contain: date, desk id, booked = true/false
     for(let i = 0; i < jsonResponse.length; i++) {
@@ -49,6 +67,7 @@ const displayDailyBookings = (jsonResponse) => {
         div3.setAttribute('class', "col desk-container");
 
         const div4 = document.createElement("div");
+        div4.setAttribute("id", "display-booked-or-unbooked-"+jsonResponse[i].deskId);
 
         if(!jsonResponse[i].booked){
             div4.setAttribute('class', "card deskCard");
@@ -67,10 +86,11 @@ const displayDailyBookings = (jsonResponse) => {
         heading.append(deskTextNode);
 
         const bookButton = document.createElement("button");
+        bookButton.setAttribute("id", "book-button-" + jsonResponse[i].deskId);
         //create book button
         if(!jsonResponse[i].booked) {
             bookButton.setAttribute("class", "bookDeskButton btn btn-success my-2 my-sm-0");
-            bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ", " + jsonResponse[i].date + ")");
+            bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ")");
             const bookButtonText = document.createTextNode("Book");
             bookButton.append(bookButtonText);
         }
@@ -205,5 +225,44 @@ const displayDailyBookings = (jsonResponse) => {
     //     </div>
     // </div>
 
+}
+
+//when a 'Book' button is clicked - create POST request to BookingRestController to book a desk
+const bookDesk = async (deskId) => {
+
+    console.log("THE DESK ID IS: " + deskId);   //make new booking
+    const params = {
+        date : document.getElementById('date').value,
+        deskId : deskId.toString()
+    }
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    }
+
+    await fetch('/user/makeBooking', options);
+
+    //Disable the booking button once a booking has been made
+    disableDesk(deskId);
 
 }
+
+//disable the booking of a desk once booking is made
+const disableDesk = (deskId) => {
+    document.getElementById("display-booked-or-unbooked-"+deskId)
+        .setAttribute('class', "card deskCardBooked");
+
+    //remove onclick handler from button
+    const bookButton = document.getElementById("book-button-"+deskId);
+    bookButton.removeAttribute("onclick");
+
+    //set button style to disabled
+    bookButton.innerHTML = "Booked";
+    bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled");
+}
+
+
