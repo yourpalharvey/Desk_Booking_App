@@ -1,5 +1,7 @@
 package com.bjss.desk_booking.admin;
 
+import com.bjss.desk_booking.booking.Booking;
+import com.bjss.desk_booking.booking.BookingService;
 import com.bjss.desk_booking.desk.Desk;
 import com.bjss.desk_booking.desk.DeskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class AdminController {
     @Autowired
     DeskService deskService;
 
+    @Autowired
+    BookingService bookingService;
+
 
     @RequestMapping(path = "/admin/dashboard")
     public String adminDashboard(String name) {
@@ -27,15 +32,27 @@ public class AdminController {
 
 
 
-    @RequestMapping(path = "/admin/previousbooking")
-    public String previousBooking(String name) {
-        return "deskStatus";
+    @RequestMapping(path = "/previousbooking")
+    public String previousBooking(Model model) {
+        List<Booking> bookingList=bookingService.findAll();
+        model.addAttribute("bookingList",bookingList);
+
+        return "previousbooking";
 
     }
 
+    @GetMapping("/previousbooking/{id}")
+    public String deleteBooking(@PathVariable("id") int id, Model model) {
+        bookingService.deleteById(id);
+
+
+        return "redirect:/previousbooking";
+    }
+
+
 
     @GetMapping("/admindeskstatus/{id}")
-    public String deleteUser(@PathVariable("id") int id, Model model) {
+    public String deleteDesk(@PathVariable("id") int id, Model model) {
        deskService.deleteById(id);
 
 
