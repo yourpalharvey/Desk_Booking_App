@@ -18,7 +18,7 @@
 
 /* Ensure that in small screen the dropdown is only displayed when clicked
 bigger screens will allow hover */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767.98px) {
     #mainNavbar .dropdown:hover .dropdown-menu {
         display: block;
     }
@@ -52,7 +52,7 @@ bigger screens will allow hover */
     height: 100vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     #imageText {
         background-color: rgba(248,249,251,0);
         box-shadow: none;
@@ -139,6 +139,7 @@ body {
 .deskCard, .deskCardBooked, .deskCardCancel {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
+    margin: 10px;
 }
 
 .deskCard {
@@ -162,12 +163,11 @@ body {
     margin: 0.25rem
 }
 
-.col {
-    padding: 15px 15px;
-}
 
 .desk-container{
     min-width: 25%;
+    padding: 0;
+    margin: 0;
 }
 
 .booking-button-form, .bookDeskButton ,.myBookingButton{
@@ -175,5 +175,48 @@ body {
     float: right;
 }
 
+/*#bookNotification .card-body {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
+/*#bookNotification .card-title {*/
+/*    margin: 5px;*/
+/*}*/
 
+/*#bookNotification .myBookingButton {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    margin: 5px;*/
+/*}*/
+
+.notificationCol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deskListBox .card-title {
+    margin: 12px 4px;
+}
+
+.deskListBox .card-body {
+    margin: 0;
+    padding: 0;
+}
+
+.btn-link {
+    float: right;
+    padding: 0;
+}
+
+.card-img-top {
+    border: none;
+    border-radius: 0px 0px 10px 10px;
+}
+
+#deskOneImg {
+    border: none;
+    background-color: none;
+}
