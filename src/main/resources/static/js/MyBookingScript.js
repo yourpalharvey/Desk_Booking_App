@@ -14,43 +14,51 @@ const loadUserBookings = async () => {
     response = await response.json();
 
     displayUserBookings(response);
-
 }
 
 const displayUserBookings = (jsonResponse) => {
 
     const div1 = document.createElement("div");
     div1.setAttribute('class', "card col d-flex justify-content-center container-fluid mt-100 deskListBox");
+    div1.setAttribute("id", "mainDiv");
 
     const div2 = document.createElement("div");
     div2.setAttribute('class', "card-body");
 
     const div3 = document.createElement("div");
     div3.setAttribute('class', "row row-cols-1 row-cols-sm-2 row-cols-md-4");
+    div3.setAttribute("id", "bookings-container");
 
     //loop through all objects in the json response and create nodes for each
     //then append these nodes to the outer div
 
+    div2.append(div3);
+    div1.append(div2);
+
+    document.body.append(div1);
+
+    if(jsonResponse.length === 0){
+        displayEmpty();
+        return;
+    }
+
     for(let i = 0; i < jsonResponse.length; i++) {
-
-
-        // console.log(jsonResponse[i].deskId);
-        // console.log(jsonResponse[i].date);
-        // console.log(jsonResponse[i].bookingId);
 
         const div4 = document.createElement("div");
         div4.setAttribute('class', "col");
+        div4.setAttribute("id", "desk-card-"+jsonResponse[i].bookingId);
 
         const div5 = document.createElement("div");
         div5.setAttribute('class', "card deskCardCancel");
+        div5.setAttribute('id', "cancel-card-"+jsonResponse[i].bookingId);
 
         const div6 = document.createElement("div");
         div6.setAttribute('class', "card-header deskCardExpand");
 
         const heading = document.createElement("h5");
         heading.setAttribute('class', "card-text");
-        const deskTestNode = document.createTextNode("Desk " + jsonResponse[i].deskId);
-        heading.append(deskTestNode);
+        const deskTextNode = document.createTextNode("Desk " + jsonResponse[i].deskId);
+        heading.append(deskTextNode);
 
         const datePara = document.createElement("p");
         const dateTextNode = document.createTextNode(jsonResponse[i].date);
@@ -72,15 +80,14 @@ const displayUserBookings = (jsonResponse) => {
         displayPictureButton.setAttribute("aria-expanded", "true");
         displayPictureButton.setAttribute("aria-controls", "deskImg");
 
-        const svgDeskPic = document.createElement("svg");
-        svgDeskPic.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        const svgDeskPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgDeskPic.setAttribute("width", "16");
         svgDeskPic.setAttribute("height", "16");
         svgDeskPic.setAttribute("fill", "currentColor");
         svgDeskPic.setAttribute("class", "bi bi-caret-down-fill");
         svgDeskPic.setAttribute("viewBox", "0 0 16 16");
 
-        const svgPath = document.createElement("path");
+        const svgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         svgPath.setAttribute("d", "M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z");
 
 
@@ -94,7 +101,7 @@ const displayUserBookings = (jsonResponse) => {
         imgDiv2.setAttribute("class", "card-body");
 
         const img = document.createElement("img");
-        img.setAttribute("th:src", "@{/images/standing.jpg}");
+        img.setAttribute("src", "/images/standing.jpg");
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 
@@ -116,10 +123,7 @@ const displayUserBookings = (jsonResponse) => {
         div3.append(div4);
 
     }
-    div2.append(div3);
-    div1.append(div2);
 
-    document.body.append(div1);
 
     //                  template below
 
@@ -156,24 +160,38 @@ const displayUserBookings = (jsonResponse) => {
 
 }
 
-const cancelBooking = async (bookingId) => {
+const cancelBooking = async (bookingIdToCancel) => {
 
-
-    console.log(bookingId);
-    // Call user/cancelMyBooking to cancel a booking,
-    // and return JSON from /user/getMyBookings
+    console.log(bookingIdToCancel);
+    // Call /user/cancelMyBooking to cancel a booking,
+    // and delete the relevant div from the DOM
     let response = await fetch('/user/cancelMyBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({bookingId: bookingId.toString()})
+        body: JSON.stringify({bookingId: bookingIdToCancel})
     });
-    response = await response.json();
 
-    displayUserBookings(response);
-    console.log(bookingId);
+    document.getElementById("desk-card-"+bookingIdToCancel).remove();
+    if(!document.getElementById("bookings-container").hasChildNodes()){
+        displayEmpty();
+    }
+}
 
+const displayEmpty = () => {
+    const div4 = document.createElement("div");
+    div4.setAttribute('class', "col");
 
+    const div5 = document.createElement("div");
+    div5.setAttribute('class', "card deskCardCancel");
+
+    document.getElementById("bookings-container").append(div4);
+    div4.append(div5)
+
+    const p = document.createElement("p");
+    const noBookings = document.createTextNode("NO BOOKINGS!");
+    div5.append(p);
+    p.append(noBookings);
 }
