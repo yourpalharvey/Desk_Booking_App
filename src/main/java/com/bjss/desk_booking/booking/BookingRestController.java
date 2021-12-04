@@ -2,6 +2,8 @@ package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.desk.Desk;
 import com.bjss.desk_booking.desk.DeskService;
+import com.bjss.desk_booking.user.User;
+import com.bjss.desk_booking.user.UserService;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class BookingRestController {
     @Autowired
     DeskService deskService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {
         //currently hardcoded for userId = 1
@@ -30,7 +35,6 @@ public class BookingRestController {
             bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId()));
         }
 
-        System.out.println("HELLOOOOO");
         String jsonString = JSONArray.toJSONString(bookingDTOList);
 
         return jsonString;
@@ -42,13 +46,28 @@ public class BookingRestController {
         System.out.println(Integer.valueOf(bookingIdToCancel.get("bookingId")));
 
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
-        //return myBookingStatus();
+    }
+
+    @PostMapping(value = "/user/makeBooking")
+    public void makeABooking(@RequestBody Map<String, String> newBookingDetails){
+        Date date = Date.valueOf(newBookingDetails.get("date"));
+        int deskId = Integer.parseInt(newBookingDetails.get("deskId"));
+
+        //set Desk object for booking
+        Desk deskToBook = deskService.findById(deskId);
+
+        // Set current user for booking
+        // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
+        User currentUser = userService.findById(1);
+
+        // Create new booking, and add to database
+        bookingService.save(new Booking(date, currentUser, deskToBook));
+
+
     }
 
     @PostMapping(value = "/user/loadDailyBookings")
     public String getDailyBookings(@RequestBody Map<String, Date> date){
-        System.out.println("THIS IS THE POST MAPPING");
-        System.out.println(date.get("date"));
         List<Booking> bookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();
 
