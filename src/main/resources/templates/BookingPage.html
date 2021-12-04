@@ -6,20 +6,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
-    <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/BookingPageScript.js" charset="utf-8"></script>
+
   </head>
   <body>
     <header th:replace="fragments/header :: header"></header>
 
-      <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
-        <div class="card-body">
-          <h5 class="card-title">Select Date</h5>
-          <form action ="/user/getBookingsByDate" method="GET">
-            <label for="date"><input type="date" id="date" name="date"></label>
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
-          </form>
-        </div>
+    <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
+      <div class="card-body">
+        <h5 class="card-title">Select Date</h5>
+        <form onsubmit="preventDefault()">
+          <input type="date" id="date"></label>
+          <button type="button" onclick="loadDailyBookings()" class="btn btn-primary my-2 my-sm-0">Submit</button>
+        </form>
       </div>
+    </div>
 
 
     <footer th:replace="fragments/footer :: footer"></footer>

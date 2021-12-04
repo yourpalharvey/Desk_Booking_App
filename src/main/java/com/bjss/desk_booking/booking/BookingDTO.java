@@ -17,10 +17,27 @@ public class BookingDTO {
 
     private int deskId;
 
+    private boolean booked;
+
     public BookingDTO(int bookingId, String date, int deskId){
         this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
+    }
+
+    //this is for returning the individual desk bookings in BookingPage
+    public BookingDTO(String date, int deskId, boolean booked){
+        this.date = date;
+        this.deskId = deskId;
+        this.booked = booked;
+    }
+
+    public boolean getBooked(){
+        return booked;
+    }
+
+    public void setBooked(boolean booked){
+        this.booked = booked;
     }
 
     public int getBookingId() {
