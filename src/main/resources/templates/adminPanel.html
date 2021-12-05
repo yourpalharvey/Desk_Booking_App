@@ -17,18 +17,30 @@
 
 <header th:replace="fragments/header :: header"></header>
 
-<!-- Banner added to communicate that this is an admin page-->
-<div class="adminBanner">
-  <h5 class="card-title adminBannerText"> Admin view</h5>
-</div>
-
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
-  <div class="card-body">
-    <h5 class="card-title">Select Date</h5>
-    <form action ="/admin/getBookingsByDate" method="GET">
-      <label for="date"><input type="date" id="date" name="date"></label>
-      <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
-    </form>
+  <div class="card-body row">
+    <div class="col-12 col-md-6">
+      <h5 class="card-title">Select Date</h5>
+      <form class="row g-2 align-items-center" action="/admin/getBookingsByDate" method="GET">
+        <div class="col-auto">
+          <label for="date"><input type="date" id="date" name="date"></label>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div id="searchUser" class="col-12 col-md-6">
+      <h5 class="card-title">Search User</h5>
+      <form class="row g-2 align-items-center" action ="/admin/getBookingsByDate" method="GET">
+        <div class="col-auto" style="padding-right: 0">
+          <label for="search user"><input type="text" placeholder="Search User" aria-label="Search User" id="search user" name="search user"></label>
+        </div>
+        <div class="col-auto" style="padding: 0 13px">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 

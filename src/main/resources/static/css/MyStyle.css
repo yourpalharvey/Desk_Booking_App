@@ -175,6 +175,7 @@ body {
     float: right;
 }
 
+
 /*#bookNotification .card-body {*/
 /*    display: flex;*/
 /*    justify-content: center;*/
@@ -206,6 +207,11 @@ body {
     padding: 0;
 }
 
+.bookingCardDate {
+    float: bottom;
+    padding: 0;
+}
+
 .btn-link {
     float: right;
     padding: 0;
@@ -219,4 +225,14 @@ body {
 #deskOneImg {
     border: none;
     background-color: none;
+}
+
+.deskCardCancelHeader {
+    position: relative;
+}
+
+.bookingCardDate, .bookingCardUser {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
 }

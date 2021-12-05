@@ -22,18 +22,21 @@
     </div>
 </div>
 
-
-<div id="bookNotification" class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
-    <div class="card-body row ">
-        <!--TODO Insert correct date the user has selected to the notification message-->
-        <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
-        <div class="notificationCol col-12 col-md-6">
-            <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> has been booked</h5>
-        </div>
-        <div class="notificationCol col-12 col-md-6">
-            <a href="/user/mybookings">
-            <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
-            </a>
+<!--todo Notification not displaying as booking currently refreshes the page-->
+<!--<div id="bookNotification" style="display: none"> -->
+<div id="bookNotification"> <!--show notification on refresh-->
+    <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+        <div class="card-body row ">
+            <!--TODO Insert correct date the user has selected to the notification message-->
+            <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+            <div class="notificationCol col-12 col-md-6">
+                <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> has been booked</h5>
+            </div>
+            <div class="notificationCol col-12 col-md-6">
+                <a href="/user/mybookings">
+                <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
