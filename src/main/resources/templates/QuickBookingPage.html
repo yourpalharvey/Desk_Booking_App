@@ -25,22 +25,22 @@
     </div>
 </div>
 
-<div th:if="${fulldesk != null}" class="container-fluid mt-100 notificationBox">
-    <div class="card col d-flex justify-content-center">
-        <div class="card-body">
-            <!--TODO Insert correct date the user has selected to the notification message-->
-            <!--Sorry, all desks for (Insert date selected) (this is wrong<span th:text="${startDate}"></span>) are booked-->
-            <h5 class="card-title">Sorry, all desks for the day selected are booked</h5>
-        </div>
+<div th:if="${fulldesk != null}" class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+    <div class="card-body row">
+        <!--TODO Insert correct date the user has selected to the notification message-->
+        <!--Sorry, all desks for (Insert date selected) (this is wrong<span th:text="${startDate}"></span>) are booked-->
+        <h5 class="card-title col-12">Sorry, all desks for the day selected are booked</h5>
     </div>
 </div>
 
-<div th:if="${deskBooked != null}" class="container-fluid mt-100 notificationBox">
-    <div class="card col d-flex justify-content-center">
-        <div class="card-body">
-            <!--TODO Insert correct date the user has selected to the notification message-->
-            <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+<div th:if="${deskBooked != null}" class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+    <div class="card-body row">
+        <!--TODO Insert correct date the user has selected to the notification message-->
+        <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+        <div class="notificationCol col-12 col-md-6">
             <h5 class="card-title">Desk <span th:text="${deskBooked}"></span> has been booked</h5>
+        </div>
+        <div class="notificationCol col-12 col-md-6">
             <a href="/user/mybookings">
                 <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
             </a>
