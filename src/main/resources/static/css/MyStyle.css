@@ -233,6 +233,6 @@ body {
 
 .bookingCardDate, .bookingCardUser {
     position: absolute;
-    bottom: 8px;
+    top: 48px;
     left: 8px;
 }

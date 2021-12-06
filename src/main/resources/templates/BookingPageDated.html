@@ -84,6 +84,12 @@
                     <div class="card-header">
                         <h5 class="card-text">Desk <span th:text="${status.index + 1}"></span></h5>
                         <button class="bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled" type="submit">Booked</button>
+
+                        <!--todo Add user name of booking here-->
+                        <div class="card-text bookingCardUser">
+                            Username
+                        </div>
+
                         <div class="card-title deskCardExpand">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#deskFourImg" aria-expanded="true" aria-controls="deskImg">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
