@@ -322,9 +322,6 @@ function showBookNotification(deskId) {
 }
 
 
-function showCancelNotification() {
-    const cancelNot = document.getElementById("cancelNotification");
-    cancelNot.style.display = "block";
-}
+
 
 

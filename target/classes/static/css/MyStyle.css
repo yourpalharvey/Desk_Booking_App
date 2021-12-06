@@ -68,6 +68,11 @@ body {
     background-color: #2f3e46;
 }
 
+.card-header {
+    border-bottom: 0;
+    background-color: rgba(0,0,0,0);
+}
+
 .adminBanner {
     background-color: #f0ad4e;
     padding: 2px;

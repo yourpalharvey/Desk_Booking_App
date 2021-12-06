@@ -1,12 +1,3 @@
-const displayDeskBooked = () => {
-    console.log("hello");
-    alert("Desk booked")
-}
-
-const displayDeskCancelled = () => {
-    alert("Desk has been cancelled");
-}
-
 const loadUserBookings = async () => {
 
     //load the user bookings as JSON from /user/getMyBookings
@@ -18,65 +9,77 @@ const loadUserBookings = async () => {
 
 const displayUserBookings = (jsonResponse) => {
 
+    if(document.body.contains(document.getElementById("mainDiv"))){
+        document.getElementById("mainDiv").remove();
+    }
+
     const div1 = document.createElement("div");
     div1.setAttribute('class', "card col d-flex justify-content-center container-fluid mt-100 deskListBox");
     div1.setAttribute("id", "mainDiv");
 
     const div2 = document.createElement("div");
-    div2.setAttribute('class', "card-body");
+    div2.setAttribute('class', "card-body row");
 
-    const div3 = document.createElement("div");
-    div3.setAttribute('class', "row row-cols-1 row-cols-sm-2 row-cols-md-4");
-    div3.setAttribute("id", "bookings-container");
+
 
     //loop through all objects in the json response and create nodes for each
     //then append these nodes to the outer div
 
-    div2.append(div3);
     div1.append(div2);
 
     document.body.append(div1);
 
-    if(jsonResponse.length === 0){
-        displayEmpty();
-        return;
-    }
+    // if(jsonResponse.length === 0){
+    //     displayEmpty();
+    //     return;
+    // }
 
     for(let i = 0; i < jsonResponse.length; i++) {
 
+        const div3 = document.createElement("div");
+        div3.setAttribute('class', "desk-container col-12 col-md-6 col-lg-4 col-xl-2");
+        div3.setAttribute("id", "bookings-container");
+
         const div4 = document.createElement("div");
-        div4.setAttribute('class', "col");
+        div4.setAttribute('class', "card deskCardCancel");
         div4.setAttribute("id", "desk-card-"+jsonResponse[i].bookingId);
 
         const div5 = document.createElement("div");
-        div5.setAttribute('class', "card deskCardCancel");
+        div5.setAttribute('class', "card-header deskCardCancelHeader");
         div5.setAttribute('id', "cancel-card-"+jsonResponse[i].bookingId);
-
-        const div6 = document.createElement("div");
-        div6.setAttribute('class', "card-header deskCardExpand");
 
         const heading = document.createElement("h5");
         heading.setAttribute('class', "card-text");
         const deskTextNode = document.createTextNode("Desk " + jsonResponse[i].deskId);
         heading.append(deskTextNode);
 
-        const datePara = document.createElement("p");
-        const dateTextNode = document.createTextNode(jsonResponse[i].date);
-        datePara.append(dateTextNode);
-
         const cancelButton = document.createElement("button");
         cancelButton.setAttribute("class", "bookDeskButton btn btn-warning my-2 my-sm-0");
         cancelButton.setAttribute("id", "cancelBookingId-" + jsonResponse[i].bookingId);
         cancelButton.type = "submit";
-        cancelButton.setAttribute("onclick", "cancelBooking(" + jsonResponse[i].bookingId +")");
+
+        let bookingDate = "\"" + jsonResponse[i].date + "\"";
+        let bookingId = jsonResponse[i].bookingId;
+        let deskId = jsonResponse[i].deskId;
+
+        cancelButton.setAttribute("onclick", "cancelBooking(" + bookingId + ", " + deskId + ", " + bookingDate + ")");
+        console.log(jsonResponse[i].date);
         const cancelButtonText = document.createTextNode("Cancel");
         cancelButton.append(cancelButtonText);
+
+        const datePara = document.createElement("div");
+        datePara.className = "card-text bookingCardDate";
+        const dateTextNode = document.createTextNode(jsonResponse[i].date);
+        datePara.append(dateTextNode);
+
+        const deskCardExpand = document.createElement("div");
+        deskCardExpand.className = "card-title deskCardExpand";
 
         //create picture dropdown
         const displayPictureButton = document.createElement("button");
         displayPictureButton.setAttribute("class", "btn btn-link");
         displayPictureButton.setAttribute("data-toggle", "collapse");
-        displayPictureButton.setAttribute("data-target", "#deskFourImg");
+        displayPictureButton.setAttribute("data-target", "#deskImg" + jsonResponse[i].deskId);
         displayPictureButton.setAttribute("aria-expanded", "true");
         displayPictureButton.setAttribute("aria-controls", "deskImg");
 
@@ -92,16 +95,16 @@ const displayUserBookings = (jsonResponse) => {
 
 
         const imgDiv = document.createElement("div");
-        imgDiv.setAttribute("id", "deskFourImg");
+        imgDiv.setAttribute("id", "deskImg"+ jsonResponse[i].deskId);
         imgDiv.setAttribute("class", "collapse");
         imgDiv.setAttribute("aria-labelledby", "deskCardExpand");
         imgDiv.setAttribute("data-parent", ".deskListBox");
 
         const imgDiv2 = document.createElement("div");
-        imgDiv2.setAttribute("class", "card-body");
+        imgDiv2.setAttribute("class", "card-body deskImg");
 
         const img = document.createElement("img");
-        img.setAttribute("src", "/images/standing.jpg");
+        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 
@@ -110,17 +113,19 @@ const displayUserBookings = (jsonResponse) => {
 
         svgDeskPic.append(svgPath);
         displayPictureButton.append(svgDeskPic);
+        deskCardExpand.append(displayPictureButton);
 
-        div6.append(heading);
-        div6.append(datePara);
-        div6.append(cancelButton)
-        div6.append(displayPictureButton);
+        div5.append(heading);
+        div5.append(datePara);
+        div5.append(cancelButton)
+        div5.append(deskCardExpand);
 
-        div5.append(div6);
-        div5.append(imgDiv);
 
         div4.append(div5);
+        div4.append(imgDiv);
+
         div3.append(div4);
+        div2.append(div3);
 
     }
 
@@ -160,38 +165,34 @@ const displayUserBookings = (jsonResponse) => {
 
 }
 
-const cancelBooking = async (bookingIdToCancel) => {
+const cancelBooking = async (bookingId, deskId, dateString) => {
 
-    console.log(bookingIdToCancel);
     // Call /user/cancelMyBooking to cancel a booking,
     // and delete the relevant div from the DOM
-    let response = await fetch('/user/cancelMyBooking', {
+    await fetch('/user/cancelMyBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({bookingId: bookingIdToCancel})
+        body: JSON.stringify({bookingId: bookingId})
     });
 
-    document.getElementById("desk-card-"+bookingIdToCancel).remove();
-    if(!document.getElementById("bookings-container").hasChildNodes()){
-        displayEmpty();
-    }
+    document.getElementById("desk-card-" + bookingId).remove();
+    showCancelNotification(deskId, dateString);
+    await loadUserBookings();
 }
 
-const displayEmpty = () => {
-    const div4 = document.createElement("div");
-    div4.setAttribute('class', "col");
+function showCancelNotification(deskId, dateString) {
 
-    const div5 = document.createElement("div");
-    div5.setAttribute('class', "card deskCardCancel");
+    //replace div with clone of itself, to restart the css animation
+    const cancelNot = document.getElementById("cancelNotification");
+    const cancelNot2 = cancelNot.cloneNode(true);
 
-    document.getElementById("bookings-container").append(div4);
-    div4.append(div5)
+    cancelNot.parentNode.replaceChild(cancelNot2,cancelNot);
+    cancelNot2.style.display = "block";
 
-    const p = document.createElement("p");
-    const noBookings = document.createTextNode("NO BOOKINGS!");
-    div5.append(p);
-    p.append(noBookings);
+    //display booking details on notification
+    document.getElementById("deskIdCancelNot").innerText = deskId;
+    document.getElementById("dateCancelNot").innerText = dateString;
 }

@@ -34,7 +34,7 @@ public class BookingRestController {
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
         for(Booking b : userBookingList){
-            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId()));
+            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName()));
         }
 
         String jsonString = JSONArray.toJSONString(bookingDTOList);
@@ -44,9 +44,11 @@ public class BookingRestController {
 
     @DeleteMapping(value = "/user/cancelMyBooking")
     public void cancelABooking(@RequestBody Map<String, Integer> bookingIdToCancel){
-        System.out.println("INTEGER:");
-        System.out.println(Integer.valueOf(bookingIdToCancel.get("bookingId")));
 
+        //get the details of the booking about to be cancelled
+        Booking b = bookingService.findById(bookingIdToCancel.get("bookingId"));
+
+        //delete the booking
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
     }
 

@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/css/**").permitAll() // all files in the Css directory can be seen by all
-                .mvcMatchers("/js/BookingScript.js").permitAll()
+                .mvcMatchers("/js/MyBookingScript.js").permitAll()
                 .mvcMatchers("/js/BookingPageScript.js").permitAll()
                 .mvcMatchers("/js/QuickBookingPageScript.js").permitAll()
                 .mvcMatchers("/js/hideUserNavLinks.js").hasRole("ADMIN")

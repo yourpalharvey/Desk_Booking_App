@@ -36,6 +36,13 @@ public class BookingDTO {
         this.deskImageName = deskImageName;
     }
 
+    public BookingDTO(int bookingId, String date, int deskId, String deskImageName){
+        this.bookingId = bookingId;
+        this.date = date;
+        this.deskId = deskId;
+        this.deskImageName = deskImageName;
+    }
+
     public String getDeskImageName() {
         return deskImageName;
     }
