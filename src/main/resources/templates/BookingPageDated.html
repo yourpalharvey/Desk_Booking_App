@@ -15,7 +15,7 @@
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
     <div class="card-body">
-        <h5 class="card-title">Select Date</h5>
+        <h5 class="card-title siteTitle">Select Date</h5>
         <form action ="/user/getBookingsByDate" method="GET">
             <label for="date"><input type="date" id="date" name="date"></label>
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
@@ -35,7 +35,7 @@
             </div>
             <div class="notificationCol col-12 col-md-6">
                 <a href="/user/mybookings">
-                <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+                <button class="myBookingButton btn btn-warning" type="submit">My Bookings</button>
                 </a>
             </div>
         </div>
@@ -60,7 +60,7 @@
                     <form class="booking-button-form" action ="/user/bookDesk" method="POST">
                         <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
                         <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
-                        <button onclick="showBookNotification()" class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
+                        <button onclick="showBookNotification()" class="bookDeskButton btn btn-success" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
                     </form>
 
                     <div class="card-text bookingCardDate" style="font-size: 10px">
@@ -88,7 +88,7 @@
             <div th:if="${allDeskMap.get(key)}" class="card deskCardBooked">
                 <div class="card-header">
                     <h5 class="card-text">Desk <span th:text="${status.index + 1}"></span></h5>
-                    <button class="bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled" type="submit">Booked</button>
+                    <button class="bookDeskButton btn btn-outline-danger disabled" type="submit">Booked</button>
 
                     <!--todo Add user name of booking here-->
                     <div class="card-text bookingCardUser">

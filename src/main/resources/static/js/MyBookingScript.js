@@ -54,7 +54,7 @@ const displayUserBookings = (jsonResponse) => {
         heading.append(deskTextNode);
 
         const cancelButton = document.createElement("button");
-        cancelButton.setAttribute("class", "bookDeskButton btn btn-warning my-2 my-sm-0");
+        cancelButton.setAttribute("class", "bookDeskButton btn btn-warning");
         cancelButton.setAttribute("id", "cancelBookingId-" + jsonResponse[i].bookingId);
         cancelButton.type = "submit";
 

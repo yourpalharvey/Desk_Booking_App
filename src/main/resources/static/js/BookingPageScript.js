@@ -98,35 +98,36 @@ const displayDailyBookings = (jsonResponse) => {
         bookButton.setAttribute("id", "book-button-" + jsonResponse[i].deskId);
         //create book button
         if(!jsonResponse[i].booked) {
-            bookButton.setAttribute("class", "bookDeskButton btn btn-success my-2 my-sm-0");
+            bookButton.setAttribute("class", "bookDeskButton btn btn-success");
             bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ")");
             const bookButtonText = document.createTextNode("Book");
             bookButton.append(bookButtonText);
         } else {
-            bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled");
+            bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger disabled");
             const bookButtonText = document.createTextNode("Booked");
             bookButton.append(bookButtonText);
         }
 
         const cardText = document.createElement("div");
-        cardText.className = "card-text bookingCardDate";
+        cardText.className = "card-text row bookingCardDate";
 
         if(!jsonResponse[i].booked){
             const deskType = document.createElement("span");
             const deskPos = document.createElement("span");
             const monitors = document.createElement("span");
 
-            deskType.className = "deskTags";
-            deskPos.className = "deskTags";
-            monitors.className = "deskTags";
+            deskType.className = "deskTags col-4";
+            deskPos.className = "deskTags col-4";
+            monitors.className = "deskTags col-4";
 
             cardText.append(deskType);
             cardText.append(deskPos);
             cardText.append(monitors);
 
-            deskType.innerHTML = "deskType";
-            deskPos.innerHTML = "deskPos";
-            monitors.innerHTML = "monitors";
+            // Add values from desk table in DB
+            deskType.innerHTML = "Standing";
+            deskPos.innerHTML = "Window";
+            monitors.innerHTML = "2 Monitors";
 
 
         } else {
