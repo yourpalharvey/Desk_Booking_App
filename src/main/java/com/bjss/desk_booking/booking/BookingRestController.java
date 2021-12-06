@@ -91,7 +91,7 @@ public class BookingRestController {
                     break;
                 }
             }
-            datedBookingDTOList.add(new BookingDTO(date.toString(),d.getDeskID(),deskBooked));
+            datedBookingDTOList.add(new BookingDTO(date.toString(),d.getDeskID(),deskBooked,d.getDeskImageName()));
         }
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
         return jsonString;

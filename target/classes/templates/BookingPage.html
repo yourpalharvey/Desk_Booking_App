@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/showLogout.js"></script>
     <script src="/js/hideAdminNavLinks.js"></script>
-    <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
+    <script src="/js/BookingScript.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
@@ -23,6 +23,24 @@
           <input type="date" id="date"></label>
           <button type="button" onclick="loadDailyBookings()" class="btn btn-primary my-2 my-sm-0">Submit</button>
         </form>
+      </div>
+    </div>
+
+    <div id="bookNotification" style="display: none">
+      <!--<div id="bookNotification"> &lt;!&ndash;show notification on refresh&ndash;&gt;-->
+      <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+        <div class="card-body row ">
+          <!--TODO Insert correct date the user has selected to the notification message-->
+          <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+          <div class="notificationCol col-12 col-md-6">
+            <h5 class="card-title">Desk <span id="deskIdNot"></span> has been booked</h5>
+          </div>
+          <div class="notificationCol col-12 col-md-6">
+            <a href="/user/mybookings">
+              <button class="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 

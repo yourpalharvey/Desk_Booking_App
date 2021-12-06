@@ -39,6 +39,8 @@ const displayEmpty = () => {
 
 const displayDailyBookings = (jsonResponse) => {
 
+    console.log(jsonResponse);
+
     if(document.body.contains(document.getElementById("mainDiv"))){
         document.getElementById("mainDiv").remove();
     }
@@ -47,8 +49,13 @@ const displayDailyBookings = (jsonResponse) => {
     div1.setAttribute('class', "card col d-flex justify-content-center container-fluid mt-100 deskListBox");
     div1.setAttribute("id", "mainDiv");
 
+    const displayDate = document.createElement("h5");
+    displayDate.setAttribute("class", "card-title");
+    displayDate.innerText = "Showing all desks for " + document.getElementById("date").value;
+    div1.append(displayDate);
+
     const div2 = document.createElement("div");
-    div2.setAttribute('class', "row row-cols-1 row-cols-sm-2 row-cols-md-4");
+    div2.setAttribute('class', "card-body row");
     div2.setAttribute("id", "bookings-container");
 
     //loop through all objects in the json response and create nodes for each
@@ -66,7 +73,7 @@ const displayDailyBookings = (jsonResponse) => {
     for(let i = 0; i < jsonResponse.length; i++) {
 
         const div3 = document.createElement("div");
-        div3.setAttribute('class', "col desk-container");
+        div3.setAttribute('class', "desk-container col-12 col-md-6 col-lg-4 col-xl-2");
 
         const div4 = document.createElement("div");
         div4.setAttribute("id", "display-booked-or-unbooked-"+jsonResponse[i].deskId);
@@ -79,7 +86,7 @@ const displayDailyBookings = (jsonResponse) => {
         }
 
         const div5 = document.createElement("div");
-        div5.setAttribute('class', "card-header deskCardExpand");
+        div5.setAttribute('class', "card-header");
 
         //create heading
         const heading = document.createElement("h5");
@@ -95,19 +102,49 @@ const displayDailyBookings = (jsonResponse) => {
             bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ")");
             const bookButtonText = document.createTextNode("Book");
             bookButton.append(bookButtonText);
-        }
-
-        if(jsonResponse[i].booked) {
+        } else {
             bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled");
             const bookButtonText = document.createTextNode("Booked");
             bookButton.append(bookButtonText);
         }
 
+        const cardText = document.createElement("div");
+        cardText.className = "card-text bookingCardDate";
+
+        if(!jsonResponse[i].booked){
+            const deskType = document.createElement("span");
+            const deskPos = document.createElement("span");
+            const monitors = document.createElement("span");
+
+            deskType.className = "deskTags";
+            deskPos.className = "deskTags";
+            monitors.className = "deskTags";
+
+            cardText.append(deskType);
+            cardText.append(deskPos);
+            cardText.append(monitors);
+
+            deskType.innerHTML = "deskType";
+            deskPos.innerHTML = "deskPos";
+            monitors.innerHTML = "monitors";
+
+
+        } else {
+            const userName = document.createElement("div");
+            userName.innerText = "Username";
+            cardText.append(userName);
+        }
+
+
+        const deskCardExpand = document.createElement("div");
+        deskCardExpand.className = "card-title deskCardExpand";
+
+
         //create picture dropdown
         const displayPictureButton = document.createElement("button");
         displayPictureButton.setAttribute("class", "btn btn-link");
         displayPictureButton.setAttribute("data-toggle", "collapse");
-        displayPictureButton.setAttribute("data-target", "#deskFourImg");
+        displayPictureButton.setAttribute("data-target", "#deskImg" + jsonResponse[i].deskId);
         displayPictureButton.setAttribute("aria-expanded", "true");
         displayPictureButton.setAttribute("aria-controls", "deskImg");
 
@@ -123,16 +160,16 @@ const displayDailyBookings = (jsonResponse) => {
 
 
         const imgDiv = document.createElement("div");
-        imgDiv.setAttribute("id", "deskOneImg");
+        imgDiv.setAttribute("id", "deskImg"+ jsonResponse[i].deskId);
         imgDiv.setAttribute("class", "collapse");
         imgDiv.setAttribute("aria-labelledby", "deskCardExpand");
         imgDiv.setAttribute("data-parent", ".deskListBox");
 
         const imgDiv2 = document.createElement("div");
-        imgDiv2.setAttribute("class", "card-body");
+        imgDiv2.setAttribute("class", "card-body deskImg");
 
         const img = document.createElement("img");
-        img.setAttribute("src", "/images/standing.jpg");
+        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 
@@ -142,9 +179,13 @@ const displayDailyBookings = (jsonResponse) => {
         svgDeskPic.append(svgPath);
         displayPictureButton.append(svgDeskPic);
 
+        deskCardExpand.append(displayPictureButton);
+
+
         div5.append(heading);
-        div5.append(bookButton)
-        div5.append(displayPictureButton);
+        div5.append(bookButton);
+        div5.append(deskCardExpand);
+        div5.append(cardText);
 
         div4.append(div5);
         div4.append(imgDiv);
@@ -248,6 +289,7 @@ const bookDesk = async (deskId) => {
 
     await fetch('/user/makeBooking', options);
 
+    showBookNotification(deskId);
     //Disable the booking button once a booking has been made
     disableDesk(deskId);
 
