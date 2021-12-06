@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../css/login.css" th:href="@{/css/login.css}">
+</head>
+<body>
+<div id="login">
+    <h1>Login</h1>
+    <form action="loginServlet" method="post" th:action="@{/login}" th:method="post">
+        <div>
+        <input type="text" name="username" placeholder="Username" ></input>
+        </div>
+        <div>
+        <input type="password" name="password" placeholder="Password"></input>
+        </div>
+        <input type="submit"  value="Login"   style="color: #000505;width: 120px;height: 35px;border:2px ;background: #2ee6ea;margin-top: 50px;  font-weight: bolder;">
+        <a href="/">Return</a>
+    </form>
+</div>
+</body>
+</html>
