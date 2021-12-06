@@ -20,37 +20,89 @@ const makeQuickBooking = async () => {
 }
 
 const displayBookingDetails = (response) => {
-    console.log(response);
+    const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
+    quickBookingCompleteNotification.style.display = "none";
+    const deskFullNotification = document.getElementById("quickBookingFull");
+    deskFullNotification.style.display = "none";
 
-    if(document.body.contains(document.getElementById("dateBox-1"))){
-        document.getElementById("dateBox-1").remove();
-    }
-
-    const div1 = document.createElement("div");
-    div1.setAttribute("class", "container-fluid mt-100");
-    div1.setAttribute("id", "dateBox-1");
-
-    const div2 = document.createElement("div");
-    div2.setAttribute("class", "card col d-flex justify-content-center");
-
-
-    const div3 = document.createElement("div");
-    div3.setAttribute("class", "card-body");
-
-    const h5 = document.createElement("h5");
-    h5.setAttribute("class", "card-title");
 
     if(response.length === 0){
-        h5.innerHTML = "All desks full sir";
+        const deskFullNotification = document.getElementById("quickBookingFull");
+        deskFullNotification.style.display = "block"
     } else {
-        h5.innerHTML = "Desk " + response[0].deskId + " booked";
+        const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
+        const deskIdSpan = document.getElementById("idOfDeskBooked");
+        deskIdSpan.innerHTML = response[0].deskId;
 
+        quickBookingCompleteNotification.style.display = "block";
     }
 
-    div3.append(h5);
-    div2.append(div3);
-    div1.append(div2);
-    document.body.append(div1);
+
+
+
+    // <div id="quickBookingFull" className="card d-flex justify-content-center container-fluid mt-100 notificationBox"
+    //      style="display:none">
+    //     <div className="card-body row">
+    //         <!--TODO Insert correct date the user has selected to the notification message-->
+    //         <!--Sorry, all desks for (Insert date selected) (this is wrong<span th:text="${startDate}"></span>) are booked-->
+    //         <h5 className="card-title col-12">Sorry, all desks for the day selected are booked</h5>
+    //     </div>
+    // </div>
+    //
+    // <div id="quickBookingComplete" className="card d-flex justify-content-center container-fluid mt-100 notificationBox"
+    //      style="display:none">
+    //     <div className="card-body row">
+    //         <!--TODO Insert correct date the user has selected to the notification message-->
+    //         <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
+    //         <div className="notificationCol col-12 col-md-6">
+    //             <h5 className="card-title">Desk <span id="idOfDeskBooked"></span> has been booked</h5>
+    //         </div>
+    //         <div className="notificationCol col-12 col-md-6">
+    //             <a href="/user/mybookings">
+    //                 <button className="myBookingButton btn btn-warning my-2 my-sm-0" type="submit">My Bookings</button>
+    //             </a>
+    //         </div>
+    //     </div>
+    // </div>
+
+
+
+
+
+
+
+
+    // console.log(response);
+    //
+    // if(document.body.contains(document.getElementById("dateBox-1"))){
+    //     document.getElementById("dateBox-1").remove();
+    // }
+    //
+    // const div1 = document.createElement("div");
+    // div1.setAttribute("class", "container-fluid mt-100");
+    // div1.setAttribute("id", "dateBox-1");
+    //
+    // const div2 = document.createElement("div");
+    // div2.setAttribute("class", "card col d-flex justify-content-center");
+    //
+    //
+    // const div3 = document.createElement("div");
+    // div3.setAttribute("class", "card-body");
+    //
+    // const h5 = document.createElement("h5");
+    // h5.setAttribute("class", "card-title");
+    //
+    // if(response.length === 0){
+    //     h5.innerHTML = "All desks full sir";
+    // } else {
+    //     h5.innerHTML = "Desk " + response[0].deskId + " booked";
+    //
+    // }
+    //
+    // div3.append(h5);
+    // div2.append(div3);
+    // div1.append(div2);
+    // document.body.append(div1);
 
 
     // <div th:if="${fulldesk != null}" className="container-fluid mt-100" id="dateBox">

@@ -1,5 +1,7 @@
 const loadDailyBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
+
+    console.log("LOADDAILYBOOKINGS")
     const params = {
         date : document.getElementById('date').value
     }
