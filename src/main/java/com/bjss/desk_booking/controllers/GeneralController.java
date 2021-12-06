@@ -1,7 +1,6 @@
 package com.bjss.desk_booking.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -25,7 +24,7 @@ public class GeneralController {
     //Test site
     @RequestMapping(path = "/user/dashboardtwo")
     public String userDashboardTwo(String name) {
-        return "BookingPageTwo";
+        return "BookingPageDated";
     }
 
     @RequestMapping(path = "/user/quickbooking")

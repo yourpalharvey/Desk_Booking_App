@@ -19,6 +19,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/js/**").permitAll()
                 .mvcMatchers("/images/**").permitAll()
                 .mvcMatchers("/").permitAll()
+                .mvcMatchers("/admindeskstatus/**").hasRole("ADMIN")
+                .mvcMatchers("/previousbooking/**").hasRole("ADMIN")
+                .mvcMatchers("/admin/desk/**").hasRole("ADMIN")
+                .mvcMatchers("/desk/**").permitAll()
                 .mvcMatchers("/public/**").permitAll()
                 .mvcMatchers("/user/**").hasRole("USER") // Pages with /user need users to be signed in with the role USER
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // Pages with /admin need users to be signed in with the role of ADMIN

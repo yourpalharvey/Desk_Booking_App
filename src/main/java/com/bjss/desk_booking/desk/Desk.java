@@ -14,7 +14,7 @@ public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-     private int deskID;
+     private int deskId;
      String deskName;
      String desktype;
      String deskPosition;
@@ -39,7 +39,7 @@ public class Desk {
     }
 
     public Desk(int deskID, String name, boolean hasStanding, boolean hasWindow, boolean hasDualMonitor) {
-        this.deskID = deskID;
+        this.deskId = deskID;
         this.deskName = name;
 
     }
@@ -49,15 +49,12 @@ public class Desk {
     }
 
         /*save image method*/
-    @Transient
-    public String getImageName()
-    {
-        System.out.println("here");
-        if (deskImageName== null) return null;
+        @Transient
+        public String getPhotosImagePath() {
+            if (deskName == null || deskId == -1) return null;
 
-
-        return "/desk/" + deskID + "/" + deskImageName;
-    }
+            return "desk/" + deskId + "/" + deskImageName;
+        }
 
 
     //important method to create
@@ -73,11 +70,11 @@ public class Desk {
 
 
     public int getDeskID() {
-        return deskID;
+        return deskId;
     }
 
     public void setDeskID(int deskID) {
-        this.deskID = deskID;
+        this.deskId = deskID;
     }
 
     public void setName(String name) {
@@ -123,7 +120,7 @@ public class Desk {
 
     @Override
     public String toString(){
-        return "Desk deskID: " + deskID
+        return "Desk deskID: " + deskId
                 + "\nDesk name: " + deskName
                 /*+ "\nStanding: " + hasStanding
                 + "\nWindow: " + hasWindow

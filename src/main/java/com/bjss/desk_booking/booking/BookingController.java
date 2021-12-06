@@ -5,12 +5,15 @@ import com.bjss.desk_booking.desk.DeskService;
 import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -27,6 +30,8 @@ public class BookingController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     // display user bookings on the mybookings screen - currently hardcoded to display all bookings
@@ -42,8 +47,7 @@ public class BookingController {
     @GetMapping(value = "user/getBookingsByDate")
     public String bookingStatus(
             Model model,
-            @RequestParam Date date
-            ) {
+            @RequestParam Date date) {
         // get all bookings from database, and create a new list of all bookings with date given in parameter
         List<Booking> bookingListByDate = new ArrayList<>();
 
@@ -77,9 +81,82 @@ public class BookingController {
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
         User currentUser = userService.findById(1);
 
+
         // Create new booking, and add to database
-        bookingService.save(new Booking(date, currentUser, randomDesk));
+        Booking booking=new Booking(date,currentUser,randomDesk);
+        bookingService.save(booking);
+        try
+        {
+            QuickemailSender(booking);
+        }
+        catch (Exception e)
+        {
+
+        }
 
         return "MyBookingPage";
     }
+
+
+
+
+
+    public void QuickemailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking information");
+            message.setText("Thank you for you booking.Your booking ID: "+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
+                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
+    public void emailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking information");
+            message.setText("Thank you for you booking.Your booking ID: "+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
+            +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
 }
