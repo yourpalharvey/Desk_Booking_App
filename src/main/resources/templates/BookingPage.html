@@ -7,12 +7,13 @@
 <!--    <link rel="stylesheet" href="/css/BookingStyle.css">-->
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/showLogout.js"></script>
+    <script src="/js/hideAdminNavLinks.js"></script>
     <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
   </head>
-  <body onload="showLogoutButton()">
+  <body onload="showLogoutButton(); hideAdminNavLinks()">
     <header th:replace="fragments/header :: header"></header>
 
     <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">

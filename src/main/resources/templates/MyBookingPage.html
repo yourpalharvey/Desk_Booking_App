@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/MyStyle.css">
   <script src="/js/BookingScript.js" charset="utf-8"></script>
   <script src="/js/showLogout.js"></script>
+  <script src="/js/hideAdminNavLinks.js"></script>
   <script src="/js/MyBookingScript.js" charset="utf-8"></script>
   <script>
     $(document).ready(function () {
@@ -16,7 +17,7 @@
 
   </script>
 </head>
-<body class="myBookingPageBody" onload="showLogoutButton()">
+<body class="myBookingPageBody" onload="showLogoutButton(); hideAdminNavLinks()">
 <header th:replace="fragments/header :: header"></header>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">

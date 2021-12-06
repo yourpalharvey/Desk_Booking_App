@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/BookingScript.js" charset="utf-8"></script>
     <script src="/js/showLogout.js"></script>
+    <script src="/js/hideAdminNavLinks.js"></script>
 </head>
-<body class="bookingPageDatedBody" onload="showLogoutButton()" >
+<body class="bookingPageDatedBody" onload="showLogoutButton(); hideAdminNavLinks()" >
 <header th:replace="fragments/header :: header"></header>
 
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
@@ -23,8 +24,8 @@
 </div>
 
 <!--todo Notification not displaying as booking currently refreshes the page-->
-<!--<div id="bookNotification" style="display: none"> -->
-<div id="bookNotification"> <!--show notification on refresh-->
+<div id="bookNotification" style="display: none">
+<!--<div id="bookNotification"> &lt;!&ndash;show notification on refresh&ndash;&gt;-->
     <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
         <div class="card-body row ">
             <!--TODO Insert correct date the user has selected to the notification message-->
@@ -61,6 +62,10 @@
                             <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
                             <button onclick="showBookNotification()" class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>
                         </form>
+
+                        <div class="card-text bookingCardDate" style="font-size: 10px">
+                            Standing - Window - 2 monitors
+                        </div>
 
                         <div class="card-title deskCardExpand">
                             <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->

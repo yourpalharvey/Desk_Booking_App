@@ -10,9 +10,10 @@
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
     <script src="/js/showLogout.js"></script>
+    <script src="/js/hideAdminNavLinks.js"></script>
     <!--<script src="/js/BookingScript.js" charset="utf-8"></script>-->
   </head>
-  <body onload="showLogoutButton()">
+  <body onload="showLogoutButton(); hideAdminNavLinks()">
     <header th:replace="fragments/header :: header"></header>
 
     <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
