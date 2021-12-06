@@ -2,6 +2,7 @@ package com.bjss.desk_booking.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.standard.inline.StandardTextInliner;
 
 @Controller
 public class GeneralController {
@@ -37,5 +38,9 @@ public class GeneralController {
         return "MyBookingPage";
     }
 
+/*   @RequestMapping(path = "/login")
+    public String login(String name) {
+        return "login";
+    }*/
 }
 

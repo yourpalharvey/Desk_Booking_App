@@ -4,10 +4,13 @@ import java.util.List;
 
 public interface UserService {
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public User findById(int userId);
+    User findById(int userId);
 
-    public void save(User user);
+    void save(User user);
+//
+//    int isRight(String username, String password);
 
+    public User getUser(String username,String password);
 }
