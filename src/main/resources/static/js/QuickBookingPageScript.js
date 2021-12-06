@@ -21,20 +21,35 @@ const makeQuickBooking = async () => {
 
 const displayBookingDetails = (response) => {
     const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
-    quickBookingCompleteNotification.style.display = "none";
     const deskFullNotification = document.getElementById("quickBookingFull");
-    deskFullNotification.style.display = "none";
+
+    quickBookingCompleteNotification.style.display="none";
+    deskFullNotification.style.display="none";
+
+    const quickBookingCompleteNotificationClone = quickBookingCompleteNotification.cloneNode(true);
+    const deskFullNotificationClone = deskFullNotification.cloneNode(true);
+
+
+
+    quickBookingCompleteNotification.parentNode.replaceChild(quickBookingCompleteNotificationClone, quickBookingCompleteNotification);
+    deskFullNotification.parentNode.replaceChild(deskFullNotificationClone, deskFullNotification);
+
+    // const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
+    // quickBookingCompleteNotification.style.display = "none";
+    // const deskFullNotification = document.getElementById("quickBookingFull");
+    // deskFullNotification.style.display = "none";
 
 
     if(response.length === 0){
-        const deskFullNotification = document.getElementById("quickBookingFull");
-        deskFullNotification.style.display = "block"
+        deskFullNotificationClone.style.display = "block"
     } else {
-        const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
         const deskIdSpan = document.getElementById("idOfDeskBooked");
         deskIdSpan.innerHTML = response[0].deskId;
 
-        quickBookingCompleteNotification.style.display = "block";
+        const dateSpan = document.getElementById("dateOfDeskBooked");
+        dateSpan.innerHTML = response[0].date;
+
+        quickBookingCompleteNotificationClone.style.display = "block";
     }
 
 
