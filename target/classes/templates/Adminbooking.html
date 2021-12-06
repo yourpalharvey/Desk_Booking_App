@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <link rel="stylesheet" href="/css/BookingStyle.css">
     <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
 
 
 
@@ -72,7 +73,7 @@
 
 </head>
 
-<body onload="showLogoutButton()">
+<body onload="showLogoutButton(), hideUserNavLinks()">
 <header th:replace="fragments/header :: header"></header>
 
 <!-- ***** Header Area Start ***** -->
