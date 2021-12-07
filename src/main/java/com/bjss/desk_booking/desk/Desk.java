@@ -133,9 +133,10 @@ public class Desk {
     public String toString(){
         return "Desk deskID: " + deskId
                 + "\nDesk name: " + deskName
+                + "\nOffice: " + office.getOfficeName();
                 /*+ "\nStanding: " + hasStanding
                 + "\nWindow: " + hasWindow
-                + "\nDualMonitor: " + hasDualMonitor*/;
+                + "\nDualMonitor: " + hasDualMonitor*/
 
     }
 

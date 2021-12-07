@@ -18,11 +18,16 @@ const makeQuickBooking = async () => {
     let response = await fetch('/user/createQuickBooking', options);
     response = await response.json();
 
+    console.log(response);
+
     displayBookingDetails(response);
 
 }
 
 const displayBookingDetails = (response) => {
+    console.log("display booking details response (js:28)")
+    console.log(response);
+
     const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
     const deskFullNotification = document.getElementById("quickBookingFull");
 
@@ -31,7 +36,6 @@ const displayBookingDetails = (response) => {
 
     const quickBookingCompleteNotificationClone = quickBookingCompleteNotification.cloneNode(true);
     const deskFullNotificationClone = deskFullNotification.cloneNode(true);
-
 
 
     quickBookingCompleteNotification.parentNode.replaceChild(quickBookingCompleteNotificationClone, quickBookingCompleteNotification);
@@ -47,13 +51,13 @@ const displayBookingDetails = (response) => {
         deskFullNotificationClone.style.display = "block"
     } else {
         const deskIdSpan = document.getElementById("idOfDeskBooked");
-        deskIdSpan.innerHTML = response[0].deskId;
+        deskIdSpan.innerHTML = response.deskId;
 
         const dateSpan = document.getElementById("dateOfDeskBooked");
-        dateSpan.innerHTML = response[0].date;
+        dateSpan.innerHTML = response.date;
 
         const locationSpan = document.getElementById("locationOfDeskBooked");
-        locationSpan.innerHTML = response[0].officeLocation;
+        locationSpan.innerHTML = response.officeLocation;
 
         quickBookingCompleteNotificationClone.style.display = "block";
     }

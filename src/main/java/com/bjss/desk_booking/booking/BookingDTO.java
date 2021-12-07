@@ -24,6 +24,13 @@ public class BookingDTO {
 
     private String officeLocation;
 
+    //this is for returning to quick booking page
+    public BookingDTO(String date, int deskId, String officeLocation){
+        this.date = date;
+        this.deskId = deskId;
+        this.officeLocation = officeLocation;
+    }
+
     //this is for returning desk bookings to the myBookings page
     public BookingDTO(String officeLocation, int bookingId, String date, int deskId){
         this.bookingId = bookingId;
@@ -87,5 +94,13 @@ public class BookingDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public void setOfficeLocation(String officeLocation) {
+        this.officeLocation = officeLocation;
     }
 }
