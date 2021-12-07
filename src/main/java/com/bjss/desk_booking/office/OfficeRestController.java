@@ -22,10 +22,7 @@ public class OfficeRestController {
     public String myOfficeStatus() {
 
         List<Office> officeList = officeService.findAll();
-
-
         String jsonString = JSONArray.toJSONString(officeList);
-
         return jsonString;
     }
 

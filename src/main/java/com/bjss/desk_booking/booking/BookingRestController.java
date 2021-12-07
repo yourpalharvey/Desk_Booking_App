@@ -75,31 +75,32 @@ public class BookingRestController {
     }
 
     @PostMapping(value = "/user/loadDailyBookings")
-    public String getDailyBookings(@RequestBody Map<String, Date> date){
-        List<Booking> bookingListByDate = new ArrayList<>();
+    public String getDailyBookings(@RequestBody Map<String, String> bookingDetails){
+        List<Booking> officeBookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();
 
-        //loop through all desks and bookings, and create a LinkedHashMap of desks both booked and unbooked
-        //value in hashmap is true if booked, false if not booked (for that day)
-        for (Booking b : bookingService.findAll()) {
-            if (b.getDate().equals(date.get("date"))) {
-                bookingListByDate.add(b);
-                System.out.println(b.getDate());
+        //loop through all desks and bookings for the chosen office,
+        // create an ArrayList of all desks both booked and unbooked (datedBookingDTOList)
+        // values in bookingDetails Map are strings, so must cast strings to date and int
+        for (Booking b : bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))) {
+            if (b.getDate().equals(Date.valueOf(bookingDetails.get("date")))) {
+                officeBookingListByDate.add(b);
             }
         }
-        //loop through desks and bookings to see which desks are associated with bookings
-        //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
 
-        for (Desk d: deskService.findAll()){
+        //loop through desks and bookings for chosen office to see which desks are associated with bookings
+        //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
+        for (Desk d: deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))){
             boolean deskBooked = false;
-            for(Booking b : bookingListByDate){
+            for(Booking b : officeBookingListByDate){
                 if(b.getDesk().getDeskID() == d.getDeskID()){
                     deskBooked = true;
                     break;
                 }
             }
-            datedBookingDTOList.add(new BookingDTO(date.get("date").toString(),d.getDeskID(),deskBooked,d.getDeskImageName()));
+            datedBookingDTOList.add(new BookingDTO(bookingDetails.get("date"),d.getDeskID(),deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()));
         }
+        //return json list of all office desks
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
         return jsonString;
     }
@@ -108,8 +109,8 @@ public class BookingRestController {
     public String createQuickBooking(@RequestBody Map<String, String> bookingDetails){
 
         //get lists of desks and bookings associated with the chosen office
-        List<Desk> officeDeskList = deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeLocation")));
-        List<Booking> officeBookingList = bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeLocation")));
+        List<Desk> officeDeskList = deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
+        List<Booking> officeBookingList = bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
 
         //get a list of bookings for the specified date
         List<Booking> datedBookingList = new ArrayList<>();

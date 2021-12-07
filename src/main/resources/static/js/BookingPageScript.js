@@ -1,11 +1,9 @@
 const setDate = () => {
-    let today = new Date().toISOString().slice(0, 10);
-    // console.log(today);
+    let today = new Date().toISOString().slice(0, 10)
     document.getElementById("date").setAttribute('min', today);
 }
 
 const loadOffices = async () => {
-    // console.log("get office names")
 
     const options = {
         method: 'POST',
@@ -38,7 +36,8 @@ const loadDailyBookings = async () => {
 
     console.log("LOADDAILYBOOKINGS")
     const params = {
-        date : document.getElementById('date').value
+        date : document.getElementById('date').value,
+        officeId: document.getElementById("officeLocation").value
     }
     const options = {
         method: 'POST',
@@ -51,6 +50,8 @@ const loadDailyBookings = async () => {
 
     let response = await fetch('/user/loadDailyBookings', options);
     response = await response.json();
+
+    console.log(response);
 
     displayDailyBookings(response);
 }

@@ -2,7 +2,7 @@ const makeQuickBooking = async () => {
 
     const params = {
         date : document.getElementById('date').value,
-        officeLocation : document.getElementById('officeLocation').value
+        officeId : document.getElementById('officeLocation').value
     }
     const options = {
         method: 'POST',
