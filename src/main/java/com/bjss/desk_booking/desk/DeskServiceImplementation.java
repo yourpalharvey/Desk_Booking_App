@@ -1,9 +1,11 @@
 package com.bjss.desk_booking.desk;
+import com.bjss.desk_booking.booking.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DeskServiceImplementation implements DeskService {
@@ -17,7 +19,17 @@ public class DeskServiceImplementation implements DeskService {
 
     @Override
     public List<Desk> findAll() {
-        return (List<Desk>) deskRepo.findAll();
+        return deskRepo.findAll();
+    }
+    @Override
+    public List<Desk> findAllByOfficeId(int officeId){
+        System.out.println(officeId);
+        List<Desk> officeDeskList = deskRepo.findAll()
+                .stream()
+                .filter(desk -> desk.getOffice().getOfficeId() == officeId)
+                .collect(Collectors.toList());
+        //System.out.println(officeBookingList);
+        return officeDeskList;
     }
 
 

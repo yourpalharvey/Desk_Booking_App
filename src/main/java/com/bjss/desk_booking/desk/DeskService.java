@@ -7,6 +7,7 @@ public interface DeskService {
 
     public Desk findById(int deskId);
 
+    public List<Desk> findAllByOfficeId(int officeId);
 
     public void save(Desk desk);
 

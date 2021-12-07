@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImplementation implements BookingService{
@@ -20,6 +21,18 @@ public class BookingServiceImplementation implements BookingService{
     @Override
     public List<Booking> findAll() {
         return bookingRepo.findAll();
+    }
+
+    @Override
+    public List<Booking> findAllByOfficeId(int officeId) {
+        System.out.println(officeId);
+        List<Booking> officeBookingList = bookingRepo.findAll()
+                .stream()
+                .filter(booking -> booking.getDesk().getOffice().getOfficeId() == officeId)
+                .collect(Collectors.toList());
+        //System.out.println(officeBookingList);
+        return officeBookingList;
+
     }
 
     //if a booking with the selected id is found in the db, return Booking object.

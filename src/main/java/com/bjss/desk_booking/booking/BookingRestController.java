@@ -2,6 +2,7 @@ package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.desk.Desk;
 import com.bjss.desk_booking.desk.DeskService;
+import com.bjss.desk_booking.office.OfficeService;
 import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.user.UserService;
 import net.minidev.json.JSONArray;
@@ -26,6 +27,9 @@ public class BookingRestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    OfficeService officeService;
 
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {
@@ -100,22 +104,25 @@ public class BookingRestController {
     }
 
     @PostMapping(value = "/user/createQuickBooking")
-    public String createQuickBooking(@RequestBody Map<String, Date> date){
-        List<Desk> deskList = deskService.findAll();
-        List<Booking> bookingList = bookingService.findAll();
+    public String createQuickBooking(@RequestBody Map<String, String> bookingDetails){
+        List<Desk> deskList = deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeLocation")));
+        System.out.println(bookingDetails.get("officeLocation"));
+        List<Booking> bookingList = bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeLocation")));
 
         //get list of bookings for the 'date' parameter
         //if number of desks = number of bookings for that day, return an error page
-        List<Booking> datedBookingList = new ArrayList<>();
+        List<Booking> detailedBookingList = new ArrayList<>();
         for (Booking b : bookingList) {
-            if (b.getDate().equals(date.get("date"))) {
-                datedBookingList.add(b);
+            if (b.getDate().equals(Date.valueOf(bookingDetails.get("date"))))
+//                    && Integer.parseInt((String) bookingDetails.get("officeId")) == b.getDesk().getOffice().getOfficeId())
+            {
+                detailedBookingList.add(b);
             }
         }
         // TODO - make this actually return some kind of error page
 
         //return empty JSON string if all desks are booked for that day
-        if (deskList.size() == datedBookingList.size()) {
+        if (deskList.size() == detailedBookingList.size()) {
             System.out.println("ERROR - ALL DESKS FULL!!!!");
             List<Booking> emptyList = new ArrayList<>();
             String jsonString = JSONArray.toJSONString(emptyList);
@@ -131,10 +138,13 @@ public class BookingRestController {
 
         //loop through bookings for that date and compare IDs to make sure not to duplicate desks
         //if the desk is already booked that day, get another random int and restart the loop
+
+        //TODO - FIX THIS METHOD
         int count = 0;
         while (count < deskList.size()) {
-            for (Booking b : bookingList) {
-                if (b.getDesk().getDeskID() == randomInt && b.getDate().equals(date.get("date"))) {
+            for (int i = 0; i<detailedBookingList.size();i++) {
+                if (detailedBookingList.get(i).getDate().equals(Date.valueOf(bookingDetails.get("date")))
+                        && detailedBookingList.get(i).getDeskId() == deskList.get(count).getDeskID()) {
                     randomInt = random.nextInt(deskList.size()) + 1;
                     System.out.println("randomInt 2: " + randomInt);
                     count = 0;
@@ -152,11 +162,11 @@ public class BookingRestController {
         User currentUser = userService.findById(1);
 
         // Create new booking, and add to database
-        Booking newBooking = new Booking(date.get("date"), currentUser, randomDesk);
+        Booking newBooking = new Booking(Date.valueOf(bookingDetails.get("date")), currentUser, randomDesk);
 
         // Create new BookingDTO object to pass back to javascript as JSON
         List<BookingDTO> newBookingDTO = new ArrayList<>();
-        newBookingDTO.add(new BookingDTO(newBooking.getBookingId(), date.get("date").toString(), randomInt));
+        newBookingDTO.add(new BookingDTO(officeService.findById(Integer.parseInt(bookingDetails.get("officeLocation"))).getOfficeName(), newBooking.getBookingId(), bookingDetails.get("date").toString(), randomInt));
         bookingService.save(newBooking);
 
         String jsonString = JSONArray.toJSONString(newBookingDTO);

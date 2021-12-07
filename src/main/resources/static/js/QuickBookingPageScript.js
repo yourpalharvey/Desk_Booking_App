@@ -1,7 +1,8 @@
 const makeQuickBooking = async () => {
 
     const params = {
-        date : document.getElementById('date').value
+        date : document.getElementById('date').value,
+        officeLocation : document.getElementById('officeLocation').value
     }
     const options = {
         method: 'POST',
@@ -10,7 +11,9 @@ const makeQuickBooking = async () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(params)
+
     }
+    // console.log(params);
 
     let response = await fetch('/user/createQuickBooking', options);
     response = await response.json();
@@ -48,6 +51,9 @@ const displayBookingDetails = (response) => {
 
         const dateSpan = document.getElementById("dateOfDeskBooked");
         dateSpan.innerHTML = response[0].date;
+
+        const locationSpan = document.getElementById("locationOfDeskBooked");
+        locationSpan.innerHTML = response[0].officeLocation;
 
         quickBookingCompleteNotificationClone.style.display = "block";
     }
