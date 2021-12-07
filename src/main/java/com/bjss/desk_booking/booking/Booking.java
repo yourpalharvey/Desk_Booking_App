@@ -39,6 +39,10 @@ public class Booking {
         this.desk = desk;
     }
 
+    public String getOfficeName(){
+        return desk.getOffice().getOfficeName();
+    }
+
     public Desk getDesk(){
         return desk;
     }
