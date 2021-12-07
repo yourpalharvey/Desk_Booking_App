@@ -18,7 +18,7 @@
 
 /* Ensure that in small screen the dropdown is only displayed when clicked
 bigger screens will allow hover */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767.98px) {
     #mainNavbar .dropdown:hover .dropdown-menu {
         display: block;
     }
@@ -52,7 +52,7 @@ bigger screens will allow hover */
     height: 100vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     #imageText {
         background-color: rgba(248,249,251,0);
         box-shadow: none;
@@ -68,10 +68,24 @@ body {
     background-color: #2f3e46;
 }
 
+.card-header {
+    border-bottom: 0;
+    background-color: rgba(0,0,0,0);
+}
+
+.adminBanner {
+    background-color: #f0ad4e;
+    padding: 2px;
+}
+
+.adminBannerText {
+    margin: 4px;
+}
+
 /* Body of quickbooking page. Fix for mybookings re-route button on notification*/
-.quickBookingBody {
+.quickBookingBody, .bookingPageDatedBody, .myBookingPageBody {
     background-color: #2f3e46;
-    z-index: -2;
+    z-index: -3;
     position: relative;
 }
 
@@ -87,6 +101,8 @@ body {
 }
 
 /* Notification is behind datebox to allow it to slide from underneath*/
+
+
 .notificationBox {
     width: 50%;
     background-color: #0275d8;
@@ -114,6 +130,12 @@ body {
 
 }
 
+#quickBookingComplete, #quickBookingFull, #bookNotification, #cancelNotification {
+    z-index: -2;
+    position: relative;
+}
+
+
 /* Disabling Bootstrap default cards */
 #dateBox .card, .notificationBox .card {
     background: none;
@@ -125,6 +147,7 @@ body {
 .deskCard, .deskCardBooked, .deskCardCancel {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
+    margin: 10px;
 }
 
 .deskCard {
@@ -148,18 +171,103 @@ body {
     margin: 0.25rem
 }
 
-.col {
-    padding: 15px 15px;
-}
 
 .desk-container{
     min-width: 25%;
+    padding: 0;
+    margin: 0;
 }
 
 .booking-button-form, .bookDeskButton ,.myBookingButton{
     display: inline-block;
     float: right;
+    margin: 0;
 }
 
 
+/*#bookNotification .card-body {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
+/*#bookNotification .card-title {*/
+/*    margin: 5px;*/
+/*}*/
+
+/*#bookNotification .myBookingButton {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    margin: 5px;*/
+/*}*/
+
+.notificationCol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deskListBox .card-title {
+    margin: 12px 4px;
+}
+
+.deskListBox .card-body {
+    margin: 0;
+    padding: 0;
+}
+
+.bookingCardDate {
+    float: bottom;
+    padding: 0;
+}
+
+.btn-link {
+    float: right;
+    padding: 0;
+}
+
+.card-img-top {
+    border: none;
+    border-radius: 0px 0px 10px 10px;
+}
+
+#deskOneImg {
+    border: none;
+    background-color: none;
+}
+
+.deskCardCancelHeader {
+    position: relative;
+}
+
+.bookingCardDate, .bookingCardUser {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    margin: 0;
+}
+
+/*desk tags*/
+.deskTags {
+    color: #f8f9fb;
+    background-color: #2f3e46;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 2px;
+    font-size: 8px;
+}
+
+@media (max-width: 991px) {
+    .deskTags {
+        font-size: 12px;
+        border-radius: 8px;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 3px;
+    }
+}
+
+.siteTitle {
+    margin-bottom: 10px;
+}
