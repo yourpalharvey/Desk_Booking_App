@@ -8,19 +8,21 @@
     <link rel="stylesheet" href="/css/MyStyle.css">
     <script src="/js/showLogout.js"></script>
     <script src="/js/hideAdminNavLinks.js"></script>
-    <script src="/js/BookingScript.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
   </head>
-  <body class="bookingPageDatedBody" onload="showLogoutButton(); hideAdminNavLinks(); setDate()">
+  <body class="bookingPageDatedBody" onload="showLogoutButton(); hideAdminNavLinks(); setDate(); loadOffices()">
     <header th:replace="fragments/header :: header"></header>
 
     <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
       <div class="card-body">
-        <h5 class="card-title siteTitle">Select Date</h5>
+        <h5 class="card-title siteTitle">Select Date and Office</h5>
         <form onsubmit="preventDefault()">
           <input type="date" id="date">
+          <select id="officeLocation" class="form-select" aria-label="Default select office">
+            <option selected>Office Location</option>
+          </select>
           <button type="button" onclick="loadDailyBookings()" class="btn btn-primary">Submit</button>
         </form>
       </div>

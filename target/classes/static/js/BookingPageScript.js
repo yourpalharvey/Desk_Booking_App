@@ -4,6 +4,34 @@ const setDate = () => {
     document.getElementById("date").setAttribute('min', today);
 }
 
+const loadOffices = async () => {
+    // console.log("get office names")
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }
+
+    let response = await fetch('/user/getAllOffices', options);
+    response = await response.json();
+    console.log(response);
+
+    loadOfficeSelections(response);
+
+}
+
+const loadOfficeSelections = (response) => {
+    for (let i = 0; i<response.length; i++) {
+        const newOption = document.createElement("option");
+        newOption.value = response[i].officeId;
+        newOption.innerText = response[i].officeName;
+        document.getElementById("officeLocation").append(newOption);
+    }
+    console.log(response)
+}
 
 const loadDailyBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
@@ -123,9 +151,9 @@ const displayDailyBookings = (jsonResponse) => {
             const deskPos = document.createElement("span");
             const monitors = document.createElement("span");
 
-            deskType.className = "deskTags col-4";
-            deskPos.className = "deskTags col-4";
-            monitors.className = "deskTags col-4";
+            deskType.className = "deskTags col-3";
+            deskPos.className = "deskTags col-3";
+            monitors.className = "deskTags col-3";
 
             cardText.append(deskType);
             cardText.append(deskPos);
