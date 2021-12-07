@@ -1,18 +1,18 @@
 package com.bjss.desk_booking.desk;
 
+import com.bjss.desk_booking.office.Office;
+import com.bjss.desk_booking.office.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DeskController {
@@ -20,15 +20,20 @@ public class DeskController {
     @Autowired
     private DeskService deskService;
 
+    @Autowired
+    private OfficeService officeService;
+
 
 
     /*Adding Desk Method*/
     @RequestMapping(path = "/admin/adddesk")
-    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file) throws IOException,NullPointerException
-
-    {
-
-
+    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file
+//                          @RequestParam String deskName,
+//                          @RequestParam int officeId
+//                          @RequestParam String desktype,
+//                          @RequestParam String deskPosition,
+//                          @RequestParam int monitorOption
+                          ) throws IOException,NullPointerException {
 
         String fileName = "";
         try {

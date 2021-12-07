@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:form="http://www.w3.org/1999/html"
       xsi:schemaLocation="http://thymeleaf.org " lang="en">
 
 
@@ -122,7 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <input  class="form-control" name="tag" id="deskPosition" type="text"
                                        th:field="*{deskPosition}" onfocus="this.placeholder = ''"
@@ -131,7 +132,16 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control" name="tag" id="officeId" type="text"
+                                        th:field="*{Office.officeId}" onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'office'"
+                                             placeholder='Office'>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <input  class="form-control" name="tag" id="monitorOption" type="number"
                                        th:field="*{monitorOption}" onfocus="this.placeholder = ''"

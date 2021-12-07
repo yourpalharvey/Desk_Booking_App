@@ -2,6 +2,7 @@ package com.bjss.desk_booking.desk;
 
 
 import com.bjss.desk_booking.booking.Booking;
+import com.bjss.desk_booking.office.Office;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
@@ -14,16 +15,12 @@ public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-     private int deskId;
-     String deskName;
-     String desktype;
-     String deskPosition;
-     int monitorOption;
-     String deskStatus;
-
-
-
-
+    private int deskId;
+    String deskName;
+    String desktype;
+    String deskPosition;
+    int monitorOption;
+    String deskStatus;
     String deskImageName;
 
     public String getDeskImageName() {
@@ -34,13 +31,20 @@ public class Desk {
     @OneToMany(mappedBy = "desk")  //Creating one to many relation with booking class and Using user object from Booking class
     List<Booking> bookingList=new ArrayList<>();
 
+    @ManyToOne  //creating Many to one relation with office
+    @JoinColumn(name = "office_id", nullable = false) //officeId from user class will be the foreign key in the booking table
+    private Office office;
+
     public void setDeskImageName(String deskImageName) {
         this.deskImageName = deskImageName;
     }
 
-    public Desk(int deskID, String name, boolean hasStanding, boolean hasWindow, boolean hasDualMonitor) {
-        this.deskId = deskID;
+    public Desk(String name, Office office, String desktype, String deskPosition, int monitorOption) {
         this.deskName = name;
+        this.office = office;
+        this.desktype = desktype;
+        this.deskPosition = deskPosition;
+        this.monitorOption = monitorOption;
 
     }
 
@@ -48,17 +52,24 @@ public class Desk {
 
     }
 
-        /*save image method*/
-        @Transient
-        public String getPhotosImagePath() {
-            if (deskName == null || deskId == -1) return null;
+    /*save image method*/
+    @Transient
+    public String getPhotosImagePath() {
+        if (deskName == null || deskId == -1) return null;
 
-            return "desk/" + deskId + "/" + deskImageName;
-        }
-
+        return "desk/" + deskId + "/" + deskImageName;
+    }
 
     //important method to create
 
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
+    }
 
     public String getDeskStatus() {
         return deskStatus;
