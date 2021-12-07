@@ -166,9 +166,10 @@ const displayDailyBookings = (jsonResponse) => {
 
 
         } else {
-            const userName = document.createElement("div");
-            userName.innerText = "Username";
+            const userName = document.createElement("span");
+            userName.className = "deskTagsOne col-12";
             cardText.append(userName);
+            userName.innerText = "Username";
         }
 
 

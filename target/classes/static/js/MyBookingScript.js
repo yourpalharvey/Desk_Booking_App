@@ -68,9 +68,23 @@ const displayUserBookings = (jsonResponse) => {
         cancelButton.append(cancelButtonText);
 
         const datePara = document.createElement("div");
-        datePara.className = "card-text bookingCardDate";
-        const dateTextNode = document.createTextNode(jsonResponse[i].date);
-        datePara.append(dateTextNode);
+        datePara.className = "card-text row bookingCardDate";
+
+        const dateTag = document.createElement("span");
+        const officeTag = document.createElement("span");
+
+        dateTag.className = "deskTagsTwo col-6"
+        officeTag.className = "deskTagsTwo col-6"
+
+        datePara.append(dateTag);
+        datePara.append(officeTag);
+
+        // Todo Add values from DB
+        dateTag.innerHTML = jsonResponse[i].date;
+        officeTag.innerHTML = "Cardiff"
+
+        // const dateTextNode = document.createTextNode(jsonResponse[i].date);
+        // datePara.append(dateTextNode);
 
         const deskCardExpand = document.createElement("div");
         deskCardExpand.className = "card-title deskCardExpand";
