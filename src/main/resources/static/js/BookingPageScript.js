@@ -1,3 +1,10 @@
+const setDate = () => {
+    let today = new Date().toISOString().slice(0, 10);
+    // console.log(today);
+    document.getElementById("date").setAttribute('min', today);
+}
+
+
 const loadDailyBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
 

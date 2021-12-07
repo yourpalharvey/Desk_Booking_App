@@ -13,14 +13,14 @@
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
   </head>
-  <body class="bookingPageDatedBody" onload="showLogoutButton(); hideAdminNavLinks()">
+  <body class="bookingPageDatedBody" onload="showLogoutButton(); hideAdminNavLinks(); setDate()">
     <header th:replace="fragments/header :: header"></header>
 
     <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
       <div class="card-body">
         <h5 class="card-title siteTitle">Select Date</h5>
         <form onsubmit="preventDefault()">
-          <input type="date" id="date"></label>
+          <input type="date" id="date">
           <button type="button" onclick="loadDailyBookings()" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -43,7 +43,6 @@
         </div>
       </div>
     </div>
-
 
     <footer th:replace="fragments/footer :: footer"></footer>
   </body>
