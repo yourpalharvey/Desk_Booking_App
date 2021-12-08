@@ -38,9 +38,14 @@ public class GeneralController {
         return "MyBookingPage";
     }
 
-/*   @RequestMapping(path = "/login")
+   @RequestMapping(path = "/login")
     public String login(String name) {
         return "login";
-    }*/
+    }
+    @RequestMapping(path = "/userComment")
+    public String userComment(String name) {
+        return "userComment";
+    }
+
 }
 

@@ -51,6 +51,21 @@
                         <a class="dropdown-item" href="/admin/adddesk">ADD DESK</a>
                     </div>
                 </li>
+<!--                news-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarUserAdminComment" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        COMMENT
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- The href for each page are found in java/controllers/GeneralControllers -->
+                        <a class="dropdown-item" href="/userComment">ADMIN MANAGE COMMENT</a>
+                        <a class="dropdown-item" href="/admin/comment">USER WRITE COMMENT</a>
+
+                    </div>
+                </li>
+
+
             </ul>
             <form class="form-inline" action="#" th:action="@{/logout}" method="post">
                 <input type="submit" class="btn btn-primary my-2 my-sm-0" value="Logout" />
