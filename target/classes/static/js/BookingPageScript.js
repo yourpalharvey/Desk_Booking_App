@@ -137,6 +137,10 @@ const displayDailyBookings = (jsonResponse) => {
             bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ")");
             const bookButtonText = document.createTextNode("Book");
             bookButton.append(bookButtonText);
+            if(jsonResponse[i].disableButton){
+                bookButton.className = "bookDeskButton btn btn-success disabled"
+                bookButton.removeAttribute("onclick");
+            }
         } else {
             bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger disabled");
             const bookButtonText = document.createTextNode("Booked");
@@ -343,6 +347,8 @@ const disableDesk = (deskId) => {
     //set button style to disabled
     bookButton.innerHTML = "Booked";
     bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled");
+
+    loadDailyBookings();
 }
 
 // Todo - div defaults to not display and displays on button click, however as page is currently refreshing on click therefore div goes back to default
