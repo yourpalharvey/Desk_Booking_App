@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import java.text.SimpleDateFormat;
@@ -107,11 +108,22 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admingetBookingsByDate")
-    public String bookingByDate(Model model)
+    public String bookingByDate(Model model,@RequestParam java.sql.Date date)
 
     {
-        List<Booking> bookingList=bookingService.findAll();
-        model.addAttribute("bookingList", bookingList);
+
+        List<Booking> allbookingList=bookingService.findAll();
+        List<Booking> bookingList=new ArrayList<>();
+        for (Booking b:allbookingList)
+        {
+            if(b.getDate().equals(date))
+            {bookingList.add(b);
+
+            }
+
+        }
+
+        model.addAttribute("bookingList",bookingList);
         return "adminPanelDated";
 
 
