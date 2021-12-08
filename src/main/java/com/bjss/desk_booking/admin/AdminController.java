@@ -108,15 +108,20 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admingetBookingsByDate")
-    public String bookingByDate(Model model,@RequestParam java.sql.Date date)
+    public String bookingByDate(Model model,@RequestParam (required = false)java.sql.Date date)
 
     {
+        if(date==null)
+        {
+            return "previousbooking";
+        }
+
 
         List<Booking> allbookingList=bookingService.findAll();
         List<Booking> bookingList=new ArrayList<>();
         for (Booking b:allbookingList)
         {
-            if(b.getDate().equals(date))
+            if(b.getDate().equals(date))  //Search by Date
             {bookingList.add(b);
 
             }
@@ -129,6 +134,33 @@ public class AdminController {
 
 
     }
+
+    @GetMapping(value = "/admingetBookingsByUserName")
+    public String bookingByUser(Model model,@RequestParam (required = false)java.sql.Date date,String name)
+
+    {
+        
+
+
+
+        List<Booking> allbookingList=bookingService.findAll();
+        List<Booking> bookingList=new ArrayList<>();
+        for (Booking b:allbookingList)
+        {
+            if(b.getUser().getUsername().equals(name))  //Search by name
+            {bookingList.add(b);
+
+            }
+
+        }
+
+        model.addAttribute("bookingList",bookingList);
+        return "adminPanelDated";
+
+
+
+    }
+
 
 
    /* public void emailSender(Booking booking) throws MessagingException

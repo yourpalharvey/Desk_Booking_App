@@ -13,4 +13,5 @@ public interface BookingService {
     public void save(Booking booking);
 
     public void deleteById(int bookingId);
+
 }

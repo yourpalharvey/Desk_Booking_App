@@ -43,5 +43,22 @@ public class UserServiceImplementation implements UserService {
         userRepo.save(user);
     }
 
+    @Override
+    public User findByusername(String name) {
+        Optional<User> result = userRepo.findByusername(name);
+
+        User theUser = null;
+
+        if (result.isPresent()) {
+            theUser= result.get();
+        }
+        else {
+            // we didn't find the employee
+            throw new RuntimeException("Did not find user " + name);
+        }
+
+        return theUser;
+    }
+
 
 }

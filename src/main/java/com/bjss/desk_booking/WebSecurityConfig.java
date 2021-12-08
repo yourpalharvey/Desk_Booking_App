@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/admindeskstatus/**").hasRole("ADMIN")
                 .mvcMatchers("/admindashboard/**").hasRole("ADMIN")
                 .mvcMatchers("/admingetBookingsByDate/**").hasRole("ADMIN")
+                .mvcMatchers("/admingetBookingsByUserName/**").hasRole("ADMIN")
                 .mvcMatchers("/previousbooking/**").hasRole("ADMIN")
                 .mvcMatchers("/admin/desk/**").hasRole("ADMIN")
                 .mvcMatchers("/desk/**").permitAll()
