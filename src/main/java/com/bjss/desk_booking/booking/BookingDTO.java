@@ -24,6 +24,14 @@ public class BookingDTO {
 
     private String officeLocation;
 
+    private int monitorOption;
+
+    private String deskPosition;
+
+    private String deskType;
+
+    private String userBooked;
+
     //this is for returning to quick booking page
     public BookingDTO(String date, int deskId, String officeLocation){
         this.date = date;
@@ -32,14 +40,21 @@ public class BookingDTO {
     }
 
     //this is for returning the individual desk bookings in BookingPage
-    public BookingDTO(String date, int deskId, boolean booked, String deskImageName, String officeLocation){
+    public BookingDTO(String date, int deskId, boolean booked, String deskImageName,
+                      String officeLocation, int monitorOption, String deskPosition,
+                      String deskType, String userBooked){
         this.date = date;
         this.deskId = deskId;
         this.booked = booked;
         this.deskImageName = deskImageName;
         this.officeLocation = officeLocation;
+        this.monitorOption = monitorOption;
+        this.deskPosition = deskPosition;
+        this.deskType = deskType;
+        this.userBooked = userBooked;
     }
 
+    //this is for returning to myBookingPage
     public BookingDTO(int bookingId, String date, int deskId, String deskImageName, String officeLocation){
         this.bookingId = bookingId;
         this.date = date;
@@ -48,7 +63,33 @@ public class BookingDTO {
         this.officeLocation = officeLocation;
     }
 
+    public boolean isBooked() {
+        return booked;
+    }
 
+    public int getMonitorOption() {
+        return monitorOption;
+    }
+
+    public void setMonitorOption(int monitorOption) {
+        this.monitorOption = monitorOption;
+    }
+
+    public String getDeskPosition() {
+        return deskPosition;
+    }
+
+    public void setDeskPosition(String deskPosition) {
+        this.deskPosition = deskPosition;
+    }
+
+    public String getDeskType() {
+        return deskType;
+    }
+
+    public void setDeskType(String deskType) {
+        this.deskType = deskType;
+    }
 
     public String getDeskImageName() {
         return deskImageName;
@@ -96,5 +137,13 @@ public class BookingDTO {
 
     public void setOfficeLocation(String officeLocation) {
         this.officeLocation = officeLocation;
+    }
+
+    public String getUserBooked() {
+        return userBooked;
+    }
+
+    public void setUserBooked(String userBooked) {
+        this.userBooked = userBooked;
     }
 }

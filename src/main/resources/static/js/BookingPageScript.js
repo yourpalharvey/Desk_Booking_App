@@ -1,5 +1,5 @@
 const setDate = () => {
-    let today = new Date().toISOString().slice(0, 10)
+    let today = new Date().toISOString().slice(0, 10);
     document.getElementById("date").setAttribute('min', today);
 }
 
@@ -18,7 +18,6 @@ const loadOffices = async () => {
     console.log(response);
 
     loadOfficeSelections(response);
-
 }
 
 const loadOfficeSelections = (response) => {
@@ -28,7 +27,7 @@ const loadOfficeSelections = (response) => {
         newOption.innerText = response[i].officeName;
         document.getElementById("officeLocation").append(newOption);
     }
-    console.log(response)
+    console.log(response);
 }
 
 const loadDailyBookings = async () => {
@@ -161,16 +160,15 @@ const displayDailyBookings = (jsonResponse) => {
             cardText.append(monitors);
 
             // Add values from desk table in DB
-            deskType.innerHTML = "Standing";
-            deskPos.innerHTML = "Window";
-            monitors.innerHTML = "2 Monitors";
-
+            deskType.innerHTML = jsonResponse[i].deskType;
+            deskPos.innerHTML = jsonResponse[i].deskPosition;
+            monitors.innerHTML = "Monitors: " + jsonResponse[i].monitorOption;
 
         } else {
             const userName = document.createElement("span");
             userName.className = "deskTagsOne col-12";
             cardText.append(userName);
-            userName.innerText = "Username";
+            userName.innerText = jsonResponse[i].userBooked;
         }
 
 
@@ -356,7 +354,6 @@ function showBookNotification(deskId) {
 
     bookNot2.style.display = "block";
     document.getElementById("deskIdNot").innerText = deskId;
-
 }
 
 

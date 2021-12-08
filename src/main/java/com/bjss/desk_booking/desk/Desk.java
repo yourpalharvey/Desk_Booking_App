@@ -17,7 +17,7 @@ public class Desk {
 
     private int deskId;
     private String deskName;
-    private String desktype;
+    private String deskType;
     private String deskPosition;
     private int monitorOption;
     private String deskStatus;
@@ -38,10 +38,10 @@ public class Desk {
         this.deskImageName = deskImageName;
     }
 
-    public Desk(String name, Office office, String desktype, String deskPosition, int monitorOption) {
+    public Desk(String name, Office office, String deskType, String deskPosition, int monitorOption) {
         this.deskName = name;
         this.office = office;
-        this.desktype = desktype;
+        this.deskType = deskType;
         this.deskPosition = deskPosition;
         this.monitorOption = monitorOption;
     }
@@ -92,12 +92,12 @@ public class Desk {
         this.deskName = deskName;
     }
 
-    public String getDesktype() {
-        return desktype;
+    public String getDeskType() {
+        return deskType;
     }
 
-    public void setDesktype(String desktype) {
-        this.desktype = desktype;
+    public void setDeskType(String deskType) {
+        this.deskType = deskType;
     }
 
     public String getDeskPosition() {

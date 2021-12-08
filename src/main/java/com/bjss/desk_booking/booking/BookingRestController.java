@@ -91,13 +91,17 @@ public class BookingRestController {
         //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
         for (Desk d: deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))){
             boolean deskBooked = false;
+            String userBooked = "";
             for(Booking b : officeBookingListByDate){
                 if(b.getDesk().getDeskID() == d.getDeskID()){
                     deskBooked = true;
+                    userBooked = b.getUser().getUsername();
                     break;
                 }
             }
-            datedBookingDTOList.add(new BookingDTO(bookingDetails.get("date"),d.getDeskID(),deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()));
+            datedBookingDTOList.add(new BookingDTO(bookingDetails.get("date"),d.getDeskID()
+                    ,deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()
+                    ,d.getMonitorOption(),d.getDeskPosition(),d.getDeskType(), userBooked));
         }
         //return json list of all office desks
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
