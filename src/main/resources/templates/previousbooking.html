@@ -33,6 +33,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/MyStyle.css">
     <link rel="stylesheet" href="/css/BookingStyle.css">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/BookingScript.js" charset="utf-8"></script>
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
 
 
 
@@ -47,17 +51,53 @@
 <!-- TODO: This navbar once all sites are linked in the mainNavbar-->
 
 <!-- ***** Header Area End ***** -->
+<div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
+    <div class="card-body row">
+        <div class="col-12 col-md-6">
+            <h5 class="card-title siteTitle">Select Date</h5>
+            <form class="row g-2 align-items-center" action="/admingetBookingsByDate" method="GET">
+                <div class="col-auto">
+                    <label for="date"><input type="date" id="date" name="date"></label>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="searchUser" class="col-12 col-md-6">
+            <h5 class="card-title">Search User</h5>
+            <form class="row g-2 align-items-center" action ="/admingetBookingsByUserName" method="GET">
+                <div class="col-auto" style="padding-right: 0">
+                    <label for="search user"><input type="text" placeholder="Search User" aria-label="Search User" id="search user" name="search user"></label>
+                </div>
+                <div class="col-auto" style="padding: 0 13px">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <!--blog card start-->
 <ul class="cards">
     <li th:each="booking : ${bookingList}">
         <a href="" class="card">
             <img th:src="${booking.desk.PhotosImagePath}" class="card__image" alt="" />
+
             <div class="card__overlay">
                 <div class="card__header">
 
                     <div class="card__header-text">
-                        <h3 class="card__title" th:text="${booking.bookingId}"></h3>
-                        <span class="card__status" th:text="${booking.Date}" ></span>
+
+                        <h2 class="card__title" ><span>Booking ID :</span> <span th:text="${booking.bookingId}"class="card__status"></span> </h2>
+                        <h3 class="card__title" ><span >Desk Name :</span> <span th:text="${booking.desk.deskName}" class="card__status"></span></h3>
+                        <h5 class="card__title"> <span >Booking Date :</span>  <span th:text="${booking.Date}" class="card__status"></span></h5>
+
+
+
+                        <h4 class="card__title" ><span >Booked By :</span>  <span th:text="${booking.user.Username}" class="card__status"></span></h4>
                         <div>
                             <form action="#" th:action="@{/previousbooking/{id}(id=${booking.bookingId})}" >
                                 <input type="submit" value="Cancel Booking" class="delete" />
@@ -73,9 +113,8 @@
 
                     </div>
                 </div>
-                <p class="card__description" th:text="${booking.desk.desktype}"></p>
-
-
+               <!-- <h3 class="card__description">Booked By</h3>-->
+                <p class="card__description" ><span>Desk Features: </span>  <span th:text="${booking.desk.desktype}" class="card__status"></span><span> </span><span th:text="${booking.desk.deskPosition}" class="card__status"></span><span> Monitor: </span><span th:text="${booking.desk.MonitorOption}" class="card__status"> </p>
 
             </div>
         </a>
