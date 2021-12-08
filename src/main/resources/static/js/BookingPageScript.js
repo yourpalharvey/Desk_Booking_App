@@ -106,7 +106,8 @@ const displayDailyBookings = (jsonResponse) => {
 
     const displayDate = document.createElement("h5");
     displayDate.setAttribute("class", "card-title");
-    displayDate.innerText = "Showing all desks for " + document.getElementById("date").value;
+    displayDate.innerText = "Showing all desks for " + document.getElementById("date").value
+            + " at the " + jsonResponse[0].officeLocation + " office:";
     div1.append(displayDate);
 
     const div2 = document.createElement("div");
@@ -155,6 +156,7 @@ const displayDailyBookings = (jsonResponse) => {
 
         const bookButton = document.createElement("button");
         bookButton.setAttribute("id", "book-button-" + jsonResponse[i].deskId);
+
         //create book button
         if(!jsonResponse[i].booked) {
             bookButton.setAttribute("class", "bookDeskButton btn btn-success");
@@ -173,7 +175,6 @@ const displayDailyBookings = (jsonResponse) => {
                 let deskId = jsonResponse[i].deskId;
                 bookButton.setAttribute("onclick", "cancelBookingFromDash("+bookingId+","+deskId+")");
                 bookButton.append(bookButtonText);
-
             } else {
                 bookButton.className ="bookDeskButton btn btn-outline-danger disabled";
                 const bookButtonText = document.createTextNode("Booked");

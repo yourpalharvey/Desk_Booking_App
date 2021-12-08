@@ -66,6 +66,9 @@ public class BookingRestController {
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
     }
 
+
+
+
     @PostMapping(value = "/user/makeBooking")
     public void makeABooking(@RequestBody Map<String, String> newBookingDetails){
         Date date = Date.valueOf(newBookingDetails.get("date"));
@@ -75,17 +78,32 @@ public class BookingRestController {
         Desk deskToBook = deskService.findById(deskId);
 
         // Set current user for booking
-        // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
         User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, deskToBook));
     }
 
+    public boolean userHasBookingOnDate(User user, Date date){
+        for(Booking b: bookingService.findByUserId(user.getUserId())){
+            if(b.getDate().equals(date)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @PostMapping(value = "/user/loadDailyBookings")
     public String getDailyBookings(@RequestBody Map<String, String> bookingDetails){
         List<Booking> officeBookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();
+
+
+        //check through the user's bookings, if they have a booking for the given date,
+        // then set disableButton to true to disable all booking buttons in user dashboard
+        boolean userHasBooking = userHasBookingOnDate(userService.getCurrentUser(), Date.valueOf(bookingDetails.get("date")));
+
+        System.out.println("USER HAS BOOKING: ------------------ " + userHasBooking);
 
         //loop through all desks and bookings for the chosen office,
         // create an ArrayList of all desks both booked and unbooked (datedBookingDTOList)
@@ -100,7 +118,8 @@ public class BookingRestController {
         //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
         for (Desk d: deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))){
             boolean deskBooked = false;
-            boolean disableButton = false;
+            boolean disableButton = userHasBooking;
+
             String userBooked = "";
             boolean cancelButton = false;
             int bookingId = 0;
@@ -114,13 +133,14 @@ public class BookingRestController {
                 }
                 //check if userId from booking is same as currentUser's userId
                 if(b.getUserId() == userService.getCurrentUser().getUserId()){
-                    disableButton = true;
                     if(b.getDeskId() == d.getDeskId()){
                         cancelButton = true;
                     }
                 }
-            }
 
+                System.out.println("DISABLE BUTTON INNER BOOKING FOR LOOP : " + disableButton);
+            }
+            System.out.println("DISABLE BUTTON OUTER DESK FOR LOOP : " + disableButton);
             datedBookingDTOList.add(new BookingDTO(bookingId, bookingDetails.get("date"),d.getDeskId()
                     ,deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()
                     ,d.getMonitorOption(),d.getDeskPosition(),d.getDeskType(), userBooked, disableButton, cancelButton));
@@ -136,33 +156,39 @@ public class BookingRestController {
 
     @PostMapping(value = "/user/createQuickBooking")
     public String createQuickBooking(@RequestBody Map<String, String> bookingDetails){
+        Date date = Date.valueOf(bookingDetails.get("date"));
+        int currentUserId = userService.getCurrentUser().getUserId();
 
         //get lists of desks and bookings associated with the chosen office
         List<Desk> officeDeskList = deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
         List<Booking> officeBookingList = bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
 
+        //If the user already has a booking on the given date, return the booking details.
+        boolean userHasBookingOnDate = userHasBookingOnDate(userService.getCurrentUser(), date);
+
+        if(userHasBookingOnDate){
+            for(Booking b: bookingService.findByUserId(currentUserId)){
+                if(b.getDate().equals(date)){
+                    BookingDTO existingBookingDTO = new BookingDTO(b.getDate().toString(),
+                            b.getDeskId(), b.getOfficeName(), true);
+                    try {
+                        return objectMapper.writeValueAsString(existingBookingDTO);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         //get a list of bookings for the specified date
         List<Booking> datedBookingList = new ArrayList<>();
 
         for (Booking b : officeBookingList) {
-            if (b.getDate().equals(Date.valueOf(bookingDetails.get("date")))) {
+            if (b.getDate().equals(date)) {
                 datedBookingList.add(b);
             }
         }
 
-        //todo - fix multiple bookings on same day at different offices
-        for (Booking b : datedBookingList){
-            if(b.getUserId() == userService.getCurrentUser().getUserId()){
-                BookingDTO existingBookingDTO = new BookingDTO(b.getDate().toString(),
-                        b.getDeskId(), b.getOfficeName(), true);
-                try {
-                    return objectMapper.writeValueAsString(existingBookingDTO);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
 
         //return empty JSON string if all desks are booked for that day
         if (officeDeskList.size() == datedBookingList.size()) {
@@ -193,11 +219,10 @@ public class BookingRestController {
         Desk randomDesk = officeDeskList.get(randomInt);
 
         // Set current user for booking
-        // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
         User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
-        Booking newBooking = new Booking(Date.valueOf(bookingDetails.get("date")), currentUser, randomDesk);
+        Booking newBooking = new Booking(date, currentUser, randomDesk);
         bookingService.save(newBooking);
 
         // Create new BookingDTO object to pass back to javascript as JSON
