@@ -60,29 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-
-
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        /* User details are stored here. Can be done via the users on the database later*/
-//
-//
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("user").password("{noop}password").roles("USER");
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("beynonh").password("{noop}password").roles("USER");
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("shortmant").password("{noop}password").roles("USER");
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("alahif").password("{noop}password").roles("USER");
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("admin").password("{noop}admin").roles("ADMIN");
-//    }
-
 }

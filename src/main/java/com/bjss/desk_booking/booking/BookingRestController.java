@@ -37,8 +37,8 @@ public class BookingRestController {
 
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {
-        //currently hardcoded for userId = 1
-        List<Booking> userBookingList = bookingService.findByUserId(1);
+        //get all bookings by the current user
+        List<Booking> userBookingList = bookingService.findByUserId(userService.getCurrentUser().getUserId());
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
         //Create BookingDTOs from all bookings
@@ -67,7 +67,7 @@ public class BookingRestController {
 
         // Set current user for booking
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
-        User currentUser = userService.findById(1);
+        User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, deskToBook));
@@ -102,6 +102,10 @@ public class BookingRestController {
         }
         //return json list of all office desks
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
+
+        //print current user's username to the console (for testing)
+        System.out.println(userService.getCurrentUser().getUsername());
+
         return jsonString;
     }
 
@@ -151,7 +155,7 @@ public class BookingRestController {
 
         // Set current user for booking
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
-        User currentUser = userService.findById(1);
+        User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
         Booking newBooking = new Booking(Date.valueOf(bookingDetails.get("date")), currentUser, randomDesk);

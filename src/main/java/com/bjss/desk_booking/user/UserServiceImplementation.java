@@ -11,6 +11,16 @@ public class UserServiceImplementation implements UserService {
 
     private UserRepository userRepo;
 
+    private User currentUser;
+
+    public void setCurrentUser(User user){
+        this.currentUser = user;
+    }
+    //gets the current logged in user
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
     @Autowired
     public UserServiceImplementation(UserRepository userRepo){
         this.userRepo = userRepo;
@@ -42,6 +52,7 @@ public class UserServiceImplementation implements UserService {
     public void save(User user) {
         userRepo.save(user);
     }
+
 
 
 }

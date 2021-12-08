@@ -10,4 +10,7 @@ public interface UserService {
 
     public void save(User user);
 
+    public void setCurrentUser(User currentUser);
+
+    public User getCurrentUser();
 }
