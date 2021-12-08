@@ -43,7 +43,7 @@ public class BookingRestController {
 
         //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
-            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName()));
+            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName(),b.getOfficeName()));
         }
 
         //return all user bookings as a list of BookingDTOs

@@ -31,14 +31,6 @@ public class BookingDTO {
         this.officeLocation = officeLocation;
     }
 
-    //this is for returning desk bookings to the myBookings page
-    public BookingDTO(String officeLocation, int bookingId, String date, int deskId){
-        this.bookingId = bookingId;
-        this.date = date;
-        this.deskId = deskId;
-        this.officeLocation = officeLocation;
-    }
-
     //this is for returning the individual desk bookings in BookingPage
     public BookingDTO(String date, int deskId, boolean booked, String deskImageName, String officeLocation){
         this.date = date;
@@ -48,11 +40,12 @@ public class BookingDTO {
         this.officeLocation = officeLocation;
     }
 
-    public BookingDTO(int bookingId, String date, int deskId, String deskImageName){
+    public BookingDTO(int bookingId, String date, int deskId, String deskImageName, String officeLocation){
         this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
         this.deskImageName = deskImageName;
+        this.officeLocation = officeLocation;
     }
 
 
