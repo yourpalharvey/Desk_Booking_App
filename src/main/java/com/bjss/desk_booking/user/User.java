@@ -8,11 +8,10 @@ import java.util.List;
 
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false, nullable = false)
-     int userId;
+    int userId;
     private String username;
     private String password;
     private boolean isAdmin;

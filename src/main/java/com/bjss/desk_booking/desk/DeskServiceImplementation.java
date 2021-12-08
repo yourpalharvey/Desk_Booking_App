@@ -9,13 +9,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class DeskServiceImplementation implements DeskService {
-    private DeskRepo deskRepo;
 
     @Autowired
-    public DeskServiceImplementation(DeskRepo theDeskRepo) {
-        deskRepo=theDeskRepo;
+    private DeskRepo deskRepo;
 
-    }
 
     @Override
     public List<Desk> findAll() {
