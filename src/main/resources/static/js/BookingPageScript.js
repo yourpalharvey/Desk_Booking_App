@@ -59,6 +59,22 @@ const loadDailyBookings = async () => {
     displayDailyBookings(response);
 }
 
+const cancelBookingFromDash = async (bookingId,deskId) => {
+
+    console.log("cancelBookingFromDash")
+    await fetch('/user/cancelMyBooking', {
+        method: "DELETE",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({bookingId: bookingId})
+    });
+
+    cancelNotification(deskId);
+    await loadDailyBookings();
+}
+
 //if no desks in database, display the below
 const displayEmpty = () => {
     const div3 = document.createElement("div");
@@ -118,10 +134,14 @@ const displayDailyBookings = (jsonResponse) => {
         div4.setAttribute("id", "display-booked-or-unbooked-"+jsonResponse[i].deskId);
 
         if(!jsonResponse[i].booked){
-            div4.setAttribute('class', "card deskCard");
+            div4.className = "card deskCard";
         }
         if(jsonResponse[i].booked){
-            div4.setAttribute('class', "card deskCardBooked");
+            div4.className = "card deskCardBooked";
+        }
+
+        if(jsonResponse[i].cancelButton){
+            div4.className = "card deskCardCancel"
         }
 
         const div5 = document.createElement("div");
@@ -146,9 +166,19 @@ const displayDailyBookings = (jsonResponse) => {
                 bookButton.removeAttribute("onclick");
             }
         } else {
-            bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger disabled");
-            const bookButtonText = document.createTextNode("Booked");
-            bookButton.append(bookButtonText);
+            if(jsonResponse[i].cancelButton){
+                bookButton.className = "bookDeskButton btn btn-warning";
+                const bookButtonText = document.createTextNode("Cancel");
+                let bookingId = jsonResponse[i].bookingId;
+                let deskId = jsonResponse[i].deskId;
+                bookButton.setAttribute("onclick", "cancelBookingFromDash("+bookingId+","+deskId+")");
+                bookButton.append(bookButtonText);
+
+            } else {
+                bookButton.className ="bookDeskButton btn btn-outline-danger disabled";
+                const bookButtonText = document.createTextNode("Booked");
+                bookButton.append(bookButtonText);
+            }
         }
 
         const cardText = document.createElement("div");
@@ -357,6 +387,7 @@ const disableDesk = (deskId) => {
 
 // Todo - div defaults to not display and displays on button click, however as page is currently refreshing on click therefore div goes back to default
 function showBookNotification(deskId) {
+    document.getElementById("cancelFromDashNotification").style.display = "none";
     const bookNot = document.getElementById("bookNotification");
 
     const bookNot2 = bookNot.cloneNode(true);
@@ -364,6 +395,17 @@ function showBookNotification(deskId) {
 
     bookNot2.style.display = "block";
     document.getElementById("deskIdNot").innerText = deskId;
+}
+
+function cancelNotification(deskId) {
+    document.getElementById("bookNotification").style.display = "none";
+    const cancelNot = document.getElementById("cancelFromDashNotification");
+
+    const cancelNot2 = cancelNot.cloneNode(true);
+    cancelNot.parentNode.replaceChild(cancelNot2,cancelNot);
+
+    cancelNot2.style.display = "block";
+    document.getElementById("deskIdCancelNot").innerText = deskId;
 }
 
 

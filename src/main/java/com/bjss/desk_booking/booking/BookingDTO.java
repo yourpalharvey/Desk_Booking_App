@@ -33,6 +33,8 @@ public class BookingDTO {
     private String userBooked;
         //used to disable the button if user already has booking on specific day
     private boolean disableButton;
+        //used to display a cancel button for a user's booking in mybookingpage
+    private boolean cancelButton;
 
 
     //this is for returning to quick booking page
@@ -51,9 +53,11 @@ public class BookingDTO {
     }
 
     //this is for returning the individual desk bookings in BookingPage
-    public BookingDTO(String date, int deskId, boolean booked, String deskImageName,
+    public BookingDTO(int bookingId, String date, int deskId, boolean booked, String deskImageName,
                       String officeLocation, int monitorOption, String deskPosition,
-                      String deskType, String userBooked, boolean disableButton){
+                      String deskType, String userBooked, boolean disableButton,
+                      boolean cancelButton){
+        this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
         this.booked = booked;
@@ -64,6 +68,7 @@ public class BookingDTO {
         this.deskType = deskType;
         this.userBooked = userBooked;
         this.disableButton = disableButton;
+        this.cancelButton = cancelButton;
     }
 
     //this is for returning to myBookingPage
@@ -165,5 +170,13 @@ public class BookingDTO {
 
     public void setUserBooked(String userBooked) {
         this.userBooked = userBooked;
+    }
+
+    public boolean isCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(boolean cancelButton) {
+        this.cancelButton = cancelButton;
     }
 }
