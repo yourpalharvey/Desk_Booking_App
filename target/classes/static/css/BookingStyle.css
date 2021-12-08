@@ -307,8 +307,8 @@ body {
 
 .card__title {
   font-size: 1em;
-  margin: 0 0 .3em;
-  color: #6A515E;
+  margin: 0 0 .8em;
+  color: #058af6;
 }
 
 .card__tagline {
@@ -316,18 +316,18 @@ body {
   margin: 1em 0;
   font-family: "MockFlowFont";
   font-size: .8em;
-  color: #4da6e7;
+  color: #000000;
 }
 
 .card__status {
-  font-size: .8em;
-  color: #4da6e7;
+  font-size: 1em;
+  color: #000000;
 }
 
 .card__description {
   padding: 0 2em 2em;
   margin: 0;
-  color: #4da6e7;
+  color: #058af6;
   font-family: "MockFlowFont";
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -472,7 +472,7 @@ body {
   margin: auto;
   position:center;
   top:50%;
-  left:50%;
+  left:20%;
 
 
 }
