@@ -1,6 +1,10 @@
 const setDate = () => {
     let today = new Date().toISOString().slice(0, 10);
+    let maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 21);
+    maxDate = maxDate.toISOString().slice(0, 10);
     document.getElementById("date").setAttribute('min', today);
+    document.getElementById("date").setAttribute('max', maxDate);
 }
 
 const loadOffices = async () => {
