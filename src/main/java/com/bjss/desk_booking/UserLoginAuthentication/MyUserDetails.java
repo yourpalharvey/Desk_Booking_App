@@ -9,23 +9,14 @@ import java.util.*;
 
 public class MyUserDetails implements UserDetails {
 
-    private int userId;
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
-    private int rating;
-    private String userEmail;
-
-
 
     public MyUserDetails(User user){
-        this.userId = user.getUserId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = setUserAuthorities(user.isAdmin());
-        this.rating = user.getRating();
-        this.userEmail = user.getUserEmail();
-
     }
 
     public List<GrantedAuthority> setUserAuthorities(boolean isAdmin) {

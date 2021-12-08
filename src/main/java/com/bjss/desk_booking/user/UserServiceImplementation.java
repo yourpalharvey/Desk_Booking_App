@@ -16,7 +16,8 @@ public class UserServiceImplementation implements UserService {
     public void setCurrentUser(User user){
         this.currentUser = user;
     }
-    //gets the current logged in user
+
+    //gets the currently logged-in user
     public User getCurrentUser(){
         return currentUser;
     }
@@ -31,8 +32,6 @@ public class UserServiceImplementation implements UserService {
         return userRepo.findAll();
     }
 
-    //if a booking with the selected id is found in the db, return Booking object.
-    //else, return null
     @Override
     public User findById(int userId) {
         Optional<User> result = userRepo.findById(userId);
@@ -52,7 +51,4 @@ public class UserServiceImplementation implements UserService {
     public void save(User user) {
         userRepo.save(user);
     }
-
-
-
 }

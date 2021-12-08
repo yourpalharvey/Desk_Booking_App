@@ -13,7 +13,7 @@ public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "office_id", updatable = false, nullable = false)
-    int officeId;
+    private int officeId;
     private String officeName;
 
     @OneToMany(mappedBy = "office")  //Creating one to many relation with booking class and Using user object from Booking class

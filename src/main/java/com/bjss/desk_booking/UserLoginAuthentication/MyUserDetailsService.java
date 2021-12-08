@@ -31,5 +31,4 @@ public class MyUserDetailsService implements UserDetailsService {
         //return the user from optional
         return user.map(MyUserDetails::new).get();
     }
-
 }

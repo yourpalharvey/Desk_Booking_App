@@ -16,17 +16,16 @@ public class Desk {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int deskId;
-    String deskName;
-    String desktype;
-    String deskPosition;
-    int monitorOption;
-    String deskStatus;
-    String deskImageName;
+    private String deskName;
+    private String desktype;
+    private String deskPosition;
+    private int monitorOption;
+    private String deskStatus;
+    private String deskImageName;
 
     public String getDeskImageName() {
         return deskImageName;
     }
-
 
     @OneToMany(mappedBy = "desk")  //Creating one to many relation with booking class and Using user object from Booking class
     List<Booking> bookingList=new ArrayList<>();
@@ -45,11 +44,9 @@ public class Desk {
         this.desktype = desktype;
         this.deskPosition = deskPosition;
         this.monitorOption = monitorOption;
-
     }
 
     public Desk() {
-
     }
 
     /*save image method*/
@@ -59,9 +56,6 @@ public class Desk {
 
         return "desk/" + deskId + "/" + deskImageName;
     }
-
-    //important method to create
-
 
     public Office getOffice() {
         return office;
@@ -78,7 +72,6 @@ public class Desk {
     public void setDeskStatus(String deskStatus) {
         this.deskStatus = deskStatus;
     }
-
 
     public int getDeskID() {
         return deskId;
@@ -126,8 +119,6 @@ public class Desk {
     public String getName(){
         return deskName;
     }
-
-
 
     @Override
     public String toString(){

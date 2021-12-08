@@ -71,7 +71,6 @@ public class BookingRestController {
 
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, deskToBook));
-
     }
 
     @PostMapping(value = "/user/loadDailyBookings")
