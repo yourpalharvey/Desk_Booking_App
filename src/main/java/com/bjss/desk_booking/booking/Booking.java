@@ -29,6 +29,10 @@ public class Booking {
         this.desk = desk;
     }
 
+    public int getUserId(){
+        return user.getUserId();
+    }
+
     public String getOfficeName(){
         return desk.getOffice().getOfficeName();
     }
@@ -59,6 +63,8 @@ public class Booking {
 
     public Booking() {
     }
+
+
 
     public int getDeskId() {
         return desk.getDeskID();

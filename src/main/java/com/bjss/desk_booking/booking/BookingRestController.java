@@ -128,6 +128,20 @@ public class BookingRestController {
             }
         }
 
+        //todo - fix multiple bookings on same day at different offices
+        for (Booking b : datedBookingList){
+            if(b.getUserId() == userService.getCurrentUser().getUserId()){
+                BookingDTO existingBookingDTO = new BookingDTO(b.getDate().toString(),
+                        b.getDeskId(), b.getOfficeName(), true);
+                try {
+                    return objectMapper.writeValueAsString(existingBookingDTO);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
         //return empty JSON string if all desks are booked for that day
         if (officeDeskList.size() == datedBookingList.size()) {
             System.out.println("ERROR - ALL DESKS FULL!!!!");

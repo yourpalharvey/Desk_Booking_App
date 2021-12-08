@@ -41,9 +41,24 @@
         <div  class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
             <div class="card-body row">
                 <!--TODO Insert correct date the user has selected to the notification message-->
-                <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
                 <div class="notificationCol col-12 col-md-6">
                     <h5 class="card-title">Desk <span id="idOfDeskBooked"></span> has been booked for <span id="dateOfDeskBooked"></span> at <span id="locationOfDeskBooked"></span></h5>
+                </div>
+                <div class="notificationCol col-12 col-md-6">
+                    <a href="/user/mybookings">
+                        <button class="myBookingButton btn btn-warning" type="submit">My Bookings</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="quickBookingExists" style="display:none">
+        <div  class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+            <div class="card-body row">
+                <!--TODO Insert correct date the user has selected to the notification message-->
+                <div class="notificationCol col-12 col-md-6">
+                    <h5 class="card-title">You already have a booking for desk <span id="deskBookedExists"></span>
+                        on <span id="deskBookedDate"></span> at <span id="deskBookedLocation"></span> </h5>
                 </div>
                 <div class="notificationCol col-12 col-md-6">
                     <a href="/user/mybookings">

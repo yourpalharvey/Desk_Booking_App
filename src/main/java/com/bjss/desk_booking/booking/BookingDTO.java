@@ -32,11 +32,21 @@ public class BookingDTO {
 
     private String userBooked;
 
+
+
     //this is for returning to quick booking page
     public BookingDTO(String date, int deskId, String officeLocation){
         this.date = date;
         this.deskId = deskId;
         this.officeLocation = officeLocation;
+    }
+
+    //this is for returning to quick booking page
+    public BookingDTO(String date, int deskId, String officeLocation, boolean booked){
+        this.date = date;
+        this.deskId = deskId;
+        this.officeLocation = officeLocation;
+        this.booked = booked;
     }
 
     //this is for returning the individual desk bookings in BookingPage

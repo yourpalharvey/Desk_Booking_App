@@ -25,31 +25,44 @@ const makeQuickBooking = async () => {
 }
 
 const displayBookingDetails = (response) => {
-    console.log("display booking details response (js:28)")
     console.log(response);
 
     const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
     const deskFullNotification = document.getElementById("quickBookingFull");
+    const quickBookingExistsNotification = document.getElementById("quickBookingExists");
 
     quickBookingCompleteNotification.style.display="none";
     deskFullNotification.style.display="none";
+    quickBookingExistsNotification.style.display="none";
 
+    //this is to re-trigger the animation each time
     const quickBookingCompleteNotificationClone = quickBookingCompleteNotification.cloneNode(true);
     const deskFullNotificationClone = deskFullNotification.cloneNode(true);
-
+    const quickBookingExistsNotificationClone = quickBookingExistsNotification.cloneNode(true);
 
     quickBookingCompleteNotification.parentNode.replaceChild(quickBookingCompleteNotificationClone, quickBookingCompleteNotification);
     deskFullNotification.parentNode.replaceChild(deskFullNotificationClone, deskFullNotification);
-
-    // const quickBookingCompleteNotification = document.getElementById("quickBookingComplete");
-    // quickBookingCompleteNotification.style.display = "none";
-    // const deskFullNotification = document.getElementById("quickBookingFull");
-    // deskFullNotification.style.display = "none";
-
+    quickBookingExistsNotification.parentNode.replaceChild(quickBookingExistsNotificationClone, quickBookingExistsNotification);
 
     if(response.length === 0){
+        //if desks full:
         deskFullNotificationClone.style.display = "block"
+        console.log("ALL DESKS FULL");
+    } else if (response.booked === true) {
+        console.log("RESPONSE BOOKED = TRUE")
+        //if desk has already been booked for this day, display:
+        const deskBookedExistsSpan = document.getElementById("deskBookedExists");
+        deskBookedExistsSpan.innerHTML = response.deskId;
+
+        const deskBookedDateSpan = document.getElementById("deskBookedDate");
+        deskBookedDateSpan.innerHTML = response.date;
+
+        const deskBookedLocationSpan = document.getElementById("deskBookedLocation");
+        deskBookedLocationSpan.innerHTML = response.officeLocation;
+
+        quickBookingExistsNotificationClone.style.display = "block";
     } else {
+        //if desk successfully booked, display:
         const deskIdSpan = document.getElementById("idOfDeskBooked");
         deskIdSpan.innerHTML = response.deskId;
 
