@@ -83,11 +83,11 @@
 
     <div class="article_head">
         <h1 class="title">Admin Manage Comment</h1>
-        <div class="article_r">
-            <span class="pulisher">Admin Manage Comment</span>
-            <span class="article_comments" title="评论"> <a href="#" onclick="">Comment</a></span>
-            <span class="article_del" data-id="${articleDto.id}"><a href="javascript:void(0);" onclick="" title="删除">Delete</a></span>
-        </div>
+        <!--        <div class="article_r">-->
+        <!--            <span class="pulisher">Admin Manage Comment</span>-->
+        <!--            <span class="article_comments" title="评论"> <a href="#" onclick="">Comment</a></span>-->
+        <!--            <span class="article_del" data-id="${articleDto.id}"><a href="javascript:void(0);" onclick="" title="删除">Delete</a></span>-->
+        <!--        </div>-->
     </div>
     <div class="article_content">
         <p>Check User Message Board </p>
@@ -99,13 +99,13 @@
         <div class="comment">
         </div>
         <hr>
-<!--        <div class="comment">-->
-<!--            <hr>-->
-<!--            <div class="comment_add_or_last" onclick="comment">-->
-<!--                点击加载更多评论-->
-<!--            </div>-->
-<!--            <hr>-->
-<!--        </div>-->
+        <!--        <div class="comment">-->
+        <!--            <hr>-->
+        <!--            <div class="comment_add_or_last" onclick="comment">-->
+        <!--                点击加载更多评论-->
+        <!--            </div>-->
+        <!--            <hr>-->
+        <!--        </div>-->
 
     </div>
 </div>
@@ -164,8 +164,25 @@
                     span.innerHTML = res[i].comment
                     document.getElementById("comment").appendChild(span)
 
+                    let input = document.createElement("input")
+                    input.type = "button"
+                    input.setAttribute("class", "bt")
+                    input.value = "delete"
+                    input.onclick = function () {
+                        alert("coming soon")
+                    }
+                    document.getElementById("comment").appendChild(input)
+
+
+                    let p = document.createElement("p")
+                    let time = res[i].createdTime.split("T")
+                    p.innerHTML = time[0]
+                    document.getElementById("comment").appendChild(p)
+
+
                     let hr = document.createElement("hr")
                     document.getElementById("comment").appendChild(hr)
+
                 }
             }
         })
@@ -175,4 +192,16 @@
 
 
 </body>
+<style>
+    .bt {
+        float: right;
+        background-color: #ff8e8e;
+        border: 2px solid #ff7070;
+        cursor: pointer;
+    }
+
+    .bt:hover {
+        background-color: #ff7070;
+    }
+</style>
 </html>
