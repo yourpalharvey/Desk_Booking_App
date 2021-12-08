@@ -67,7 +67,7 @@ public class Booking {
 
 
     public int getDeskId() {
-        return desk.getDeskID();
+        return desk.getDeskId();
     }
 
     public int getId(){
@@ -83,7 +83,7 @@ public class Booking {
     }
 
     public String toString(){
-        return "ID: " + bookingId + "\nDate: " + startDate + "\nDesk ID: " + desk.getDeskID();
+        return "ID: " + bookingId + "\nDate: " + startDate + "\nDesk ID: " + desk.getDeskId();
     }
 
     public Date getDate() {

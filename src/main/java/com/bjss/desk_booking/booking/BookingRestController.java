@@ -107,7 +107,7 @@ public class BookingRestController {
 
 
             for(Booking b : officeBookingListByDate){
-                if(b.getDesk().getDeskID() == d.getDeskID()){
+                if(b.getDesk().getDeskId() == d.getDeskId()){
                     deskBooked = true;
                     userBooked = b.getUser().getUsername();
                     bookingId = b.getBookingId();
@@ -115,13 +115,13 @@ public class BookingRestController {
                 //check if userId from booking is same as currentUser's userId
                 if(b.getUserId() == userService.getCurrentUser().getUserId()){
                     disableButton = true;
-                    if(b.getDeskId() == d.getDeskID()){
+                    if(b.getDeskId() == d.getDeskId()){
                         cancelButton = true;
                     }
                 }
             }
 
-            datedBookingDTOList.add(new BookingDTO(bookingId, bookingDetails.get("date"),d.getDeskID()
+            datedBookingDTOList.add(new BookingDTO(bookingId, bookingDetails.get("date"),d.getDeskId()
                     ,deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()
                     ,d.getMonitorOption(),d.getDeskPosition(),d.getDeskType(), userBooked, disableButton, cancelButton));
         }
@@ -182,7 +182,7 @@ public class BookingRestController {
         // if it does, chose another randomInt and restart the loop by setting j = 0
         // if the loop completes, we can assume there is no booking for that desk on specified date
         for(int j = 0; j < datedBookingList.size(); j++){
-            if(officeDeskList.get(randomInt).getDeskID() == datedBookingList.get(j).getDeskId()){
+            if(officeDeskList.get(randomInt).getDeskId() == datedBookingList.get(j).getDeskId()){
                 randomInt = random.nextInt(officeDeskList.size());
                 System.out.println("randomInt 2: " + randomInt);
                 j = -1;

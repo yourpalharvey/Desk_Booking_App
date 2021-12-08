@@ -73,12 +73,12 @@ public class Desk {
         this.deskStatus = deskStatus;
     }
 
-    public int getDeskID() {
+    public int getDeskId() {
         return deskId;
     }
 
-    public void setDeskID(int deskID) {
-        this.deskId = deskID;
+    public void setDeskId(int deskId) {
+        this.deskId = deskId;
     }
 
     public void setName(String name) {

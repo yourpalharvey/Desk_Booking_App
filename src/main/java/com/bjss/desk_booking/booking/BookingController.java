@@ -52,7 +52,7 @@ public class BookingController {
         for (Desk d : deskService.findAll()) {
             boolean deskBooked = false;
             for (Booking b : bookingCancelListByDate) {
-                if (b.getDesk().getDeskID() == d.getDeskID()) {
+                if (b.getDesk().getDeskId() == d.getDeskId()) {
                     deskBooked = true;
                     break;
                 }
@@ -102,7 +102,7 @@ public class BookingController {
         for (Desk d : deskService.findAll()) {
             boolean deskBooked = false;
             for (Booking b : bookingListByDate) {
-                if (b.getDesk().getDeskID() == d.getDeskID()) {
+                if (b.getDesk().getDeskId() == d.getDeskId()) {
                     deskBooked = true;
                     break;
                 }
