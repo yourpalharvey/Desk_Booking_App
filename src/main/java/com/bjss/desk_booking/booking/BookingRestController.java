@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookingRestController {
@@ -38,7 +39,16 @@ public class BookingRestController {
         List<Booking> userBookingList = bookingService.findByUserId(userService.getCurrentUser().getUserId());
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
+        //sort by date
         userBookingList.sort(Comparator.comparing(Booking::getDate));
+
+        //get yesterdays date
+        java.time.LocalDate localDate = java.time.LocalDate.now().minusDays(1);
+        Date sqlDate = Date.valueOf(localDate);
+
+        //filter the list to return only dates that are after yesterday
+        userBookingList = userBookingList.stream().filter(booking -> booking.getDate()
+                .after(sqlDate)).collect(Collectors.toList());
 
         //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
