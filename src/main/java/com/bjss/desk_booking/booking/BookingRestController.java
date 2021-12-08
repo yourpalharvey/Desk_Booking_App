@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 public class BookingRestController {
@@ -40,6 +37,8 @@ public class BookingRestController {
         //get all bookings by the current user
         List<Booking> userBookingList = bookingService.findByUserId(userService.getCurrentUser().getUserId());
         List<BookingDTO> bookingDTOList = new ArrayList<>();
+
+        userBookingList.sort(Comparator.comparing(Booking::getDate));
 
         //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
