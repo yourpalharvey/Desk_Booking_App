@@ -1,16 +1,43 @@
 const setDate = () => {
-    let today = new Date().toISOString().slice(0, 10);
-    // console.log(today);
+    let today = new Date().toISOString().slice(0, 10)
     document.getElementById("date").setAttribute('min', today);
 }
 
+const loadOffices = async () => {
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }
+
+    let response = await fetch('/user/getAllOffices', options);
+    response = await response.json();
+    console.log(response);
+
+    loadOfficeSelections(response);
+
+}
+
+const loadOfficeSelections = (response) => {
+    for (let i = 0; i<response.length; i++) {
+        const newOption = document.createElement("option");
+        newOption.value = response[i].officeId;
+        newOption.innerText = response[i].officeName;
+        document.getElementById("officeLocation").append(newOption);
+    }
+    console.log(response)
+}
 
 const loadDailyBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
 
     console.log("LOADDAILYBOOKINGS")
     const params = {
-        date : document.getElementById('date').value
+        date : document.getElementById('date').value,
+        officeId: document.getElementById("officeLocation").value
     }
     const options = {
         method: 'POST',
@@ -23,6 +50,8 @@ const loadDailyBookings = async () => {
 
     let response = await fetch('/user/loadDailyBookings', options);
     response = await response.json();
+
+    console.log(response);
 
     displayDailyBookings(response);
 }
@@ -123,9 +152,9 @@ const displayDailyBookings = (jsonResponse) => {
             const deskPos = document.createElement("span");
             const monitors = document.createElement("span");
 
-            deskType.className = "deskTags col-4";
-            deskPos.className = "deskTags col-4";
-            monitors.className = "deskTags col-4";
+            deskType.className = "deskTags col-3";
+            deskPos.className = "deskTags col-3";
+            monitors.className = "deskTags col-3";
 
             cardText.append(deskType);
             cardText.append(deskPos);
@@ -138,9 +167,10 @@ const displayDailyBookings = (jsonResponse) => {
 
 
         } else {
-            const userName = document.createElement("div");
-            userName.innerText = "Username";
+            const userName = document.createElement("span");
+            userName.className = "deskTagsOne col-12";
             cardText.append(userName);
+            userName.innerText = "Username";
         }
 
 

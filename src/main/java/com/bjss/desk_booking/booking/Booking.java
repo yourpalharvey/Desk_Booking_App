@@ -17,11 +17,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
-
-    //@Temporal(TemporalType.DATE)
     private Date startDate;
-
-    //@Temporal(TemporalType.DATE)
     private Date endDate;
 
     @ManyToOne  //creating Many to one relation with user
@@ -37,6 +33,10 @@ public class Booking {
         this.startDate = startDate;
         this.user = user;
         this.desk = desk;
+    }
+
+    public String getOfficeName(){
+        return desk.getOffice().getOfficeName();
     }
 
     public Desk getDesk(){

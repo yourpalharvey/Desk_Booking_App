@@ -251,21 +251,81 @@ body {
 .deskTags {
     color: #f8f9fb;
     background-color: #2f3e46;
-    border-radius: 5px;
+    border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
+    padding-bottom: 1px;
     margin-right: 2px;
-    font-size: 8px;
+    font-size: 9px;
+}
+
+.deskTagsTwo {
+    color: #f8f9fb;
+    background-color: #2f3e46;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 1px;
+    margin-right: 4px;
+    font-size: 12px;
+}
+
+.deskTagsOne {
+    color: #f8f9fb;
+    background-color: #2f3e46;
+    border-radius: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 1px;
+    font-size: 16px;
+}
+
+@media (max-width: 1199.5px) {
+    .deskTags {
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 3px;
+        font-size: 10px;
+    }
+
+    .deskTagsTwo {
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-right: 4px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 991px) {
     .deskTags {
         font-size: 12px;
-        border-radius: 8px;
         padding-left: 6px;
         padding-right: 6px;
         margin-right: 3px;
     }
+
+    .deskTagsTwo {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-right: 5px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .deskTags {
+        font-size: 15px;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 5px;
+    }
+
+    .deskTagsTwo {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-right: 5px;
+    }
+
 }
 
 .siteTitle {

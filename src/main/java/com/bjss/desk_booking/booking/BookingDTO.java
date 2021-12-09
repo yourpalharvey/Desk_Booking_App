@@ -1,6 +1,7 @@
 package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.desk.Desk;
+import com.bjss.desk_booking.office.Office;
 import com.bjss.desk_booking.user.User;
 
 import java.sql.Date;
@@ -21,19 +22,30 @@ public class BookingDTO {
 
     private boolean booked;
 
+    private String officeLocation;
+
+    //this is for returning to quick booking page
+    public BookingDTO(String date, int deskId, String officeLocation){
+        this.date = date;
+        this.deskId = deskId;
+        this.officeLocation = officeLocation;
+    }
+
     //this is for returning desk bookings to the myBookings page
-    public BookingDTO(int bookingId, String date, int deskId){
+    public BookingDTO(String officeLocation, int bookingId, String date, int deskId){
         this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
+        this.officeLocation = officeLocation;
     }
 
     //this is for returning the individual desk bookings in BookingPage
-    public BookingDTO(String date, int deskId, boolean booked, String deskImageName){
+    public BookingDTO(String date, int deskId, boolean booked, String deskImageName, String officeLocation){
         this.date = date;
         this.deskId = deskId;
         this.booked = booked;
         this.deskImageName = deskImageName;
+        this.officeLocation = officeLocation;
     }
 
     public BookingDTO(int bookingId, String date, int deskId, String deskImageName){
@@ -42,6 +54,8 @@ public class BookingDTO {
         this.deskId = deskId;
         this.deskImageName = deskImageName;
     }
+
+
 
     public String getDeskImageName() {
         return deskImageName;
@@ -81,5 +95,13 @@ public class BookingDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public void setOfficeLocation(String officeLocation) {
+        this.officeLocation = officeLocation;
     }
 }

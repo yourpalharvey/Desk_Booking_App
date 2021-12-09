@@ -2,10 +2,12 @@ package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.desk.Desk;
 import com.bjss.desk_booking.desk.DeskService;
+import com.bjss.desk_booking.office.OfficeService;
 import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.user.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,27 +29,30 @@ public class BookingRestController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    OfficeService officeService;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {
-        //currently hardcoded for userId = 1
-        List<Booking> userBookingList = bookingService.findByUserId(1);
+        //get all bookings by the current user
+        List<Booking> userBookingList = bookingService.findByUserId(userService.getCurrentUser().getUserId());
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
+        //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
             bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName()));
         }
 
+        //return all user bookings as a list of BookingDTOs
         String jsonString = JSONArray.toJSONString(bookingDTOList);
-
         return jsonString;
     }
 
     @DeleteMapping(value = "/user/cancelMyBooking")
     public void cancelABooking(@RequestBody Map<String, Integer> bookingIdToCancel){
-
-        //get the details of the booking about to be cancelled
-        Booking b = bookingService.findById(bookingIdToCancel.get("bookingId"));
-
         //delete the booking
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
     }
@@ -62,104 +67,111 @@ public class BookingRestController {
 
         // Set current user for booking
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
-        User currentUser = userService.findById(1);
+        User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
         bookingService.save(new Booking(date, currentUser, deskToBook));
-
     }
 
     @PostMapping(value = "/user/loadDailyBookings")
-    public String getDailyBookings(@RequestBody Map<String, Date> date){
-        List<Booking> bookingListByDate = new ArrayList<>();
+    public String getDailyBookings(@RequestBody Map<String, String> bookingDetails){
+        List<Booking> officeBookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();
 
-        //loop through all desks and bookings, and create a LinkedHashMap of desks both booked and unbooked
-        //value in hashmap is true if booked, false if not booked (for that day)
-        for (Booking b : bookingService.findAll()) {
-            if (b.getDate().equals(date.get("date"))) {
-                bookingListByDate.add(b);
-                System.out.println(b.getDate());
+        //loop through all desks and bookings for the chosen office,
+        // create an ArrayList of all desks both booked and unbooked (datedBookingDTOList)
+        // values in bookingDetails Map are strings, so must cast strings to date and int
+        for (Booking b : bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))) {
+            if (b.getDate().equals(Date.valueOf(bookingDetails.get("date")))) {
+                officeBookingListByDate.add(b);
             }
         }
-        //loop through desks and bookings to see which desks are associated with bookings
-        //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
 
-        for (Desk d: deskService.findAll()){
+        //loop through desks and bookings for chosen office to see which desks are associated with bookings
+        //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
+        for (Desk d: deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))){
             boolean deskBooked = false;
-            for(Booking b : bookingListByDate){
+            for(Booking b : officeBookingListByDate){
                 if(b.getDesk().getDeskID() == d.getDeskID()){
                     deskBooked = true;
                     break;
                 }
             }
-            datedBookingDTOList.add(new BookingDTO(date.toString(),d.getDeskID(),deskBooked,d.getDeskImageName()));
+            datedBookingDTOList.add(new BookingDTO(bookingDetails.get("date"),d.getDeskID(),deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()));
         }
+        //return json list of all office desks
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
+
+        //print current user's username to the console (for testing)
+        System.out.println(userService.getCurrentUser().getUsername());
+
         return jsonString;
     }
 
     @PostMapping(value = "/user/createQuickBooking")
-    public String createQuickBooking(@RequestBody Map<String, Date> date){
-        List<Desk> deskList = deskService.findAll();
-        List<Booking> bookingList = bookingService.findAll();
+    public String createQuickBooking(@RequestBody Map<String, String> bookingDetails){
 
-        //get list of bookings for the 'date' parameter
-        //if number of desks = number of bookings for that day, return an error page
+        //get lists of desks and bookings associated with the chosen office
+        List<Desk> officeDeskList = deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
+        List<Booking> officeBookingList = bookingService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")));
+
+        //get a list of bookings for the specified date
         List<Booking> datedBookingList = new ArrayList<>();
-        for (Booking b : bookingList) {
-            if (b.getDate().equals(date.get("date"))) {
+
+        for (Booking b : officeBookingList) {
+            if (b.getDate().equals(Date.valueOf(bookingDetails.get("date")))) {
                 datedBookingList.add(b);
             }
         }
-        // TODO - make this actually return some kind of error page
 
         //return empty JSON string if all desks are booked for that day
-        if (deskList.size() == datedBookingList.size()) {
+        if (officeDeskList.size() == datedBookingList.size()) {
             System.out.println("ERROR - ALL DESKS FULL!!!!");
             List<Booking> emptyList = new ArrayList<>();
             String jsonString = JSONArray.toJSONString(emptyList);
-            System.out.println(jsonString);
             return jsonString;
-
         }
 
-        // set random desk object for booking
+        // Create random integer between 0 and the size of officeDeskList
         Random random = new Random();
-        int randomInt = random.nextInt(deskList.size()) + 1;
+        int randomInt = random.nextInt(officeDeskList.size());
         System.out.println("randomInt 1: " + randomInt);
 
-        //loop through bookings for that date and compare IDs to make sure not to duplicate desks
-        //if the desk is already booked that day, get another random int and restart the loop
-        int count = 0;
-        while (count < deskList.size()) {
-            for (Booking b : bookingList) {
-                if (b.getDesk().getDeskID() == randomInt && b.getDate().equals(date.get("date"))) {
-                    randomInt = random.nextInt(deskList.size()) + 1;
-                    System.out.println("randomInt 2: " + randomInt);
-                    count = 0;
-                    break;
-                }
+        //  loop through datedBookingList,
+        // check whether the deskId at index=[randomInt] already has a booking for that date
+        // if it does, chose another randomInt and restart the loop by setting j = 0
+        // if the loop completes, we can assume there is no booking for that desk on specified date
+        for(int j = 0; j < datedBookingList.size(); j++){
+            if(officeDeskList.get(randomInt).getDeskID() == datedBookingList.get(j).getDeskId()){
+                randomInt = random.nextInt(officeDeskList.size());
+                System.out.println("randomInt 2: " + randomInt);
+                j = -1;
             }
-            count++;
         }
 
-
-        Desk randomDesk = deskService.findById(randomInt);
+        //once the loop exits, get the desk object from officeDeskList at index=[randomInt]
+        Desk randomDesk = officeDeskList.get(randomInt);
 
         // Set current user for booking
         // **** CURRENTLY HARDCODED TO USER WITH USERID = 1; **** //
-        User currentUser = userService.findById(1);
+        User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
-        Booking newBooking = new Booking(date.get("date"), currentUser, randomDesk);
-
-        // Create new BookingDTO object to pass back to javascript as JSON
-        List<BookingDTO> newBookingDTO = new ArrayList<>();
-        newBookingDTO.add(new BookingDTO(newBooking.getBookingId(), date.get("date").toString(), randomInt));
+        Booking newBooking = new Booking(Date.valueOf(bookingDetails.get("date")), currentUser, randomDesk);
         bookingService.save(newBooking);
 
-        String jsonString = JSONArray.toJSONString(newBookingDTO);
+        // Create new BookingDTO object to pass back to javascript as JSON
+        BookingDTO newBookingDTO = new BookingDTO(newBooking.getDate().toString(),
+                newBooking.getDeskId(), newBooking.getOfficeName());
+
+        // Map newBookingDTO to a json string and return it
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(newBookingDTO);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         System.out.println(jsonString);
         return jsonString;
     }

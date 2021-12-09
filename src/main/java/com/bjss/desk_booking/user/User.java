@@ -8,16 +8,15 @@ import java.util.List;
 
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false, nullable = false)
-     int userId;
+    private int userId;
     private String username;
     private String password;
     private boolean isAdmin;
-    int rating;
-    String userEmail;
+    private int rating;
+    private String userEmail;
 
     public int getRating() {
         return rating;

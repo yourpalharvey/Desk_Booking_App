@@ -11,6 +11,17 @@ public class UserServiceImplementation implements UserService {
 
     private UserRepository userRepo;
 
+    private User currentUser;
+
+    public void setCurrentUser(User user){
+        this.currentUser = user;
+    }
+
+    //gets the currently logged-in user
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
     @Autowired
     public UserServiceImplementation(UserRepository userRepo){
         this.userRepo = userRepo;
@@ -21,8 +32,6 @@ public class UserServiceImplementation implements UserService {
         return userRepo.findAll();
     }
 
-    //if a booking with the selected id is found in the db, return Booking object.
-    //else, return null
     @Override
     public User findById(int userId) {
         Optional<User> result = userRepo.findById(userId);
@@ -42,23 +51,4 @@ public class UserServiceImplementation implements UserService {
     public void save(User user) {
         userRepo.save(user);
     }
-
-    @Override
-    public User findByusername(String name) {
-        Optional<User> result = userRepo.findByusername(name);
-
-        User theUser = null;
-
-        if (result.isPresent()) {
-            theUser= result.get();
-        }
-        else {
-            // we didn't find the employee
-            throw new RuntimeException("Did not find user " + name);
-        }
-
-        return theUser;
-    }
-
-
 }

@@ -1,15 +1,28 @@
 package com.bjss.desk_booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -42,23 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        /* User details are stored here. Can be done via the users on the database later*/
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("{noop}password").roles("USER");
-        auth
-                .inMemoryAuthentication()
-                .withUser("beynonh").password("{noop}password").roles("USER");
-        auth
-                .inMemoryAuthentication()
-                .withUser("shortmant").password("{noop}password").roles("USER");
-        auth
-                .inMemoryAuthentication()
-                .withUser("alahif").password("{noop}password").roles("USER");
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password("{noop}admin").roles("ADMIN");
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 }
