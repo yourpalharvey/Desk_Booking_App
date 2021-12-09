@@ -13,4 +13,6 @@ public interface UserService {
     void setCurrentUser(User currentUser);
 
     User getCurrentUser();
+
+    User findByUsername(String username);
 }

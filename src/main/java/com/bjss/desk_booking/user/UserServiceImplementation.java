@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -46,6 +47,12 @@ public class UserServiceImplementation implements UserService {
 
         return user;
     }
+
+    @Override
+    public User findByUsername(String username){
+        return userRepo.findAll().stream().filter(a -> a.getUsername().equals(username)).collect(Collectors.toList()).get(0);
+    }
+
 
     @Override
     public void save(User user) {

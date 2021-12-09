@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
@@ -33,6 +34,27 @@ public class BookingRestController {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @PostMapping(value = "/public/getUserBookingsByAdmin")
+    public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
+        String searchUser = username.get("username");
+        User user = userService.findByUsername(searchUser);
+        List<Booking> userBookingList = bookingService.findByUserId(user.getUserId());
+        List<BookingDTO> userBookingDTOList = new ArrayList<>();
+
+        for(Booking b: userBookingList){
+            userBookingDTOList.add(new BookingDTO(b.getBookingId(), b.getDate().toString(),b.getDeskId()
+                    ,true,b.getDesk().getDeskImageName(),b.getDesk().getOffice().getOfficeName()
+                    ,b.getDesk().getMonitorOption(),b.getDesk().getDeskPosition()
+                    ,b.getDesk().getDeskType(), b.getUser().getUsername(), false, true));
+        }
+
+        String jsonString = JSONArray.toJSONString(userBookingDTOList);
+        return jsonString;
+
+    }
+
+
 
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {

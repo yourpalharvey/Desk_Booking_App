@@ -191,7 +191,7 @@ const cancelBooking = async (bookingId, deskId, dateString) => {
 
     // Call /user/cancelMyBooking to cancel a booking,
     // and delete the relevant div from the DOM
-    await fetch('/user/cancelMyBooking', {
+    await fetch('/public/cancelMyBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',

@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="bookingPageDatedBody" onload="showLogoutButton(); hideUserNavLinks(); setDate(); loadOffices()">
+<body class="bookingPageDatedBody" onload="showLogoutButton(); hideUserNavLinks(); setDate(); loadOffices();">
 
   <header th:replace="fragments/header :: header"></header>
 
@@ -36,9 +36,9 @@
       <div id="searchUser" class="col-12 col-md-6">
         <h5 class="card-title">Search User</h5>
         <!--Make sure the form has the autocomplete function switched off:-->
-        <form autocomplete="off" action="/action_page.php" onsubmit="preventDefault()">
+        <form autocomplete="off" onsubmit="preventDefault()">
           <div class="autocomplete" style="width:200px;">
-            <input id="userName" type="text" name="userName" placeholder="Country">
+            <input id="userName" type="text" name="userName" placeholder="User">
           </div>
           <button type="button" onclick="loadUserAdminBookings()" class="btn btn-primary">Submit</button>
         </form>
@@ -51,12 +51,14 @@
     <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
       <div class="card-body row ">
         <div class="notificationCol col-12">
-          <h5 class="card-title"><span id="userBookedCancelAdminNot"></span>'s desk <span id="deskIdCancelAdminNot"></span> at <span id="officeLocationCancelAdminNot"></span> has been cancelled</h5>
+          <h5 class="card-title"><span id="userBookedCancelAdminNot"></span>'s booking for desk <span id="deskIdCancelAdminNot"></span>: <span id="officeLocationCancelAdminNot"></span>, has been cancelled <span id="adminDateToCancel"></span></h5>
         </div>
       </div>
     </div>
   </div>
   <footer th:replace="fragments/footer :: footer"></footer>
-  <script> autocomplete(document.getElementById("userName"), countries); </script>
+  <script>
+    getAllUserNames();
+    autocomplete(document.getElementById("userName"), users); </script>
 </body>
 </html>
