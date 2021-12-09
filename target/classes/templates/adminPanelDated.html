@@ -43,7 +43,7 @@
             <h5 class="card-title">Search User</h5>
             <form class="row g-2 align-items-center" action ="/admingetBookingsByUserName" method="GET">
                 <div class="col-auto" style="padding-right: 0">
-                    <label for="search user"><input type="text" placeholder="Search User" aria-label="Search User" id="name" name="name"></label>
+                    <label for="name"><input type="text" placeholder="Search User" aria-label="Search User" id="name" name="name"></label>
                 </div>
                 <div class="col-auto" style="padding: 0 13px">
                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <!-- <h3 class="card__description">Booked By</h3>-->
-                <p class="card__description" ><span>Desk Features: </span>  <span th:text="${booking.desk.desktype}" class="card__status"></span><span> </span><span th:text="${booking.desk.deskPosition}" class="card__status"></span><span> Monitor: </span><span th:text="${booking.desk.MonitorOption}" class="card__status"> </p>
+                <p class="card__description" ><span>Desk Features: </span>  <span th:text="${booking.desk.deskType}" class="card__status"></span><span> </span><span th:text="${booking.desk.deskPosition}" class="card__status"></span><span> Monitor: </span><span th:text="${booking.desk.MonitorOption}" class="card__status"> </p>
 
             </div>
         </a>

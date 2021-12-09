@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -22,13 +23,8 @@ public class DeskController {
 
     /*Adding Desk Method*/
     @RequestMapping(path = "/admin/adddesk")
-    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file
-//                          @RequestParam String deskName,
-//                          @RequestParam int officeId
-//                          @RequestParam String desktype,
-//                          @RequestParam String deskPosition,
-//                          @RequestParam int monitorOption
-                          ) throws IOException,NullPointerException {
+    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file,RedirectAttributes redirAttrs) throws IOException,NullPointerException {
+
 
         String fileName = "";
         try {
@@ -42,6 +38,7 @@ public class DeskController {
 
         if (desk.getDeskName() != null) {
 
+
             deskService.save(desk);
             System.out.println("done");
 
@@ -50,7 +47,10 @@ public class DeskController {
             String uploadDir = "desk/" + desk.getDeskId();
 
             DeskFileUploadUtil.saveFile(uploadDir, fileName, file); //sending upload dir,filename and the file to the upload utility
+            redirAttrs.addFlashAttribute("success", "Everything went just fine.");
+            return "redirect:/admin/adddesk";
         }
+
 
 
         return "adddesk";
