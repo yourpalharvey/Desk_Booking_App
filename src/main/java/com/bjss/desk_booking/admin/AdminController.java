@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import java.text.SimpleDateFormat;
@@ -107,16 +108,59 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admingetBookingsByDate")
-    public String bookingByDate(Model model)
+    public String bookingByDate(Model model,@RequestParam (required = false)java.sql.Date date)
 
     {
-        List<Booking> bookingList=bookingService.findAll();
-        model.addAttribute("bookingList", bookingList);
+        if(date==null)
+        {
+            return "previousbooking";
+        }
+
+
+        List<Booking> allbookingList=bookingService.findAll();
+        List<Booking> bookingList=new ArrayList<>();
+        for (Booking b:allbookingList)
+        {
+            if(b.getDate().equals(date))  //Search by Date
+            {bookingList.add(b);
+
+            }
+
+        }
+
+        model.addAttribute("bookingList",bookingList);
         return "adminPanelDated";
 
 
 
     }
+
+    @GetMapping(value = "/admingetBookingsByUserName")
+    public String bookingByUser(Model model,@RequestParam (required = false)java.sql.Date date,String name)
+
+    {
+
+
+
+
+        List<Booking> allbookingList=bookingService.findAll();
+        List<Booking> bookingList=new ArrayList<>();
+        for (Booking b:allbookingList)
+        {
+            if(b.getUser().getUsername().equals(name))  //Search by name
+            {bookingList.add(b);
+
+            }
+
+        }
+
+        model.addAttribute("bookingList",bookingList);
+        return "adminPanelDated";
+
+
+
+    }
+
 
 
    /* public void emailSender(Booking booking) throws MessagingException

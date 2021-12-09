@@ -13,6 +13,15 @@ public class Booking {
     @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
     private Date startDate;
+    private boolean checked;
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "userId", nullable = false) //UserId from user class will be the foreign key in the booking table
