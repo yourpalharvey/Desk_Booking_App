@@ -100,12 +100,12 @@
       <!-- Display this is desk is not booked (ie. boolean hashmap value = false) -->
       <div  class="card deskCard">
         <div class="card-header">
-          <h5 class="card-text">Desk <span th:text="${booking.desk.deskName}"></span></h5>
+          <h5 class="card-text">Desk <span th:text="${booking.desk.deskId}"></span></h5>
 
           <!-- form for book button -->
           <form class="booking-button-form" action ="/user/bookDesk" method="POST">
-            <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${booking.Date}"></label>
-            <input type="hidden" id="desk-id" name="deskId" th:value="${booking.desk.DeskID}"></label>
+            <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${booking.date}"></label>
+            <input type="hidden" id="desk-id" name="deskId" th:value="${booking.desk.deskId}"></label>
             <button class="bookDeskButton btn btn-success disabled" th:id="book-button" type="submit">Available</button>
           </form>
 

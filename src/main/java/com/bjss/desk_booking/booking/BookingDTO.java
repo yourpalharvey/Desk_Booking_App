@@ -24,6 +24,19 @@ public class BookingDTO {
 
     private String officeLocation;
 
+    private int monitorOption;
+
+    private String deskPosition;
+
+    private String deskType;
+
+    private String userBooked;
+        //used to disable the button if user already has booking on specific day
+    private boolean disableButton;
+        //used to display a cancel button for a user's booking in mybookingpage
+    private boolean cancelButton;
+
+
     //this is for returning to quick booking page
     public BookingDTO(String date, int deskId, String officeLocation){
         this.date = date;
@@ -31,31 +44,77 @@ public class BookingDTO {
         this.officeLocation = officeLocation;
     }
 
-    //this is for returning desk bookings to the myBookings page
-    public BookingDTO(String officeLocation, int bookingId, String date, int deskId){
-        this.bookingId = bookingId;
+    //this is for returning to quick booking page
+    public BookingDTO(String date, int deskId, String officeLocation, boolean booked){
         this.date = date;
         this.deskId = deskId;
         this.officeLocation = officeLocation;
+        this.booked = booked;
     }
 
     //this is for returning the individual desk bookings in BookingPage
-    public BookingDTO(String date, int deskId, boolean booked, String deskImageName, String officeLocation){
+    public BookingDTO(int bookingId, String date, int deskId, boolean booked, String deskImageName,
+                      String officeLocation, int monitorOption, String deskPosition,
+                      String deskType, String userBooked, boolean disableButton,
+                      boolean cancelButton){
+        this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
         this.booked = booked;
         this.deskImageName = deskImageName;
         this.officeLocation = officeLocation;
+        this.monitorOption = monitorOption;
+        this.deskPosition = deskPosition;
+        this.deskType = deskType;
+        this.userBooked = userBooked;
+        this.disableButton = disableButton;
+        this.cancelButton = cancelButton;
     }
 
-    public BookingDTO(int bookingId, String date, int deskId, String deskImageName){
+    //this is for returning to myBookingPage
+    public BookingDTO(int bookingId, String date, int deskId, String deskImageName, String officeLocation){
         this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
         this.deskImageName = deskImageName;
+        this.officeLocation = officeLocation;
     }
 
+    public boolean isDisableButton() {
+        return disableButton;
+    }
 
+    public void setDisableButton(boolean disableButton) {
+        this.disableButton = disableButton;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public int getMonitorOption() {
+        return monitorOption;
+    }
+
+    public void setMonitorOption(int monitorOption) {
+        this.monitorOption = monitorOption;
+    }
+
+    public String getDeskPosition() {
+        return deskPosition;
+    }
+
+    public void setDeskPosition(String deskPosition) {
+        this.deskPosition = deskPosition;
+    }
+
+    public String getDeskType() {
+        return deskType;
+    }
+
+    public void setDeskType(String deskType) {
+        this.deskType = deskType;
+    }
 
     public String getDeskImageName() {
         return deskImageName;
@@ -103,5 +162,21 @@ public class BookingDTO {
 
     public void setOfficeLocation(String officeLocation) {
         this.officeLocation = officeLocation;
+    }
+
+    public String getUserBooked() {
+        return userBooked;
+    }
+
+    public void setUserBooked(String userBooked) {
+        this.userBooked = userBooked;
+    }
+
+    public boolean isCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(boolean cancelButton) {
+        this.cancelButton = cancelButton;
     }
 }

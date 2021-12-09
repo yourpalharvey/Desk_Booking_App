@@ -64,9 +64,9 @@
 
                     <div class="card__header-text">
                         <h3 class="card__title" th:text="${desk.deskName}"></h3>
-                        <span class="card__status" th:text="${desk.desktype}" ></span>
+                        <span class="card__status" th:text="${desk.deskType}" ></span>
                         <div>
-                            <form action="#" th:action="@{/admindeskstatus/{id}(id=${desk.DeskID})}" >
+                            <form action="#" th:action="@{/admindeskstatus/{id}(id=${desk.DeskId})}" >
                                 <input type="submit" value="Delete Desk" class="delete" />
                             </form>
 

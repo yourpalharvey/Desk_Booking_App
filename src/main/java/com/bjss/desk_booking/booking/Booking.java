@@ -2,13 +2,8 @@ package com.bjss.desk_booking.booking;
 
 import com.bjss.desk_booking.user.User;
 import com.bjss.desk_booking.desk.Desk;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-//import java.util.Date;
 import java.sql.Date;
-
 
 @Entity
 public class Booking {
@@ -18,7 +13,6 @@ public class Booking {
     @Column(name = "booking_id", updatable = false, nullable = false)
     private int bookingId;
     private Date startDate;
-    private Date endDate;
 
     @ManyToOne  //creating Many to one relation with user
     @JoinColumn(name = "userId", nullable = false) //UserId from user class will be the foreign key in the booking table
@@ -33,6 +27,10 @@ public class Booking {
         this.startDate = startDate;
         this.user = user;
         this.desk = desk;
+    }
+
+    public int getUserId(){
+        return user.getUserId();
     }
 
     public String getOfficeName(){
@@ -66,16 +64,10 @@ public class Booking {
     public Booking() {
     }
 
+
+
     public int getDeskId() {
-        return desk.getDeskID();
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        return desk.getDeskId();
     }
 
     public int getId(){
@@ -91,7 +83,7 @@ public class Booking {
     }
 
     public String toString(){
-        return "ID: " + bookingId + "\nDate: " + startDate + "\nDesk ID: " + desk.getDeskID();
+        return "ID: " + bookingId + "\nDate: " + startDate + "\nDesk ID: " + desk.getDeskId();
     }
 
     public Date getDate() {

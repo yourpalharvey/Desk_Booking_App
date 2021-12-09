@@ -1,6 +1,10 @@
 const setDate = () => {
-    let today = new Date().toISOString().slice(0, 10)
+    let today = new Date().toISOString().slice(0, 10);
+    let maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 21);
+    maxDate = maxDate.toISOString().slice(0, 10);
     document.getElementById("date").setAttribute('min', today);
+    document.getElementById("date").setAttribute('max', maxDate);
 }
 
 const loadOffices = async () => {
@@ -18,7 +22,6 @@ const loadOffices = async () => {
     console.log(response);
 
     loadOfficeSelections(response);
-
 }
 
 const loadOfficeSelections = (response) => {
@@ -28,7 +31,7 @@ const loadOfficeSelections = (response) => {
         newOption.innerText = response[i].officeName;
         document.getElementById("officeLocation").append(newOption);
     }
-    console.log(response)
+    console.log(response);
 }
 
 const loadDailyBookings = async () => {
@@ -54,6 +57,22 @@ const loadDailyBookings = async () => {
     console.log(response);
 
     displayDailyBookings(response);
+}
+
+const cancelBookingFromDash = async (bookingId,deskId) => {
+
+    console.log("cancelBookingFromDash")
+    await fetch('/user/cancelMyBooking', {
+        method: "DELETE",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({bookingId: bookingId})
+    });
+
+    cancelNotification(deskId);
+    await loadDailyBookings();
 }
 
 //if no desks in database, display the below
@@ -115,10 +134,14 @@ const displayDailyBookings = (jsonResponse) => {
         div4.setAttribute("id", "display-booked-or-unbooked-"+jsonResponse[i].deskId);
 
         if(!jsonResponse[i].booked){
-            div4.setAttribute('class', "card deskCard");
+            div4.className = "card deskCard";
         }
         if(jsonResponse[i].booked){
-            div4.setAttribute('class', "card deskCardBooked");
+            div4.className = "card deskCardBooked";
+        }
+
+        if(jsonResponse[i].cancelButton){
+            div4.className = "card deskCardCancel"
         }
 
         const div5 = document.createElement("div");
@@ -138,10 +161,24 @@ const displayDailyBookings = (jsonResponse) => {
             bookButton.setAttribute("onclick", "bookDesk(" + jsonResponse[i].deskId + ")");
             const bookButtonText = document.createTextNode("Book");
             bookButton.append(bookButtonText);
+            if(jsonResponse[i].disableButton){
+                bookButton.className = "bookDeskButton btn btn-success disabled"
+                bookButton.removeAttribute("onclick");
+            }
         } else {
-            bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger disabled");
-            const bookButtonText = document.createTextNode("Booked");
-            bookButton.append(bookButtonText);
+            if(jsonResponse[i].cancelButton){
+                bookButton.className = "bookDeskButton btn btn-warning";
+                const bookButtonText = document.createTextNode("Cancel");
+                let bookingId = jsonResponse[i].bookingId;
+                let deskId = jsonResponse[i].deskId;
+                bookButton.setAttribute("onclick", "cancelBookingFromDash("+bookingId+","+deskId+")");
+                bookButton.append(bookButtonText);
+
+            } else {
+                bookButton.className ="bookDeskButton btn btn-outline-danger disabled";
+                const bookButtonText = document.createTextNode("Booked");
+                bookButton.append(bookButtonText);
+            }
         }
 
         const cardText = document.createElement("div");
@@ -161,16 +198,15 @@ const displayDailyBookings = (jsonResponse) => {
             cardText.append(monitors);
 
             // Add values from desk table in DB
-            deskType.innerHTML = "Standing";
-            deskPos.innerHTML = "Window";
-            monitors.innerHTML = "2 Monitors";
-
+            deskType.innerHTML = jsonResponse[i].deskType;
+            deskPos.innerHTML = jsonResponse[i].deskPosition;
+            monitors.innerHTML = "Monitors: " + jsonResponse[i].monitorOption;
 
         } else {
             const userName = document.createElement("span");
             userName.className = "deskTagsOne col-12";
             cardText.append(userName);
-            userName.innerText = "Username";
+            userName.innerText = jsonResponse[i].userBooked;
         }
 
 
@@ -345,10 +381,13 @@ const disableDesk = (deskId) => {
     //set button style to disabled
     bookButton.innerHTML = "Booked";
     bookButton.setAttribute("class", "bookDeskButton btn btn-outline-danger my-2 my-sm-0 disabled");
+
+    loadDailyBookings();
 }
 
 // Todo - div defaults to not display and displays on button click, however as page is currently refreshing on click therefore div goes back to default
 function showBookNotification(deskId) {
+    document.getElementById("cancelFromDashNotification").style.display = "none";
     const bookNot = document.getElementById("bookNotification");
 
     const bookNot2 = bookNot.cloneNode(true);
@@ -356,7 +395,17 @@ function showBookNotification(deskId) {
 
     bookNot2.style.display = "block";
     document.getElementById("deskIdNot").innerText = deskId;
+}
 
+function cancelNotification(deskId) {
+    document.getElementById("bookNotification").style.display = "none";
+    const cancelNot = document.getElementById("cancelFromDashNotification");
+
+    const cancelNot2 = cancelNot.cloneNode(true);
+    cancelNot.parentNode.replaceChild(cancelNot2,cancelNot);
+
+    cancelNot2.style.display = "block";
+    document.getElementById("deskIdCancelNot").innerText = deskId;
 }
 
 

@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookingRestController {
@@ -41,9 +39,20 @@ public class BookingRestController {
         List<Booking> userBookingList = bookingService.findByUserId(userService.getCurrentUser().getUserId());
         List<BookingDTO> bookingDTOList = new ArrayList<>();
 
+        //sort by date
+        userBookingList.sort(Comparator.comparing(Booking::getDate));
+
+        //get yesterdays date
+        java.time.LocalDate localDate = java.time.LocalDate.now().minusDays(1);
+        Date sqlDate = Date.valueOf(localDate);
+
+        //filter the list to return only dates that are after yesterday
+        userBookingList = userBookingList.stream().filter(booking -> booking.getDate()
+                .after(sqlDate)).collect(Collectors.toList());
+
         //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
-            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName()));
+            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName(),b.getOfficeName()));
         }
 
         //return all user bookings as a list of BookingDTOs
@@ -91,13 +100,30 @@ public class BookingRestController {
         //add new BookingDTO to datedBookingDTOList including boolean attribute to show if booked
         for (Desk d: deskService.findAllByOfficeId(Integer.parseInt(bookingDetails.get("officeId")))){
             boolean deskBooked = false;
+            boolean disableButton = false;
+            String userBooked = "";
+            boolean cancelButton = false;
+            int bookingId = 0;
+
+
             for(Booking b : officeBookingListByDate){
-                if(b.getDesk().getDeskID() == d.getDeskID()){
+                if(b.getDesk().getDeskId() == d.getDeskId()){
                     deskBooked = true;
-                    break;
+                    userBooked = b.getUser().getUsername();
+                    bookingId = b.getBookingId();
+                }
+                //check if userId from booking is same as currentUser's userId
+                if(b.getUserId() == userService.getCurrentUser().getUserId()){
+                    disableButton = true;
+                    if(b.getDeskId() == d.getDeskId()){
+                        cancelButton = true;
+                    }
                 }
             }
-            datedBookingDTOList.add(new BookingDTO(bookingDetails.get("date"),d.getDeskID(),deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()));
+
+            datedBookingDTOList.add(new BookingDTO(bookingId, bookingDetails.get("date"),d.getDeskId()
+                    ,deskBooked,d.getDeskImageName(),d.getOffice().getOfficeName()
+                    ,d.getMonitorOption(),d.getDeskPosition(),d.getDeskType(), userBooked, disableButton, cancelButton));
         }
         //return json list of all office desks
         String jsonString = JSONArray.toJSONString(datedBookingDTOList);
@@ -124,6 +150,20 @@ public class BookingRestController {
             }
         }
 
+        //todo - fix multiple bookings on same day at different offices
+        for (Booking b : datedBookingList){
+            if(b.getUserId() == userService.getCurrentUser().getUserId()){
+                BookingDTO existingBookingDTO = new BookingDTO(b.getDate().toString(),
+                        b.getDeskId(), b.getOfficeName(), true);
+                try {
+                    return objectMapper.writeValueAsString(existingBookingDTO);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
         //return empty JSON string if all desks are booked for that day
         if (officeDeskList.size() == datedBookingList.size()) {
             System.out.println("ERROR - ALL DESKS FULL!!!!");
@@ -142,7 +182,7 @@ public class BookingRestController {
         // if it does, chose another randomInt and restart the loop by setting j = 0
         // if the loop completes, we can assume there is no booking for that desk on specified date
         for(int j = 0; j < datedBookingList.size(); j++){
-            if(officeDeskList.get(randomInt).getDeskID() == datedBookingList.get(j).getDeskId()){
+            if(officeDeskList.get(randomInt).getDeskId() == datedBookingList.get(j).getDeskId()){
                 randomInt = random.nextInt(officeDeskList.size());
                 System.out.println("randomInt 2: " + randomInt);
                 j = -1;

@@ -130,7 +130,7 @@ body {
 
 }
 
-#quickBookingComplete, #quickBookingFull, #bookNotification, #cancelNotification {
+#quickBookingComplete, #quickBookingFull, #quickBookingExists, #bookNotification, #cancelNotification {
     z-index: -2;
     position: relative;
 }

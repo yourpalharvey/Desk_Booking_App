@@ -175,7 +175,7 @@ public class AdminController {
             message.setFrom(from);
             message.setTo(to);
             message.setSubject("Desk Booking information");
-            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
+            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
                     +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
 

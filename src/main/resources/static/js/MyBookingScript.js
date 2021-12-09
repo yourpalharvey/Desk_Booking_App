@@ -7,6 +7,15 @@ const loadUserBookings = async () => {
     displayUserBookings(response);
 }
 
+const displayEmpty = () => {
+    const cardTitleDiv = document.getElementById("card-title-div");
+
+    const emptyDisplay = document.createElement("h5");
+    emptyDisplay.className = "card-title";
+    emptyDisplay.innerText = "You have no bookings";
+    cardTitleDiv.append(emptyDisplay)
+}
+
 const displayUserBookings = (jsonResponse) => {
 
     if(document.body.contains(document.getElementById("mainDiv"))){
@@ -19,8 +28,7 @@ const displayUserBookings = (jsonResponse) => {
 
     const div2 = document.createElement("div");
     div2.setAttribute('class', "card-body row");
-
-
+    div2.id = "card-title-div";
 
     //loop through all objects in the json response and create nodes for each
     //then append these nodes to the outer div
@@ -29,10 +37,10 @@ const displayUserBookings = (jsonResponse) => {
 
     document.body.append(div1);
 
-    // if(jsonResponse.length === 0){
-    //     displayEmpty();
-    //     return;
-    // }
+    if(jsonResponse.length === 0){
+        displayEmpty();
+        return;
+    }
 
     for(let i = 0; i < jsonResponse.length; i++) {
 
@@ -81,7 +89,7 @@ const displayUserBookings = (jsonResponse) => {
 
         // Todo Add values from DB
         dateTag.innerHTML = jsonResponse[i].date;
-        officeTag.innerHTML = "Cardiff"
+        officeTag.innerHTML = jsonResponse[i].officeLocation;
 
         // const dateTextNode = document.createTextNode(jsonResponse[i].date);
         // datePara.append(dateTextNode);
