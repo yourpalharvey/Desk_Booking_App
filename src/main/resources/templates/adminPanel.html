@@ -19,17 +19,31 @@
   <header th:replace="fragments/header :: header"></header>
 
   <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
-    <div class="card-body">
-      <h5 class="card-title siteTitle">Select Date and Office</h5>
-      <form onsubmit="preventDefault()">
-        <input type="date" id="date">
-        <select id="officeLocation" class="form-select" aria-label="Default select office">
-          <option selected>Office Location</option>
-        </select>
-        <button type="button" onclick="loadDailyAdminBookings()" class="btn btn-primary">Submit</button>
-      </form>
+    <div class="card-body row">
+      <div class="col-12 col-md-6">
+        <h5 class="card-title siteTitle">Select Date and Office</h5>
+        <form class="align-items-center" onsubmit="preventDefault()">
+          <input type="date" id="date">
+          <select id="officeLocation" class="form-select" aria-label="Default select office">
+            <option selected>Office Location</option>
+          </select>
+          <button type="button" onclick="loadDailyAdminBookings()" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div id="searchUser" class="col-12 col-md-6">
+        <h5 class="card-title">Search User</h5>
+        <form class="row g-2 align-items-center" onsubmit="preventDefault()">
+          <div class="col-auto" style="padding-right: 0">
+            <label for="name"><input type="text" placeholder="Search Username" aria-label="Search User" id="name" name="name"></label>
+          </div>
+          <div class="col-auto" style="padding: 0 13px">
+            <button type="button" onclick="loadDailyAdminBookings()" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+
 
   <div id="cancelFromAdminDashNotification" style="display: none">
     <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
