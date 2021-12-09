@@ -23,6 +23,8 @@ public class User {
     }
 
     public void setRating(int rating) {
+
+
         this.rating = rating;
     }
 
@@ -87,4 +89,27 @@ public class User {
     public void setBookingList(List<Booking> bookingList) {
         this.bookingList = bookingList;
     }
+
+
+    public void ratingDecrement()
+    {
+        if(rating!=0)
+        {
+            rating=rating-2;
+        }
+
+    }
+    public void ratingIncrement()
+    {
+        if(rating<=100)
+        {
+            rating=rating+2;
+        }
+
+    }
+
+
+
+
+
 }
