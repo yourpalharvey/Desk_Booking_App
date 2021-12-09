@@ -10,6 +10,7 @@
   <script src="/js/hideUserNavLinks.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/BookingPageScript.js" charset="utf-8"></script>
+  <script src="/js/AdminPageScript.js"></script>
 
 </head>
 
@@ -25,16 +26,16 @@
         <select id="officeLocation" class="form-select" aria-label="Default select office">
           <option selected>Office Location</option>
         </select>
-        <button type="button" onclick="loadDailyBookings()" class="btn btn-primary">Submit</button>
+        <button type="button" onclick="loadDailyAdminBookings()" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
 
-  <div id="cancelFromDashNotification" style="display: none">
+  <div id="cancelFromAdminDashNotification" style="display: none">
     <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
       <div class="card-body row ">
         <div class="notificationCol col-12">
-          <h5 class="card-title">Desk <span id="deskIdCancelNot"></span> has been cancelled</h5>
+          <h5 class="card-title"><span id="userBookedCancelAdminNot"></span>'s desk <span id="deskIdCancelAdminNot"></span> at <span id="officeLocationCancelAdminNot"></span> has been cancelled</h5>
         </div>
       </div>
     </div>

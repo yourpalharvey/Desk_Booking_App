@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/js/MyBookingScript.js").permitAll()
                 .mvcMatchers("/js/BookingPageScript.js").permitAll()
                 .mvcMatchers("/js/QuickBookingPageScript.js").permitAll()
+                .mvcMatchers("/js/AdminPageScript.js").permitAll()
                 .mvcMatchers("/js/hideUserNavLinks.js").hasRole("ADMIN")
                 .mvcMatchers("/js/hideAdminNavLinks.js").hasRole("USER")
                 .mvcMatchers("/js/showLogout.js").hasAnyRole("USER", "ADMIN")

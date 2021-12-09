@@ -62,7 +62,7 @@ const loadDailyBookings = async () => {
 const cancelBookingFromDash = async (bookingId,deskId) => {
 
     console.log("cancelBookingFromDash")
-    await fetch('/user/cancelMyBooking', {
+    await fetch('/public/cancelMyBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',

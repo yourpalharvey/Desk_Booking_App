@@ -61,7 +61,7 @@ public class BookingRestController {
         return jsonString;
     }
 
-    @DeleteMapping(value = "/user/cancelMyBooking")
+    @DeleteMapping(value = "/public/cancelMyBooking")
     public void cancelABooking(@RequestBody Map<String, Integer> bookingIdToCancel){
         //delete the booking
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
