@@ -4,167 +4,41 @@
 <head>
   <title>Admin Dashboard</title>
   <meta charset="utf-8">
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<!--  <link rel="stylesheet" href="/css/BookingStyle.css">-->
   <link rel="stylesheet" href="/css/MyStyle.css">
-  <script src="/js/BookingScript.js" charset="utf-8"></script>
   <script src="/js/showLogout.js"></script>
   <script src="/js/hideUserNavLinks.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/BookingPageScript.js" charset="utf-8"></script>
 
 </head>
 
-<body onload="showLogoutButton(), hideUserNavLinks()">
+<body class="bookingPageDatedBody" onload="showLogoutButton(); hideUserNavLinks(); setDate(); loadOffices()">
 
-<header th:replace="fragments/header :: header"></header>
+  <header th:replace="fragments/header :: header"></header>
 
-<div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
-  <div class="card-body row">
-    <div class="col-12 col-md-6">
-      <h5 class="card-title siteTitle">Select Date</h5>
-      <form class="row g-2 align-items-center" action="/admingetBookingsByDate" method="GET">
-        <div class="col-auto">
-          <label for="date"><input type="date" id="date" name="date"></label>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-    <div id="searchUser" class="col-12 col-md-6">
-      <h5 class="card-title">Search User</h5>
-      <form class="row g-2 align-items-center" action ="/admingetBookingsByDate" method="GET">
-        <div class="col-auto" style="padding-right: 0">
-          <label for="search user"><input type="text" placeholder="Search User" aria-label="Search User" id="search user" name="search user"></label>
-        </div>
-        <div class="col-auto" style="padding: 0 13px">
-          <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
+  <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
+    <div class="card-body">
+      <h5 class="card-title siteTitle">Select Date and Office</h5>
+      <form onsubmit="preventDefault()">
+        <input type="date" id="date">
+        <select id="officeLocation" class="form-select" aria-label="Default select office">
+          <option selected>Office Location</option>
+        </select>
+        <button type="button" onclick="loadDailyBookings()" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
-</div>
 
-<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox"> <!-- removed 'col' as class -->
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-    <!-- All bookings here-->
-
-   <!-- <ul class="cards">
-      <li th:each="booking : ${bookingList}">
-        <a href="" class="card">
-          <img th:src="${booking.desk.PhotosImagePath}" class="card__image" alt="" />
-          <div class="card__overlay">
-            <div class="card__header">
-
-              <div class="card__header-text">
-                <h3 class="card__title" th:text="${booking.bookingId}"></h3>
-                <span class="card__status" th:text="${booking.Date}" ></span>
-                <div>
-                  <form action="#" th:action="@{/previousbooking/{id}(id=${booking.bookingId})}" >
-                    <input type="submit" value="Cancel Booking" class="delete" />
-                  </form>
-
-
-                </div>
-
-
-
-
-
-
-              </div>
-            </div>
-            <p class="card__description" th:text="${booking.desk.desktype}"></p>
-
-
-
-          </div>
-        </a>
-      </li>
-
-    </ul>-->
-
-  </div>
-</div>
-
-
-
-<div class="card d-flex justify-content-center container-fluid mt-100 deskListBox"> <!-- removed 'col' as class -->
-  <h5 class="card-title">Showing all Booking for <span th:text="${#dates.format(standardDate, 'dd-MM-yyyy')}"></span></h5>
-  <div class="card-body row">
-
-    <!-- Loop through the keySet and display Book or Booked item based on the boolean key value-->
-    <!-- if boolean value is true, desk is booked. -->
-    <div th:each="booking : ${bookingList}" class="desk-container col-12 col-md-6 col-lg-4 col-xl-2">
-
-      <!-- Display this is desk is not booked (ie. boolean hashmap value = false) -->
-      <div  class="card deskCard">
-        <div class="card-header">
-          <h5 class="card-text">Desk <span th:text="${booking.desk.deskId}"></span></h5>
-
-          <!-- form for book button -->
-          <form class="booking-button-form" action ="/user/bookDesk" method="POST">
-            <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${booking.date}"></label>
-            <input type="hidden" id="desk-id" name="deskId" th:value="${booking.desk.deskId}"></label>
-            <button class="bookDeskButton btn btn-success disabled" th:id="book-button" type="submit">Available</button>
-          </form>
-
-          <div class="card-title deskCardExpand">
-            <!--<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>-->
-            <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <!-- increment the ids here to display each picture -->
-        <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
-          <div class="card-body deskImg">
-            <img th:src="${booking.desk.PhotosImagePath}" class="card-img-top" alt="">
-          </div>
+  <div id="cancelFromDashNotification" style="display: none">
+    <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+      <div class="card-body row ">
+        <div class="notificationCol col-12">
+          <h5 class="card-title">Desk <span id="deskIdCancelNot"></span> has been cancelled</h5>
         </div>
       </div>
-
-      <!-- Display this if desk is booked (ie. boolean hashmap value = true) -->
-      <!--<div th:if="${allDeskMap.get(key)}" class="card deskCardCancel">
-        <div class="card-header">
-          <h5 class="card-text">Desk <span th:text="${booking.desk.deskName}"></span></h5>
-
-          &lt;!&ndash; form for cancel button &ndash;&gt;
-          <form class="booking-button-form" action ="/admin/cancelDeskBooking" method="POST">
-            <label for="date"><input type="hidden" id="booking-date" name="date" th:value="${viewingDate}"></label>
-            <input type="hidden" id="desk-id" name="deskId" th:value="${status.index + 1}"></label>
-            <button onclick="showCancelNotification()" class="bookDeskButton btn btn-warning" th:id="'cacnel-button'+${status.index+1}" type="submit">Cancel</button>
-          </form>
-
-          &lt;!&ndash;todo Add user name of booking here&ndash;&gt;
-          <div class="card-text bookingCardUser">
-            Username
-          </div>
-
-          <div class="card-title deskCardExpand">
-            &lt;!&ndash;<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>&ndash;&gt;
-            <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        &lt;!&ndash; increment the ids here to display each picture &ndash;&gt;
-        <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">
-          <div class="card-body deskImg">
-            <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">
-          </div>
-        </div>
-      </div>-->
     </div>
   </div>
-
-</div>
-
-<footer th:replace="fragments/footer :: footer"></footer>
-
+  <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

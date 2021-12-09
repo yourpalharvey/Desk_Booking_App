@@ -94,7 +94,7 @@ public class BookingRestController {
         return false;
     }
 
-    @PostMapping(value = "/user/loadDailyBookings")
+    @PostMapping(value = "/public/loadDailyBookings")
     public String getDailyBookings(@RequestBody Map<String, String> bookingDetails){
         List<Booking> officeBookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();

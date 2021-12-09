@@ -17,7 +17,7 @@ const loadOffices = async () => {
         }
     }
 
-    let response = await fetch('/user/getAllOffices', options);
+    let response = await fetch('/public/getAllOffices', options);
     response = await response.json();
     console.log(response);
 
@@ -51,7 +51,7 @@ const loadDailyBookings = async () => {
         body: JSON.stringify(params)
     }
 
-    let response = await fetch('/user/loadDailyBookings', options);
+    let response = await fetch('/public/loadDailyBookings', options);
     response = await response.json();
 
     console.log(response);
