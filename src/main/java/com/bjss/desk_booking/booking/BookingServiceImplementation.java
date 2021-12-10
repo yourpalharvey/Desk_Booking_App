@@ -25,19 +25,21 @@ public class BookingServiceImplementation implements BookingService{
 
     @Override
     public List<Booking> findAllByOfficeId(int officeId) {
-        System.out.println(officeId);
         List<Booking> officeBookingList = bookingRepo.findAll()
                 .stream()
                 .filter(booking -> booking.getDesk().getOffice().getOfficeId() == officeId)
                 .collect(Collectors.toList());
         //System.out.println(officeBookingList);
         return officeBookingList;
-
     }
 
-    //if a booking with the selected id is found in the db, return Booking object.
-    //else, return null
-    //todo - add some error handling/error message for when this happens
+    public List<Booking> findAllByDeskId(int deskId){
+        List<Booking> deskBookingList = bookingRepo.findAll()
+                .stream()
+                .filter(booking -> booking.getDeskId() == deskId)
+                .collect(Collectors.toList());
+        return deskBookingList;
+    }
 
     @Override
     public Booking findById(int bookingId) {

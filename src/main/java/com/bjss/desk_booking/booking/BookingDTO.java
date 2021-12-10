@@ -44,6 +44,14 @@ public class BookingDTO {
         this.officeLocation = officeLocation;
     }
 
+    //this is for returning information about cancelled bookings when a desk is deleted
+    public BookingDTO(String date, String userBooked, int deskId){
+        this.date = date;
+        this.userBooked = userBooked;
+        this.deskId = deskId;
+    }
+
+
     //this is for returning to quick booking page
     public BookingDTO(String date, int deskId, String officeLocation, boolean booked){
         this.date = date;

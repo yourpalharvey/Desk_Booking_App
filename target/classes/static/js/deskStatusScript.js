@@ -170,7 +170,7 @@ displayAllBookingsCancelled = (response) => {
     for (let i = 0; i < response.length; i++){
         htmlToDisplay += "<div class=\"card deskCard\">\n" +
             "                    <div class=\"card-header\">\n" +
-            "                        <h5 class=\"userDeskBookingCancelled\">"+response[i].userBooked+"'s booking for "+response[i].deskId +" has been cancelled\n" +
+            "                        <h5 class=\"userDeskBookingCancelled\">"+response[i].userBooked+"'s booking has been cancelled\n" +
             "                            for "+response[i].date+"</h5>\n" +
             "                    </div>\n" +
             "                </div>"

@@ -9,8 +9,10 @@ public class DeskDTO {
     private int monitorOption;
     private String deskStatus;
     private String deskImageName;
+    private String officeLocation;
 
-    public DeskDTO(int deskId, String deskName, String deskType, String deskPosition, int monitorOption, String deskStatus, String deskImageName) {
+    public DeskDTO(int deskId, String deskName, String deskType, String deskPosition,
+                   int monitorOption, String deskStatus, String deskImageName, String officeLocation) {
         this.deskId = deskId;
         this.deskName = deskName;
         this.deskType = deskType;
@@ -18,6 +20,7 @@ public class DeskDTO {
         this.monitorOption = monitorOption;
         this.deskStatus = deskStatus;
         this.deskImageName = deskImageName;
+        this.officeLocation = officeLocation;
     }
 
     public int getDeskId() {
@@ -74,5 +77,13 @@ public class DeskDTO {
 
     public void setDeskImageName(String deskImageName) {
         this.deskImageName = deskImageName;
+    }
+
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public void setOfficeLocation(String officeLocation) {
+        this.officeLocation = officeLocation;
     }
 }
