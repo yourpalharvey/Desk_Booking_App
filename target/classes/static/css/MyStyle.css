@@ -189,6 +189,23 @@ body {
     float: right;
 }
 
+
+/*#bookNotification .card-body {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+/*#bookNotification .card-title {*/
+/*    margin: 5px;*/
+/*}*/
+
+/*#bookNotification .myBookingButton {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    margin: 5px;*/
+/*}*/
+
 .notificationCol {
     display: flex;
     justify-content: center;
@@ -318,8 +335,4 @@ body {
 
 .siteTitle {
     margin-bottom: 10px;
-}
-
-#addDeskFormCard {
-    margin: 10px;
 }

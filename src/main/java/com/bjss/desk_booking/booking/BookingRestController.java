@@ -33,11 +33,22 @@ public class BookingRestController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @PostMapping(value = "/user/bookingCheckIn")
+    public String bookingCheckIn(@RequestBody Map<String, Integer> bookingIdMap){
+        int bookingId = bookingIdMap.get("bookingId");
+        //TODO BOOKING CHECK IN
+
+        return "";
+    }
+
     @PostMapping(value = "/public/getUserBookingsByAdmin")
     public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
         String searchUser = username.get("username");
         User user = userService.findByUsername(searchUser);
         List<Booking> userBookingList = bookingService.findByUserId(user.getUserId());
+
+
+        userBookingList.sort(Comparator.comparing(Booking::getDate));
         List<BookingDTO> userBookingDTOList = new ArrayList<>();
 
         for(Booking b: userBookingList){
