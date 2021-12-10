@@ -22,19 +22,15 @@
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
   <div class="card-body">
     <h5 class="card-title siteTitle">My Bookings</h5>
-<!--    <form action ="/admin/getBookingsByDate" method="GET">-->
-<!--      <label for="date"><input type="date" id="date" name="date"></label>-->
-<!--      <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>-->
-<!--    </form>-->
+    <button class="btn btn-success" id="check-in-btn" onclick="checkIn()">Check in today</button>
   </div>
 </div>
+
 
 <!--todo Notification not displaying as booking currently refreshes the page-->
 <div id="cancelNotification" style="display: none">
   <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
     <div class="card-body row">
-      <!--TODO Insert correct date the user has selected to the notification message-->
-      <!--Desk <span th:text="${deskBooked}"></span> booked for (Insert date selected)<span th:text="${startDate}"></span>-->
       <h5 class="card-title col-12">Booking for Desk <span id="deskIdCancelNot"></span>, on <span id="dateCancelNot"></span> has been cancelled</h5>
     </div>
   </div>

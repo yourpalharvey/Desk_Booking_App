@@ -33,6 +33,14 @@ public class BookingRestController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @PostMapping(value = "/user/bookingCheckIn")
+    public String bookingCheckIn(@RequestBody Map<String, Integer> bookingIdMap){
+        int bookingId = bookingIdMap.get("bookingId");
+        //TODO BOOKING CHECK IN
+
+        return "";
+    }
+
     @PostMapping(value = "/public/getUserBookingsByAdmin")
     public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
         String searchUser = username.get("username");

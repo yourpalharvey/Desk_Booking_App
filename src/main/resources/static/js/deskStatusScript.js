@@ -80,8 +80,8 @@ const displayAllDesksForAdmin = (jsonResponse) => {
         bookButton.className = "bookDeskButton btn btn-warning";
         bookButton.innerText = "Cancel";
 
-        let deskId = jsonResponse[i].deskId;
-        bookButton.setAttribute("onclick", "deleteDesk(" + deskId + ")");
+        //let deskId = jsonResponse[i].deskId;
+        bookButton.setAttribute("onclick", "deleteDesk(" + jsonResponse[i].deskId + ")");
 
         const deskCardExpand = bookButton.nextElementSibling;
 

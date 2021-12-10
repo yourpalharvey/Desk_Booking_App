@@ -184,6 +184,11 @@ body {
     margin: 0;
 }
 
+#check-in-btn{
+    display: inline-block;
+    float: right;
+}
+
 
 /*#bookNotification .card-body {*/
 /*    display: flex;*/

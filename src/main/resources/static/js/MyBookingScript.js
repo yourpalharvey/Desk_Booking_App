@@ -149,6 +149,13 @@ const displayUserBookings = (jsonResponse) => {
         div3.append(div4);
         div2.append(div3);
 
+        if(i === 0 && jsonResponse[i].date ===  new Date().toISOString().slice(0, 10)) {
+            console.log("booking IDDDDDD")
+            enableCheckInButton(bookingId);
+        } else if (i == 0){
+            disableCheckInButton();
+        }
+
     }
 
 
@@ -218,3 +225,36 @@ function showCancelNotification(deskId, dateString) {
     document.getElementById("deskIdCancelNot").innerText = deskId;
     document.getElementById("dateCancelNot").innerText = dateString;
 }
+
+const checkIn = async (bookingId) => {
+    const params = {
+        bookingId : bookingId
+    }
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    }
+    let response = await fetch('/user/bookingCheckIn', options);
+    response = await response.json();
+
+    console.log(response);
+}
+
+const enableCheckInButton = (bookingId) => {
+    const checkInButton = document.getElementById("check-in-btn");
+    checkInButton.className = "btn btn-success";
+    checkInButton.setAttribute("onclick", "checkIn(" + bookingId + ")");
+    checkInButton.style.display = "inline-block";
+}
+
+const disableCheckInButton = () => {
+    const checkInButton = document.getElementById("check-in-btn");
+    checkInButton.removeAttribute("onclick");
+    checkInButton.style.display = "none";
+}
+
