@@ -29,7 +29,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
     const officeSpanInTemplate = document.getElementById("officeSpanInTemplate");
     officeSpanInTemplate.innerText = jsonResponse[0].officeLocation;
 
-    let mainDiv = document.getElementById("mainDiv");;
+    let mainDiv = document.getElementById("mainDiv");
 
     //remove mainDivDisplayed and take new copy of mainDiv
     if (document.body.contains(document.getElementById("mainDivDisplayed"))) {
@@ -94,7 +94,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
 
 
         const img = imgDiv.firstElementChild.firstElementChild;
-        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
+        img.setAttribute("src","/desk/" + jsonResponse[i].deskId + "/" + jsonResponse[i].deskImageName);
 
         console.log(jsonResponse[i].deskImageName);
 

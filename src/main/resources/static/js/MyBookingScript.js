@@ -126,7 +126,7 @@ const displayUserBookings = (jsonResponse) => {
         imgDiv2.setAttribute("class", "card-body deskImg");
 
         const img = document.createElement("img");
-        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
+        img.setAttribute("src","/desk/" + jsonResponse[i].deskId + "/" + jsonResponse[i].deskImageName);
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 
