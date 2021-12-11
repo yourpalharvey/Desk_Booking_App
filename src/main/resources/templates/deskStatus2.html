@@ -36,7 +36,7 @@
 
 </head>
 
-<body onload="showLogoutButton(); hideUserNavLinks(); loadOffices();">
+<body class="deskStatusBody" onload="showLogoutButton(); hideUserNavLinks(); loadOffices();">
 <header th:replace="fragments/header :: header"></header>
 
     <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div id="deleteNotification" style="display: none">
+    <div id="deleteNotification">
         <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox" id="deleteDeskNotification">
             <div class="card-body row warning-text-delete">
                 <div class="col-12 justify-content-center" style="text-align: center">

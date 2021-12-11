@@ -12,6 +12,7 @@
 </head>
 <body>
 <header th:fragment="header">
+    <!-- Header contains the Nav Bar to display it on every page -->
     <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="/public/home">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
@@ -42,12 +43,9 @@
                         ADMIN
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                        <!-- todo: Change page names to correct names-->
                         <!-- The href for each page are found in java/admin/adminControllers -->
                         <a class="dropdown-item" href="/admindashboard">ADMIN DASHBOARD</a>
-                        <a class="dropdown-item" href="/admin/deskstatus">DESK STATUS</a>
-                        <a class="dropdown-item" href="/previousbooking">PREVIOUS BOOKINGS</a>
+                        <a class="dropdown-item" href="/admin/deskstatus">REMOVE DESK</a>
                         <a class="dropdown-item" href="/admin/adddesk">ADD DESK</a>
                     </div>
                 </li>

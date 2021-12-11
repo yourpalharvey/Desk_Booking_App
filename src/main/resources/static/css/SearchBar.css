@@ -1,4 +1,6 @@
-/* https://www.w3schools.com/howto/howto_js_autocomplete.asp */
+/* Autocomplete functionality and styling W3 schools.
+https://www.w3schools.com/howto/howto_js_autocomplete.asp
+Copyright 1999-2021 by Refsnes Data. */
 
 * { box-sizing: border-box; }
 
@@ -6,6 +8,7 @@
     /*the container must be positioned relative:*/
     position: relative;
     display: inline-block;
+    width: 200px;
 }
 
 .autocomplete-items {
