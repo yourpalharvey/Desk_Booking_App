@@ -9,8 +9,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -113,7 +115,18 @@ public class BookingRestController {
         User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
-        bookingService.save(new Booking(date, currentUser, deskToBook));
+
+        Booking booking=new Booking(date,currentUser,deskToBook);
+       if(!fairPolicy(booking))
+       {
+           booking.setApproved(false);
+           bookingService.save(booking);
+       }
+       else
+       {
+           booking.setApproved(true);
+           bookingService.save(booking);
+       }
     }
 
     public boolean userHasBookingOnDate(User user, Date date){
@@ -255,7 +268,17 @@ public class BookingRestController {
 
         // Create new booking, and add to database
         Booking newBooking = new Booking(date, currentUser, randomDesk);
-        bookingService.save(newBooking);
+        if(!fairPolicy(newBooking))
+        {
+            newBooking.setApproved(false);
+            bookingService.save(newBooking);
+        }
+        else
+        {
+            newBooking.setApproved(true);
+            bookingService.save(newBooking);
+        }
+
 
         // Create new BookingDTO object to pass back to javascript as JSON
         BookingDTO newBookingDTO = new BookingDTO(newBooking.getDate().toString(),
@@ -289,11 +312,20 @@ public class BookingRestController {
         }
 
 
-        int bookedPercentage=(count/deskService.findAll().size())*100; //find the percentage of booked desk on that day
-        if(bookedPercentage>=70)   //if more than 70% desk is booked it will check for user rating
+
+        int desksize=deskService.findAll().size();
+        float bookedPercentage=((float)count/desksize); //find the percentage of booked desk on that day
+        bookedPercentage=bookedPercentage*100;
+        java.util.Date date = new java.util.Date();
+        //Will reduce the complexcity
+
+
+
+        if(bookedPercentage>=50)   //if more than 70% desk is booked it will check for user rating
+
         {
             for (Booking booking : bookingList) {
-                if (booking.getUser().getUserId() == booked.getUser().getUserId()) {
+                if (booking.getUser().getUserId() == booked.getUser().getUserId() && booking.getDate().before(date) || booking.getDate().equals(date)) {
                     if (!booking.isChecked()) { //check if user has any previous missed booking
                         booking.setChecked(true); //
                         booking.getUser().ratingDecrement(); //call for penalty function in the user rating
@@ -316,9 +348,24 @@ public class BookingRestController {
                     }
                 }
 
+
             }
         }
-        return true;
+
+        if(booked.getUser().getRating()<70)
+        {
+            if(!booked.isChecked())
+            {
+                booked.getUser().ratingDecrement();
+                booked.setChecked(true);
+            }
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
 
 
 
@@ -327,4 +374,11 @@ public class BookingRestController {
 
 
 
+
+
+
 }
+
+
+
+

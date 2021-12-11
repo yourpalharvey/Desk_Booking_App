@@ -95,7 +95,7 @@ public class User {
     {
         if(rating!=0)
         {
-            rating=rating-2;
+            rating=rating-5;
         }
 
     }
@@ -103,7 +103,7 @@ public class User {
     {
         if(rating<=100)
         {
-            rating=rating+2;
+            rating=rating+5;
         }
 
     }
