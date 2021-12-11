@@ -206,22 +206,6 @@ body {
     justify-content: center;
 }
 
-/*#bookNotification .card-body {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
-
-/*#bookNotification .card-title {*/
-/*    margin: 5px;*/
-/*}*/
-
-/*#bookNotification .myBookingButton {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    margin: 5px;*/
-/*}*/
-
 .notificationCol {
     display: flex;
     justify-content: center;
@@ -356,4 +340,8 @@ body {
 #deleteDeskButton, #goBackButton{
     padding: 20px 30px;
     margin-top: 20px;
+}
+
+#addDeskFormCard {
+    margin: 10px;
 }

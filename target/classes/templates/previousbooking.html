@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+
+
+
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/site.webmanifest">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Desk Status</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+
+
+    <!-- Additional CSS Files -->
+    <link th:href="@{/css/BookingStyle.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <link rel="stylesheet" href="/css/BookingStyle.css">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/BookingScript.js" charset="utf-8"></script>
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
+
+    <link th:href="@{/css/BookingStyle.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <link rel="stylesheet" href="/css/BookingStyle.css">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/BookingScript.js" charset="utf-8"></script>
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
+
+
+
+
+
+</head>
+
+<body>
+<header th:replace="fragments/header :: header"></header>
+
+<!-- ***** Header Area Start ***** -->
+<!-- TODO: This navbar once all sites are linked in the mainNavbar-->
+
+<!-- ***** Header Area End ***** -->
+<div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
+    <div class="card-body row">
+        <div class="col-12 col-md-6">
+            <h5 class="card-title siteTitle">Select Date</h5>
+            <form class="row g-2 align-items-center" action="/admingetBookingsByDate" method="GET">
+                <div class="col-auto">
+                    <label for="date"><input type="date" id="date" name="date"></label>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="searchUser" class="col-12 col-md-6">
+            <h5 class="card-title">Search User</h5>
+            <form class="row g-2 align-items-center" action ="/admingetBookingsByUserName" method="GET">
+                <div class="col-auto" style="padding-right: 0">
+                    <label for="name"><input type="text" placeholder="Search User" aria-label="Search User" id="name" name="name"></label>
+                </div>
+                <div class="col-auto" style="padding: 0 13px">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!--blog card start-->
+<ul class="cards">
+    <li th:each="booking : ${bookingList}">
+        <a href="" class="card">
+            <img th:src="${booking.desk.PhotosImagePath}" class="card__image" alt="" />
+
+            <div class="card__overlay">
+                <div class="card__header">
+
+                    <div class="card__header-text">
+
+                        <h2 class="card__title" ><span>Booking ID :</span> <span th:text="${booking.bookingId}"class="card__status"></span> </h2>
+                        <h3 class="card__title" ><span >Desk Name :</span> <span th:text="${booking.desk.deskName}" class="card__status"></span></h3>
+                        <h5 class="card__title"> <span >Booking Date :</span>  <span th:text="${booking.date}" class="card__status"></span></h5>
+
+
+
+                        <h4 class="card__title" ><span >Booked By :</span>  <span th:text="${booking.user.username}" class="card__status"></span></h4>
+                        <div>
+                            <form action="#" th:action="@{/previousbooking/{id}(id=${booking.bookingId})}" >
+                                <input type="submit" value="Cancel Booking" class="delete" />
+                            </form>
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+               <!-- <h3 class="card__description">Booked By</h3>-->
+                <p class="card__description" ><span>Desk Features: </span>  <span th:text="${booking.desk.deskType}" class="card__status"></span><span> </span><span th:text="${booking.desk.deskPosition}" class="card__status"></span><span> Monitor: </span><span th:text="${booking.desk.MonitorOption}" class="card__status"> </p>
+
+            </div>
+        </a>
+    </li>
+
+</ul>
+
+<!-- /.blog-card -->
+
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>
