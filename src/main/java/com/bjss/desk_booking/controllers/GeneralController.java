@@ -37,5 +37,13 @@ public class GeneralController {
         return "MyBookingPage";
     }
 
+    @RequestMapping(path = "/admin/comment")
+    public String adminComment(String name) {
+        return "adminComment";
+    }
+
+    @RequestMapping(path = "/user/comment")
+    public String userComment(String name){return "userComment";}
+
 }
 
