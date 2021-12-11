@@ -25,48 +25,24 @@ public class DeskController {
     @RequestMapping(path = "/admin/adddesk")
     public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file,RedirectAttributes redirAttrs) throws IOException,NullPointerException {
 
-
         String fileName = "";
         try {
             fileName = StringUtils.cleanPath(file.getOriginalFilename()); //get the acrual file name
             desk.setDeskImageName(fileName);
-
-
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
 
         if (desk.getDeskName() != null) {
-
-
             deskService.save(desk);
             System.out.println("done");
-
-
-
             String uploadDir = "desk/" + desk.getDeskId();
 
             DeskFileUploadUtil.saveFile(uploadDir, fileName, file); //sending upload dir,filename and the file to the upload utility
-            redirAttrs.addFlashAttribute("success", "Everything went just fine.");
+            // Notification to display that a desk has been added
+            redirAttrs.addFlashAttribute("success", "Desk ID: " + desk.getDeskId() + " has been added");
             return "redirect:/admin/adddesk";
         }
-
-
-
         return "adddesk";
-
-
     }
-
-
-    /*Show Desk*/
-
-
-
-
-
-
-
 }
 
 

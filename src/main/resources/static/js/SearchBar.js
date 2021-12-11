@@ -1,3 +1,7 @@
+/* Autocomplete functionality and styling W3 schools.
+https://www.w3schools.com/howto/howto_js_autocomplete.asp
+Copyright 1999-2021 by Refsnes Data. */
+
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
