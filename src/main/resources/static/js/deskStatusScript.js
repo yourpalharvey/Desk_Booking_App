@@ -61,7 +61,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
         bookedOrUnbooked.setAttribute("id", "display-booked-or-unbooked-" + jsonResponse[i].deskId);
 
         if (!jsonResponse[i].booked) {
-            bookedOrUnbooked.className = "card deskCard";
+            bookedOrUnbooked.className = "card deskCardCancel";
         }
         if (jsonResponse[i].booked) {
             bookedOrUnbooked.className = "card deskCardBooked";
@@ -73,7 +73,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
         let bookButton = cardText.nextElementSibling;
         bookButton.setAttribute("id", "book-button-" + jsonResponse[i].deskId);
 
-        bookButton.className = "bookDeskButton btn btn-danger";
+        bookButton.className = "bookDeskButton btn btn-warning";
         bookButton.innerText = "Delete Desk";
 
         //let deskId = jsonResponse[i].deskId;
@@ -168,7 +168,7 @@ displayAllBookingsCancelled = (response) => {
     let htmlToDisplay = "";
 
     for (let i = 0; i < response.length; i++){
-        htmlToDisplay += "<div class=\"card deskCard\">\n" +
+        htmlToDisplay += "<div class=\"card deskCardCancel\">\n" +
             "                    <div class=\"card-header\">\n" +
             "                        <h5 class=\"userDeskBookingCancelled\">"+response[i].userBooked+"'s booking for "+response[i].deskId +" has been cancelled\n" +
             "                            for "+response[i].date+"</h5>\n" +
