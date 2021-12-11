@@ -158,7 +158,7 @@ const displayAdminSearchEmpty = () => {
 
     const emptyDisplay = document.createElement("h5");
     emptyDisplay.className = "card-title";
-    emptyDisplay.innerText = "You have no bookings";
+    emptyDisplay.innerText = "User has no bookings";
     cardTitleDiv.append(emptyDisplay)
 }
 

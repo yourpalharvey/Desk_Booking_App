@@ -189,6 +189,22 @@ body {
     float: right;
 }
 
+#addDeskButtonDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 767.5px) {
+    #addDeskButtonDiv{
+        margin-top: 10px;
+    }
+}
+
+
+.warning-text-delete{
+    justify-content: center;
+}
 
 /*#bookNotification .card-body {*/
 /*    display: flex;*/
@@ -335,4 +351,9 @@ body {
 
 .siteTitle {
     margin-bottom: 10px;
+}
+
+#deleteDeskButton, #goBackButton{
+    padding: 20px 30px;
+    margin-top: 20px;
 }

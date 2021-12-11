@@ -189,22 +189,22 @@ body {
     float: right;
 }
 
+#addDeskButtonDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-/*#bookNotification .card-body {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
+@media (max-width: 767.5px) {
+    #addDeskButtonDiv{
+        margin-top: 10px;
+    }
+}
 
-/*#bookNotification .card-title {*/
-/*    margin: 5px;*/
-/*}*/
 
-/*#bookNotification .myBookingButton {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    margin: 5px;*/
-/*}*/
+.warning-text-delete{
+    justify-content: center;
+}
 
 .notificationCol {
     display: flex;
@@ -335,4 +335,13 @@ body {
 
 .siteTitle {
     margin-bottom: 10px;
+}
+
+#deleteDeskButton, #goBackButton{
+    padding: 20px 30px;
+    margin-top: 20px;
+}
+
+#addDeskFormCard {
+    margin: 10px;
 }
