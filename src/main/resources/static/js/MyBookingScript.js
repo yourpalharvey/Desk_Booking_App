@@ -88,7 +88,7 @@ const displayUserBookings = (jsonResponse) => {
         datePara.append(officeTag);
 
         // Todo Add values from DB
-        dateTag.innerHTML = jsonResponse[i].date;
+        dateTag.innerHTML = ukDateHelper(jsonResponse[i].date);
         officeTag.innerHTML = jsonResponse[i].officeLocation;
 
         // const dateTextNode = document.createTextNode(jsonResponse[i].date);
@@ -223,7 +223,7 @@ function showCancelNotification(deskId, dateString) {
 
     //display booking details on notification
     document.getElementById("deskIdCancelNot").innerText = deskId;
-    document.getElementById("dateCancelNot").innerText = dateString;
+    document.getElementById("dateCancelNot").innerText = ukDateHelper(dateString);
 }
 
 const checkIn = async (bookingId) => {

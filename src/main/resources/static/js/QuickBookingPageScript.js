@@ -55,7 +55,7 @@ const displayBookingDetails = (response) => {
         deskBookedExistsSpan.innerHTML = response.deskId;
 
         const deskBookedDateSpan = document.getElementById("deskBookedDate");
-        deskBookedDateSpan.innerHTML = response.date;
+        deskBookedDateSpan.innerHTML = ukDateHelper(response.date);
 
         const deskBookedLocationSpan = document.getElementById("deskBookedLocation");
         deskBookedLocationSpan.innerHTML = response.officeLocation;
@@ -67,7 +67,7 @@ const displayBookingDetails = (response) => {
         deskIdSpan.innerHTML = response.deskId;
 
         const dateSpan = document.getElementById("dateOfDeskBooked");
-        dateSpan.innerHTML = response.date;
+        dateSpan.innerHTML = ukDateHelper(response.date);
 
         const locationSpan = document.getElementById("locationOfDeskBooked");
         locationSpan.innerHTML = response.officeLocation;

@@ -238,7 +238,7 @@ const displayUserAdminBookings = (jsonResponse) => {
         datePara.append(officeTag);
 
         // Todo Add values from DB
-        dateTag.innerHTML = jsonResponse[i].date;
+        dateTag.innerHTML = ukDateHelper(jsonResponse[i].date);
         officeTag.innerHTML = jsonResponse[i].officeLocation;
 
         // const dateTextNode = document.createTextNode(jsonResponse[i].date);
@@ -276,7 +276,7 @@ const displayUserAdminBookings = (jsonResponse) => {
         imgDiv2.setAttribute("class", "card-body deskImg");
 
         const img = document.createElement("img");
-        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
+        img.setAttribute("src", "/desk/"+ jsonResponse[i].deskId + "/" + jsonResponse[i].deskImageName);
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 
@@ -335,7 +335,7 @@ function showSearchCancelNotification(deskId, dateString, username, officeLocati
 
     //display booking details on notification
     document.getElementById("deskIdCancelAdminNot").innerText = deskId;
-    document.getElementById("adminDateToCancel").innerText = `on ${dateString}`;
+    document.getElementById("adminDateToCancel").innerText = "on " + ukDateHelper(dateString);
     document.getElementById("userBookedCancelAdminNot").innerText = username;
     document.getElementById("officeLocationCancelAdminNot").innerText = officeLocation;
 }
