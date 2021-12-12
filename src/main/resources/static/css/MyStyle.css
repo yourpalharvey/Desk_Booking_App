@@ -1,4 +1,4 @@
-/* NavBar css */
+/* Styling for Nav Bar */
 #mainNavbar {
     background-color: #f8f9fb;
 }
@@ -16,8 +16,8 @@
     border: none;
 }
 
-/* Ensure that in small screen the dropdown is only displayed when clicked
-bigger screens will allow hover */
+/* Ensure that with smaller screen sizes the dropdown is only displayed
+when clicked, bigger screens will allow hover to see the dropdown items */
 @media only screen and (min-width: 767.98px) {
     #mainNavbar .dropdown:hover .dropdown-menu {
         display: block;
@@ -29,7 +29,7 @@ bigger screens will allow hover */
     color: #0275d8;
 }
 
-/*homePage Css*/
+/* Styling for Home Page */
 #homeButtonBox {
     margin: 10px
 }
@@ -38,13 +38,7 @@ bigger screens will allow hover */
     margin: 5px;
 }
 
-#imageText {
-    background-color: rgba(248,249,251,0.9);
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
+/* Home page image */
 .hero {
     background: url("https://cdn.pixabay.com/photo/2015/01/09/11/11/office-594119_960_720.jpg");
     background-position: top left;
@@ -52,6 +46,16 @@ bigger screens will allow hover */
     height: 100vh;
 }
 
+/* Div for Website title and user links in front of home page image */
+#imageText {
+    background-color: rgba(248,249,251,0.9);
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+/* On smaller screen sizes white box and website title disappear for cleaner look */
 @media (max-width: 767.98px) {
     #imageText {
         background-color: rgba(248,249,251,0);
@@ -59,7 +63,7 @@ bigger screens will allow hover */
     }
 }
 
-/*All Pages*/
+/* Styling shared across all pages */
 h1 {
     color: #2f3e46;
 }
@@ -68,29 +72,21 @@ body {
     background-color: #2f3e46;
 }
 
+/* Fix to disable bootstrap card-header making new white box */
 .card-header {
     border-bottom: 0;
     background-color: rgba(0,0,0,0);
 }
 
-.adminBanner {
-    background-color: #f0ad4e;
-    padding: 2px;
-}
-
-.adminBannerText {
-    margin: 4px;
-}
-
-/* Body of quickbooking page. Fix for mybookings re-route button on notification*/
-.quickBookingBody, .bookingPageDatedBody, .myBookingPageBody, .adminDashBody {
+/* body of pages that contain notifications, z-index allows the body to be behind the notification box
+ therefore fixing bug where re-routing buttons on notification aren't clickable */
+.quickBookingBody, .bookingPageDatedBody, .myBookingPageBody, .adminDashBody, .deskStatusBody {
     background-color: #2f3e46;
     z-index: -3;
     position: relative;
 }
 
-
-/* Desk cards and buttons UI and notifications*/
+/* White cards that the desk cards and user interactions are placed on */
 #dateBox, .deskListBox {
     width: 75%;
     background-color: #f8f9fb;
@@ -100,14 +96,12 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-/* Notification is behind datebox to allow it to slide from underneath*/
-
-
-.notificationBox {
+/* Notification styling. Note that the z-axis = 1, this is to allow the notification
+ to dropdown from under the dateBox when activated */
+.notificationBox, .alert {
     width: 50%;
     background-color: #0275d8;
     color: #f8f9fb;
-    padding: 0 1.5rem;
     border-radius: 0 0 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: -1;
@@ -117,7 +111,7 @@ body {
     animation-fill-mode: forwards;
 }
 
-/* Sliding animation also has fade in*/
+/* Notification dropdown animation */
 @keyframes slideDown {
     0% {
         opacity: 0;
@@ -127,10 +121,27 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Padding size for notifications box */
+.notificationBox {
+    padding: 0 1.5rem;
+}
+
+/* Alert styling for add desk page to change bootstrap defaults */
+.alert {
+    border: none;
+    margin: auto;
+    text-align: center;
 
 }
 
-#quickBookingComplete, #quickBookingFull, #quickBookingExists, #bookNotification, #cancelNotification {
+/* Unique divs that contain the notification box so they can be called with different JS functions.
+ Note that the z-index = -2 so that the div is behind the notification box therefore allowing the
+ re-routing buttons to be clicked. Display = none so the box is off by default / page refresh */
+#quickBookingComplete, #quickBookingFull, #quickBookingExists, #bookNotification, #cancelNotification,
+#cancelFromAdminDashNotification, #cancelFromDashNotification, #deleteNotification {
+    display: none;
     z-index: -2;
     position: relative;
 }
@@ -143,21 +154,25 @@ body {
 }
 
 
-/* Styling for buttons within desk cards*/
+/* Styling for buttons within desk cards */
 .deskCard, .deskCardBooked, .deskCardCancel {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
     margin: 10px;
 }
 
+/* Colours for each button let user know how they will interact with the site.
+Green = bookable (intractable-positive) */
 .deskCard {
     border: solid #5cb85c 2px;
 }
 
+/* Yellow = cancelable or removable (intractable-negative)*/
 .deskCardBooked {
     border: solid #d9534f 2px;
 }
 
+/*Red = booked (un-interactive)*/
 .deskCardCancel {
     border: solid #f0ad4e 2px;
 }
@@ -178,16 +193,13 @@ body {
     margin: 0;
 }
 
-.booking-button-form, .bookDeskButton ,.myBookingButton{
+/* positions buttons on right-hand side of desk cards and notification */
+.booking-button-form, .bookDeskButton ,.myBookingButton, #check-in-btn{
     display: inline-block;
     float: right;
     margin: 0;
 }
 
-#check-in-btn{
-    display: inline-block;
-    float: right;
-}
 
 #addDeskButtonDiv{
     display: flex;
@@ -200,7 +212,6 @@ body {
         margin-top: 10px;
     }
 }
-
 
 .warning-text-delete{
     justify-content: center;
@@ -226,11 +237,13 @@ body {
     padding: 0;
 }
 
+/* Blue arrow for dropdown image on desk cards */
 .btn-link {
     float: right;
     padding: 0;
 }
 
+/* Desk image on desk cards */
 .card-img-top {
     border: none;
     border-radius: 0px 0px 10px 10px;
@@ -238,13 +251,14 @@ body {
 
 #deskOneImg {
     border: none;
-    background-color: none;
+    background-color: transparent;
 }
 
 .deskCardCancelHeader {
     position: relative;
 }
 
+/* Position of desk tags */
 .bookingCardDate, .bookingCardUser {
     position: absolute;
     top: 50px;
@@ -252,7 +266,8 @@ body {
     margin: 0;
 }
 
-/*desk tags*/
+/* Desk tags on bottom of desk cards
+ deskTags = three tags for desk description (type, position and monitor type) */
 .deskTags {
     color: #f8f9fb;
     background-color: #4b7086;
@@ -264,6 +279,7 @@ body {
     font-size: 9px;
 }
 
+/* deskTagsTwo = two tags (date, officeLocation)*/
 .deskTagsTwo {
     color: #f8f9fb;
     background-color: #2f3e46;
@@ -275,6 +291,7 @@ body {
     font-size: 12px;
 }
 
+/* deskTagsOne = one tage for username */
 .deskTagsOne {
     color: #f8f9fb;
     background-color: #2f3e46;
@@ -285,6 +302,7 @@ body {
     font-size: 16px;
 }
 
+/* Adjusting size of tags and font with screen size */
 @media (max-width: 1199.5px) {
     .deskTags {
         padding-left: 6px;
@@ -337,9 +355,10 @@ body {
     margin-bottom: 10px;
 }
 
+/* Styling for buttons on remove desk page */
 #deleteDeskButton, #goBackButton{
-    padding: 20px 30px;
-    margin-top: 20px;
+    padding: 10px 40px;
+    margin-top: 10px;
 }
 
 #addDeskFormCard {

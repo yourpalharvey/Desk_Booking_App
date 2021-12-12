@@ -58,6 +58,7 @@
                                 th:field="*{Office.officeId}" onfocus="this.placeholder = 'Office Location'"
                                 onblur="this.placeholder = 'Office Location'"
                                 placeholder='Office Location'>
+                            <!-- Options currently hardcoded, could get offices from office table instead -->
                             <option value="1">Cardiff</option>
                             <option value="2">Bristol</option>
                         </select>
@@ -89,7 +90,7 @@
     </div>
 </div>
 
-
+<!-- Notification when desk has been added -->
 <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
 <footer th:replace="fragments/footer :: footer"></footer>

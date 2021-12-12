@@ -70,7 +70,7 @@ const displayDailyAdminBookings = (jsonResponse) => {
 
     const displayDate = document.createElement("h5");
     displayDate.setAttribute("class", "card-title");
-    displayDate.innerText = "Showing all desks for " + document.getElementById("date").value
+    displayDate.innerText = "Showing all desks for " + ukDateHelper(document.getElementById("date").value)
         + " at the " + jsonResponse[0].officeLocation + " office:";
     div1.append(displayDate);
 
@@ -203,7 +203,7 @@ const displayDailyAdminBookings = (jsonResponse) => {
         imgDiv2.setAttribute("class", "card-body deskImg");
 
         const img = document.createElement("img");
-        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
+        img.setAttribute("src","/desk/" + jsonResponse[i].deskId + "/" + jsonResponse[i].deskImageName);
         img.setAttribute("class", "card-img-top");
         img.setAttribute("alt", "");
 

@@ -25,10 +25,11 @@ const loadAllDesksForAdmin = async () => {
 }
 
 const displayAllDesksForAdmin = (jsonResponse) => {
+    resetNotification();
     const officeSpanInTemplate = document.getElementById("officeSpanInTemplate");
     officeSpanInTemplate.innerText = jsonResponse[0].officeLocation;
 
-    let mainDiv = document.getElementById("mainDiv");;
+    let mainDiv = document.getElementById("mainDiv");
 
     //remove mainDivDisplayed and take new copy of mainDiv
     if (document.body.contains(document.getElementById("mainDivDisplayed"))) {
@@ -61,7 +62,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
         bookedOrUnbooked.setAttribute("id", "display-booked-or-unbooked-" + jsonResponse[i].deskId);
 
         if (!jsonResponse[i].booked) {
-            bookedOrUnbooked.className = "card deskCard";
+            bookedOrUnbooked.className = "card deskCardCancel";
         }
         if (jsonResponse[i].booked) {
             bookedOrUnbooked.className = "card deskCardBooked";
@@ -73,7 +74,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
         let bookButton = cardText.nextElementSibling;
         bookButton.setAttribute("id", "book-button-" + jsonResponse[i].deskId);
 
-        bookButton.className = "bookDeskButton btn btn-danger";
+        bookButton.className = "bookDeskButton btn btn-warning";
         bookButton.innerText = "Delete Desk";
 
         //let deskId = jsonResponse[i].deskId;
@@ -93,7 +94,7 @@ const displayAllDesksForAdmin = (jsonResponse) => {
 
 
         const img = imgDiv.firstElementChild.firstElementChild;
-        img.setAttribute("src", "/images/" + jsonResponse[i].deskImageName);
+        img.setAttribute("src","/desk/" + jsonResponse[i].deskId + "/" + jsonResponse[i].deskImageName);
 
         console.log(jsonResponse[i].deskImageName);
 
@@ -168,10 +169,10 @@ displayAllBookingsCancelled = (response) => {
     let htmlToDisplay = "";
 
     for (let i = 0; i < response.length; i++){
-        htmlToDisplay += "<div class=\"card deskCard\">\n" +
+        htmlToDisplay += "<div class=\"card deskCardCancel\">\n" +
             "                    <div class=\"card-header\">\n" +
-            "                        <h5 class=\"userDeskBookingCancelled\">"+response[i].userBooked+"'s booking for "+response[i].deskId +" has been cancelled\n" +
-            "                            for "+response[i].date+"</h5>\n" +
+            "                        <h5 class=\"userDeskBookingCancelled\">"+response[i].userBooked+"'s booking for desk"+response[i].deskId +" has been cancelled\n" +
+            "                            for "+ukDateHelper(response[i].date)+"</h5>\n" +
             "                    </div>\n" +
             "                </div>"
     }
@@ -183,42 +184,6 @@ displayAllBookingsCancelled = (response) => {
 
 
 
-// const displayAllBookingsCancelled = (response) => {
-//     const deletedBookingTemplate = document.createElement("div");
-//     deletedBookingTemplate.className = "card col d-flex justify-content-center container-fluid mt-100 deskListBox";
-//
-//     const bookingCancelledContainer = document.createElement("div");
-//     bookingCancelledContainer.className = "card-body row";
-//
-//     for(let i = 0; i<response.length; i++){
-//         const bookingCancelled = document.createElement("div");
-//         bookingCancelled.className = "desk-container col-12 col-md-12 col-lg-12 col-xl-12";
-//
-//         const deskCard = document.createElement("div");
-//         deskCard.className = "card deskCard";
-//
-//         console.log("loop "+i);
-//         const h5Cancelled = document.getElementById("h5Cancelled").cloneNode(true);
-//         h5Cancelled.removeAttribute("id");
-//         console.log(h5Cancelled);
-//         h5Cancelled.firstElementChild.setAttribute("id", "userCancelled"+i);
-//         h5Cancelled.lastElementChild.setAttribute("id", "userCancelledDate"+i);
-//
-//         document.firstElementChild.innerHTML = response[i].username;
-//         document.lastElementChild.innerText = response[i].date;
-//
-//         h5Cancelled.style.display = "block";
-//
-//         deskCard.append(h5Cancelled);
-//         bookingCancelled.append(deskCard);
-//         bookingCancelledContainer.append(bookingCancelled);
-//     }
-//
-//     deletedBookingTemplate.append(bookingCancelledContainer);
-//     document.body.appendChild(deletedBookingTemplate);
-//
-//
-// }
 
 
 

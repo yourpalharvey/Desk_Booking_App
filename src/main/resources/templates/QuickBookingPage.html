@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/ukDateHelper.js"></script>
     <script src="/js/QuickBookingPageScript.js" charset="utf-8"></script>
     <script src="/js/BookingPageScript.js" charset="utf-8"></script>
     <script src="/js/showLogout.js"></script>
@@ -28,19 +29,16 @@
         </div>
     </div>
 
-    <div id="quickBookingFull"  style="display:none">
+    <div id="quickBookingFull">
         <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
             <div class="card-body row">
-                <!--TODO Insert correct date the user has selected to the notification message-->
-                <!--Sorry, all desks for (Insert date selected) (this is wrong<span th:text="${startDate}"></span>) are booked-->
                 <h5 class="card-title col-12">Sorry, all desks for the day selected are booked</h5>
             </div>
         </div>
     </div>
-    <div id="quickBookingComplete" style="display:none">
+    <div id="quickBookingComplete">
         <div  class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
             <div class="card-body row">
-                <!--TODO Insert correct date the user has selected to the notification message-->
                 <div class="notificationCol col-12 col-md-6">
                     <h5 class="card-title">Desk <span id="idOfDeskBooked"></span> has been booked for <span id="dateOfDeskBooked"></span> at <span id="locationOfDeskBooked"></span></h5>
                 </div>
@@ -52,10 +50,9 @@
             </div>
         </div>
     </div>
-    <div id="quickBookingExists" style="display:none">
+    <div id="quickBookingExists">
         <div  class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
             <div class="card-body row">
-                <!--TODO Insert correct date the user has selected to the notification message-->
                 <div class="notificationCol col-12 col-md-6">
                     <h5 class="card-title">You already have a booking for desk <span id="deskBookedExists"></span>
                         on <span id="deskBookedDate"></span> at <span id="deskBookedLocation"></span> </h5>
