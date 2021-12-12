@@ -226,6 +226,8 @@ function showCancelNotification(deskId, dateString) {
     document.getElementById("dateCancelNot").innerText = ukDateHelper(dateString);
 }
 
+
+
 const checkIn = async (bookingId) => {
     const params = {
         bookingId : bookingId
@@ -248,13 +250,28 @@ const checkIn = async (bookingId) => {
 const enableCheckInButton = (bookingId) => {
     const checkInButton = document.getElementById("check-in-btn");
     checkInButton.className = "btn btn-success";
-    checkInButton.setAttribute("onclick", "checkIn(" + bookingId + ")");
-    checkInButton.style.display = "inline-block";
+    checkInButton.setAttribute("onclick", "disableCheckInButton();" +
+        "checkInNotification(); checkIn("+ bookingId +")"); // checkIn() might not be triggering
+    checkInButton.style.display = "block";
 }
 
 const disableCheckInButton = () => {
+    //disable button on click
     const checkInButton = document.getElementById("check-in-btn");
     checkInButton.removeAttribute("onclick");
     checkInButton.style.display = "none";
 }
 
+function checkInNotification() {
+
+    //replace div with clone of itself, to restart the css animation
+    const checkNot = document.getElementById("checkInNotification");
+    const checkNot2 = checkNot.cloneNode(true);
+
+    checkNot.parentNode.replaceChild(checkNot2,checkNot);
+    checkNot2.style.display = "block";
+
+    // //display booking details on notification
+    // document.getElementById("deskId").innerText = deskId;
+    // document.getElementById("date").innerText = ukDateHelper(dateString);
+}

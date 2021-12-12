@@ -23,7 +23,7 @@
 <div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
   <div class="card-body">
     <h5 class="card-title siteTitle">My Bookings</h5>
-    <button class="btn btn-success" id="check-in-btn" onclick="checkIn()">Check in today</button>
+    <button id="check-in-btn" style="display: none">Check in today</button>
   </div>
 </div>
 
@@ -31,6 +31,14 @@
   <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
     <div class="card-body row">
       <h5 class="card-title col-12">Booking for Desk <span id="deskIdCancelNot"></span>, on <span id="dateCancelNot"></span> has been cancelled</h5>
+    </div>
+  </div>
+</div>
+
+<div id="checkInNotification">
+  <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+    <div class="card-body row">
+      <h5 class="card-title col-12">You have checked for today's desk</h5>
     </div>
   </div>
 </div>
