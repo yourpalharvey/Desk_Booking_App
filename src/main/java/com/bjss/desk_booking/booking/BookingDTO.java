@@ -36,6 +36,8 @@ public class BookingDTO {
         //used to display a cancel button for a user's booking in mybookingpage
     private boolean cancelButton;
 
+    private boolean checkedIn;
+
 
     //this is for returning to quick booking page
     public BookingDTO(String date, int deskId, String officeLocation){
@@ -80,12 +82,13 @@ public class BookingDTO {
     }
 
     //this is for returning to myBookingPage
-    public BookingDTO(int bookingId, String date, int deskId, String deskImageName, String officeLocation){
+    public BookingDTO(int bookingId, String date, int deskId, String deskImageName, String officeLocation, boolean checkedIn){
         this.bookingId = bookingId;
         this.date = date;
         this.deskId = deskId;
         this.deskImageName = deskImageName;
         this.officeLocation = officeLocation;
+        this.checkedIn = checkedIn;
     }
 
     public boolean isDisableButton() {
@@ -186,5 +189,13 @@ public class BookingDTO {
 
     public void setCancelButton(boolean cancelButton) {
         this.cancelButton = cancelButton;
+    }
+
+    public boolean isCheckedIn() {
+        return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
     }
 }

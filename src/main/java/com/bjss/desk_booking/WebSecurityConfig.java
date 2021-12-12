@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/js/hideAdminNavLinks.js").hasRole("USER")
                 .mvcMatchers("/js/showLogout.js").hasAnyRole("USER", "ADMIN")
                 .mvcMatchers("/js/ukDateHelper.js").permitAll()
+                .mvcMatchers("/js/PendingBooking.js").permitAll()
                 .mvcMatchers("/images/**").permitAll()
                 .mvcMatchers("/js/deskStatusScript.js").permitAll()
                 .mvcMatchers("/").permitAll()

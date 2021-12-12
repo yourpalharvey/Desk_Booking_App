@@ -42,6 +42,13 @@ const displayUserBookings = (jsonResponse) => {
         return;
     }
 
+    if(jsonResponse[0].date ===  new Date().toISOString().slice(0, 10)
+        && !jsonResponse[0].checkedIn) {
+        enableCheckInButton(jsonResponse[0].bookingId);
+    } else {
+        disableCheckInButton();
+    }
+
     for(let i = 0; i < jsonResponse.length; i++) {
 
         const div3 = document.createElement("div");
@@ -148,13 +155,6 @@ const displayUserBookings = (jsonResponse) => {
 
         div3.append(div4);
         div2.append(div3);
-
-        if(i === 0 && jsonResponse[i].date ===  new Date().toISOString().slice(0, 10)) {
-            console.log("booking IDDDDDD")
-            enableCheckInButton(bookingId);
-        } else if (i == 0){
-            disableCheckInButton();
-        }
 
     }
 
@@ -264,12 +264,17 @@ const disableCheckInButton = () => {
 
 function checkInNotification() {
 
+
     //replace div with clone of itself, to restart the css animation
     const checkNot = document.getElementById("checkInNotification");
     const checkNot2 = checkNot.cloneNode(true);
 
     checkNot.parentNode.replaceChild(checkNot2,checkNot);
     checkNot2.style.display = "block";
+
+    //set this to disappear after 4 seconds, it was staying on the screen permanently,
+    //because a user can only check-in once per day
+    setTimeout(function(){checkNot2.style.display="none";},4000);
 
     // //display booking details on notification
     // document.getElementById("deskId").innerText = deskId;

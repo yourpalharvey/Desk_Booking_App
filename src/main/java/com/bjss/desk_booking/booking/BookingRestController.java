@@ -91,7 +91,7 @@ public class BookingRestController {
 
         //Create BookingDTOs from all bookings
         for(Booking b : userBookingList){
-            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName(),b.getOfficeName()));
+            bookingDTOList.add(new BookingDTO(b.getBookingId(),b.getDate().toString(),b.getDeskId(),b.getDesk().getDeskImageName(),b.getOfficeName(),b.isChecked()));
         }
 
         //return all user bookings as a list of BookingDTOs
@@ -113,6 +113,8 @@ public class BookingRestController {
         Date date = Date.valueOf(newBookingDetails.get("date"));
         int deskId = Integer.parseInt(newBookingDetails.get("deskId"));
 
+
+
         //set Desk object for booking
         Desk deskToBook = deskService.findById(deskId);
 
@@ -122,16 +124,17 @@ public class BookingRestController {
         // Create new booking, and add to database
 
         Booking booking=new Booking(date,currentUser,deskToBook);
-       if(!fairPolicy(booking))
-       {
+
+        if(!fairPolicy(booking))
+        {
            booking.setApproved(false);
            bookingService.save(booking);
-       }
-       else
-       {
+        }
+        else
+        {
            booking.setApproved(true);
            bookingService.save(booking);
-       }
+        }
     }
 
     public boolean userHasBookingOnDate(User user, Date date){
@@ -284,7 +287,6 @@ public class BookingRestController {
             bookingService.save(newBooking);
         }
 
-
         // Create new BookingDTO object to pass back to javascript as JSON
         BookingDTO newBookingDTO = new BookingDTO(newBooking.getDate().toString(),
                 newBooking.getDeskId(), newBooking.getOfficeName());
@@ -313,20 +315,17 @@ public class BookingRestController {
                 count++; //find out number of booking on that day
 
             }
-
         }
 
-
-
-        int desksize=deskService.findAll().size();
+        // get the total number of desks for the office where the booking has been made
+        int desksize=deskService.findAllByOfficeId(booked.getDesk().getOffice().getOfficeId()).size();
         float bookedPercentage=((float)count/desksize); //find the percentage of booked desk on that day
         bookedPercentage=bookedPercentage*100;
         java.util.Date date = new java.util.Date();
+
         //Will reduce the complexcity
 
-
-
-        if(bookedPercentage>=50)   //if more than 70% desk is booked it will check for user rating
+        if(bookedPercentage>=70)   //if more than 70% desk is booked it will check for user rating
 
         {
             for (Booking booking : bookingList) {
@@ -340,20 +339,14 @@ public class BookingRestController {
                         } else {
                             return true;   //otherwise book the desk automatically
                         }
-
-
-
                     } else {
                         if (booking.getUser().getRating() <= 70) { //if the user has no previous missed booking still it will check for rating
                             return false;
                         } else {
                             return true;
                         }
-
                     }
                 }
-
-
             }
             if(booked.getUser().getRating()<70)
             {
@@ -368,13 +361,8 @@ public class BookingRestController {
             {
                 return true;
             }
-
         }
-
-
         return true;
-
-
     }
 
 
@@ -393,15 +381,6 @@ public class BookingRestController {
             message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
                     +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
-
-
-
-
-
-
-
-
-
 
         }
 

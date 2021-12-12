@@ -140,7 +140,8 @@ body {
  Note that the z-index = -2 so that the div is behind the notification box therefore allowing the
  re-routing buttons to be clicked. Display = none so the box is off by default / page refresh */
 #quickBookingComplete, #quickBookingFull, #quickBookingExists, #bookNotification, #cancelNotification,
-#cancelFromAdminDashNotification, #cancelFromDashNotification, #deleteNotification, #checkInNotification {
+#cancelFromAdminDashNotification, #cancelFromDashNotification, #deleteNotification, #checkInNotification,
+#pendingNotification{
     display: none;
     z-index: -2;
     position: relative;

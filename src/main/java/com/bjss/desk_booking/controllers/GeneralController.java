@@ -40,5 +40,8 @@ public class GeneralController {
     @RequestMapping(path = "/admin/deskstatus")
     public String deskStatus(String name) { return "deskStatus2";};
 
+    @RequestMapping(path= "/admin/pending")
+    public String pendingBookings(String name) { return "PendingBooking2";}
+
 }
 
