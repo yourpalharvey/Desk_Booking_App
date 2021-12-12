@@ -162,8 +162,73 @@ public class AdminController {
     }
 
 
+    @GetMapping("/cancel/{id}")
+    public String cancelBooking(@PathVariable("id") int id, Model model) {
 
-   /* public void emailSender(Booking booking) throws MessagingException
+        Booking booking=bookingService.findById(id);
+        try {
+            cancelEmailSender(booking);
+        }
+        catch (Exception E)
+        {
+
+        }
+
+        bookingService.deleteById(id);
+
+
+
+
+
+        return "redirect:/pending";
+    }
+
+    @GetMapping("/accept/{id}")
+    public String acceptBooking(@PathVariable("id") int id, Model model) {
+        Booking booking=bookingService.findById(id);
+        booking.setApproved(true);
+        try {
+            confirmationEmailSender(booking);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        bookingService.save(booking);
+
+
+
+
+        return "redirect:/pending";
+    }
+
+    @RequestMapping("/pending")
+    public String pendingBooking(Model model)
+    {
+
+        List<Booking> allbookingList=bookingService.findAll();
+        List<Booking> bookingList=new ArrayList<>();
+        Date date = new Date();
+        for (Booking b:allbookingList)
+        {
+            if(!b.isApproved() && b.getDate().after(date) ||b.getDate().equals(date))  //If the booking requires booking
+            {
+                bookingList.add(b);
+
+            }
+
+        }
+
+        model.addAttribute("bookingList",bookingList);
+        return "PendingBooking";
+
+    }
+
+
+
+
+    public void cancelEmailSender(Booking booking) throws MessagingException
     {
         if(booking.getUser().getUserEmail()!=null) {
 
@@ -175,7 +240,37 @@ public class AdminController {
             message.setFrom(from);
             message.setTo(to);
             message.setSubject("Desk Booking information");
-            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
+            message.setText("We are very sorry to say that your booking request (booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nhas been canceled.Sorry for the inconvenience");
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
+
+
+    public void confirmationEmailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking Confirmation");
+            message.setText("Your booking(booking ID:"+booking.getBookingId()+"\tBooking Date: "+booking.getDate()+" is confirmed \nThis is a "+booking.getDesk().getDeskType()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
                     +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
 
@@ -190,7 +285,7 @@ public class AdminController {
 
         }
 
-    }*/
+    }
 
 
 }

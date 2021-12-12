@@ -47,7 +47,7 @@ public class DeskController {
             String uploadDir = "desk/" + desk.getDeskId();
 
             DeskFileUploadUtil.saveFile(uploadDir, fileName, file); //sending upload dir,filename and the file to the upload utility
-            redirAttrs.addFlashAttribute("success", "Everything went just fine.");
+            redirAttrs.addFlashAttribute("success", "Desk added successfully.");
             return "redirect:/admin/adddesk";
         }
 

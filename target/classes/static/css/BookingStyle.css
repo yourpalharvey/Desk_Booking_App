@@ -344,7 +344,8 @@ body {
   transition-duration: 0.4s;
   padding: 5px 15px;
   border-radius: 12px;
-  position: inherit;
+  position: center;
+  display: inline-block;
   left: 140px;
   top: 160px;
 
@@ -363,7 +364,8 @@ body {
   transition-duration: 0.4s;
   padding: 5px 15px;
   border-radius: 12px;
-  position: inherit;
+  display: inline-block;
+  position: center;
   left: 230px;
   top: 170px;
 

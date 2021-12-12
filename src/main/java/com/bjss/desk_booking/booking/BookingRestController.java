@@ -38,7 +38,12 @@ public class BookingRestController {
     @PostMapping(value = "/user/bookingCheckIn")
     public String bookingCheckIn(@RequestBody Map<String, Integer> bookingIdMap){
         int bookingId = bookingIdMap.get("bookingId");
-        //TODO BOOKING CHECK IN
+        Booking booking=bookingService.findById(bookingId);
+        booking.setChecked(true);
+        booking.getUser().ratingIncrement();
+        bookingService.save(booking);
+
+        //Booking checkin  email;
 
         return "";
     }
@@ -350,27 +355,59 @@ public class BookingRestController {
 
 
             }
-        }
-
-        if(booked.getUser().getRating()<70)
-        {
-            if(!booked.isChecked())
+            if(booked.getUser().getRating()<70)
             {
-                booked.getUser().ratingDecrement();
-                booked.setChecked(true);
+                if(!booked.isChecked())
+                {
+                    booked.getUser().ratingDecrement();
+                    booked.setChecked(true);
+                }
+                return false;
             }
-            return false;
-        }
-        else
-        {
-            return true;
+            else
+            {
+                return true;
+            }
+
         }
 
 
+        return true;
 
 
     }
 
+
+  /*  public void emailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking information");
+            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
+                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
+   */
 
 
 
