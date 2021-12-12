@@ -345,8 +345,8 @@ body {
   transition-duration: 0.4s;
   padding: 5px 15px;
   border-radius: 12px;
-  position: center;
-  display: inline-block;
+  position: absolute;
+
   left: 140px;
   top: 160px;
 
@@ -366,7 +366,7 @@ body {
   padding: 5px 15px;
   border-radius: 12px;
   display: inline-block;
-  position: center;
+  position: absolute;
   left: 230px;
   top: 170px;
 
