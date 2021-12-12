@@ -37,6 +37,9 @@ public class GeneralController {
         return "MyBookingPage";
     }
 
+    @RequestMapping(path = "/admin/deskstatus")
+    public String deskStatus(String name) { return "deskStatus2";};
+
     @RequestMapping(path = "/admin/comment")
     public String adminComment(String name) {
         return "adminComment";

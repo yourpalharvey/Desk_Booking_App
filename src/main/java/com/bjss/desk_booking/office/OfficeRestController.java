@@ -18,7 +18,7 @@ public class OfficeRestController {
     @Autowired
     OfficeService officeService;
 
-    @PostMapping (value = "/user/getAllOffices")
+    @PostMapping (value = "/public/getAllOffices")
     public String myOfficeStatus() {
 
         List<Office> officeList = officeService.findAll();

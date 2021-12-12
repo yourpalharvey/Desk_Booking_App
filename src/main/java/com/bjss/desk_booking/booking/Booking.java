@@ -14,6 +14,15 @@ public class Booking {
     private int bookingId;
     private Date startDate;
     private boolean checked;
+    private boolean approved;
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
 
     public boolean isChecked() {
         return checked;

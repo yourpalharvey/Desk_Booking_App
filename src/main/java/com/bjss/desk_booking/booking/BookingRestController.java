@@ -9,9 +9,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,6 +34,43 @@ public class BookingRestController {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @PostMapping(value = "/user/bookingCheckIn")
+    public String bookingCheckIn(@RequestBody Map<String, Integer> bookingIdMap){
+        int bookingId = bookingIdMap.get("bookingId");
+        Booking booking=bookingService.findById(bookingId);
+        booking.setChecked(true);
+        booking.getUser().ratingIncrement();
+        bookingService.save(booking);
+
+        //Booking checkin  email;
+
+        return "";
+    }
+
+    @PostMapping(value = "/public/getUserBookingsByAdmin")
+    public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
+        String searchUser = username.get("username");
+        User user = userService.findByUsername(searchUser);
+        List<Booking> userBookingList = bookingService.findByUserId(user.getUserId());
+
+
+        userBookingList.sort(Comparator.comparing(Booking::getDate));
+        List<BookingDTO> userBookingDTOList = new ArrayList<>();
+
+        for(Booking b: userBookingList){
+            userBookingDTOList.add(new BookingDTO(b.getBookingId(), b.getDate().toString(),b.getDeskId()
+                    ,true,b.getDesk().getDeskImageName(),b.getDesk().getOffice().getOfficeName()
+                    ,b.getDesk().getMonitorOption(),b.getDesk().getDeskPosition()
+                    ,b.getDesk().getDeskType(), b.getUser().getUsername(), false, true));
+        }
+
+        String jsonString = JSONArray.toJSONString(userBookingDTOList);
+        return jsonString;
+
+    }
+
+
 
     @GetMapping(value = "/user/getMyBookings")
     public String myBookingStatus() {
@@ -61,7 +99,7 @@ public class BookingRestController {
         return jsonString;
     }
 
-    @DeleteMapping(value = "/user/cancelMyBooking")
+    @DeleteMapping(value = "/public/cancelMyBooking")
     public void cancelABooking(@RequestBody Map<String, Integer> bookingIdToCancel){
         //delete the booking
         bookingService.deleteById(bookingIdToCancel.get("bookingId"));
@@ -82,7 +120,18 @@ public class BookingRestController {
         User currentUser = userService.getCurrentUser();
 
         // Create new booking, and add to database
-        bookingService.save(new Booking(date, currentUser, deskToBook));
+
+        Booking booking=new Booking(date,currentUser,deskToBook);
+       if(!fairPolicy(booking))
+       {
+           booking.setApproved(false);
+           bookingService.save(booking);
+       }
+       else
+       {
+           booking.setApproved(true);
+           bookingService.save(booking);
+       }
     }
 
     public boolean userHasBookingOnDate(User user, Date date){
@@ -94,7 +143,7 @@ public class BookingRestController {
         return false;
     }
 
-    @PostMapping(value = "/user/loadDailyBookings")
+    @PostMapping(value = "/public/loadDailyBookings")
     public String getDailyBookings(@RequestBody Map<String, String> bookingDetails){
         List<Booking> officeBookingListByDate = new ArrayList<>();
         List<BookingDTO> datedBookingDTOList = new ArrayList<>();
@@ -224,7 +273,17 @@ public class BookingRestController {
 
         // Create new booking, and add to database
         Booking newBooking = new Booking(date, currentUser, randomDesk);
-        bookingService.save(newBooking);
+        if(!fairPolicy(newBooking))
+        {
+            newBooking.setApproved(false);
+            bookingService.save(newBooking);
+        }
+        else
+        {
+            newBooking.setApproved(true);
+            bookingService.save(newBooking);
+        }
+
 
         // Create new BookingDTO object to pass back to javascript as JSON
         BookingDTO newBookingDTO = new BookingDTO(newBooking.getDate().toString(),
@@ -258,11 +317,20 @@ public class BookingRestController {
         }
 
 
-        int bookedPercentage=(count/deskService.findAll().size())*100; //find the percentage of booked desk on that day
-        if(bookedPercentage>=70)   //if more than 70% desk is booked it will check for user rating
+
+        int desksize=deskService.findAll().size();
+        float bookedPercentage=((float)count/desksize); //find the percentage of booked desk on that day
+        bookedPercentage=bookedPercentage*100;
+        java.util.Date date = new java.util.Date();
+        //Will reduce the complexcity
+
+
+
+        if(bookedPercentage>=50)   //if more than 70% desk is booked it will check for user rating
+
         {
             for (Booking booking : bookingList) {
-                if (booking.getUser().getUserId() == booked.getUser().getUserId()) {
+                if (booking.getUser().getUserId() == booked.getUser().getUserId() && booking.getDate().before(date) || booking.getDate().equals(date)) {
                     if (!booking.isChecked()) { //check if user has any previous missed booking
                         booking.setChecked(true); //
                         booking.getUser().ratingDecrement(); //call for penalty function in the user rating
@@ -285,15 +353,69 @@ public class BookingRestController {
                     }
                 }
 
-            }
-        }
-        return true;
 
+            }
+            if(booked.getUser().getRating()<70)
+            {
+                if(!booked.isChecked())
+                {
+                    booked.getUser().ratingDecrement();
+                    booked.setChecked(true);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+
+        return true;
 
 
     }
 
 
+  /*  public void emailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Desk Booking information");
+            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
+                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            mailSender.send(message);
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+
+   */
+
+
+
+
 
 
 }
+
+
+
+

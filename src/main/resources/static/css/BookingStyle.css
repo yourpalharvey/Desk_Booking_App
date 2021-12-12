@@ -1,3 +1,4 @@
+/*NOT IN USE*/
 body{
   margin: 0;
   padding: 0;
@@ -344,7 +345,8 @@ body {
   transition-duration: 0.4s;
   padding: 5px 15px;
   border-radius: 12px;
-  position: inherit;
+  position: absolute;
+
   left: 140px;
   top: 160px;
 
@@ -363,7 +365,8 @@ body {
   transition-duration: 0.4s;
   padding: 5px 15px;
   border-radius: 12px;
-  position: inherit;
+  display: inline-block;
+  position: absolute;
   left: 230px;
   top: 170px;
 

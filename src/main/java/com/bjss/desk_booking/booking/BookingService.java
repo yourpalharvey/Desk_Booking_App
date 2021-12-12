@@ -16,4 +16,5 @@ public interface BookingService {
 
     public void deleteById(int bookingId);
 
+    public List<Booking> findAllByDeskId(int deskId);
 }
