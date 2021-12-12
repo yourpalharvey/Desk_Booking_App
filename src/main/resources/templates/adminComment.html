@@ -87,7 +87,7 @@
     <div class="comment">
         <hr>
         <div class="comment_add_or_last" id = "comment_last" onclick="comment">
-            点击加载更多评论
+            Click to load more comments
         </div>
         <hr>
     </div>
@@ -128,7 +128,7 @@
                 let res = data.content
                 if(res.length === 0) {
                     //TODO如果获取的数据为零
-                    document.getElementById("comment_last").innerHTML = "no more(wo shi xiao bao)"
+                    document.getElementById("comment_last").innerHTML = "No more comments"
                     console.log()
                 }
                 for (let i = 0; i < res.length; i++) {
