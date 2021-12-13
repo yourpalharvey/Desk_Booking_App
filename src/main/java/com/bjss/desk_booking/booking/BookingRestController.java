@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -35,6 +36,9 @@ public class BookingRestController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    private JavaMailSender mailSender;
+
     @PostMapping(value = "/user/bookingCheckIn")
     public String bookingCheckIn(@RequestBody Map<String, Integer> bookingIdMap){
         int bookingId = bookingIdMap.get("bookingId");
@@ -42,9 +46,15 @@ public class BookingRestController {
         booking.setChecked(true);
         booking.getUser().ratingIncrement();
         bookingService.save(booking);
+        try
+        {
+            checkinEmailSender(booking);
 
-        //Booking checkin  email;
+        }
+        catch (Exception e)
+        {
 
+        }
         return "";
     }
 
@@ -129,11 +139,27 @@ public class BookingRestController {
         {
            booking.setApproved(false);
            bookingService.save(booking);
+            bookingService.save(booking);
+            try {
+                pendingEmailSender(booking);;
+            }
+            catch (Exception e)
+            {
+
+            }
+
         }
         else
         {
            booking.setApproved(true);
            bookingService.save(booking);
+            try {
+                confirmEmailSender(booking);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 
@@ -280,11 +306,26 @@ public class BookingRestController {
         {
             newBooking.setApproved(false);
             bookingService.save(newBooking);
+            try {
+                pendingEmailSender(newBooking);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
         else
         {
             newBooking.setApproved(true);
             bookingService.save(newBooking);
+
+            try {
+                confirmEmailSender(newBooking);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         // Create new BookingDTO object to pass back to javascript as JSON
@@ -366,7 +407,7 @@ public class BookingRestController {
     }
 
 
-  /*  public void emailSender(Booking booking) throws MessagingException
+    public void confirmEmailSender(Booking booking) throws MessagingException
     {
         if(booking.getUser().getUserEmail()!=null) {
 
@@ -377,16 +418,75 @@ public class BookingRestController {
             //Sending Booking confirmation
             message.setFrom(from);
             message.setTo(to);
-            message.setSubject("Desk Booking information");
-            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
-                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            message.setSubject("Booking Confirmed");
+            message.setText("Congratulation for your  booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDeskType()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
+                    +" The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
             mailSender.send(message);
 
         }
 
     }
 
-   */
+
+    public void pendingEmailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Booking Pending");
+            message.setText("We are sorry to inform you that your booking needs admin approval due to high demand.You will get booking information within three working days. Booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDeskType()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
+                    +" The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
+            mailSender.send(message);
+
+        }
+
+    }
+
+    public void checkinEmailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Check in Confirmation");
+            message.setText("You have checked in for the booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate());
+            mailSender.send(message);
+
+        }
+
+    }
+
+
+    public void canceledEmailSender(Booking booking) throws MessagingException
+    {
+        if(booking.getUser().getUserEmail()!=null) {
+
+            String from = "deskbookingt05@gmail.com";
+            String to = booking.getUser().getUserEmail();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            //Sending Booking confirmation
+            message.setFrom(from);
+            message.setTo(to);
+            message.setSubject("Booking canceled!");
+            message.setText("You have canceled the booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate());
+            mailSender.send(message);
+
+        }
+
+    }
+
 
 
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <title>Admin - Add Desk</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/BookingPageScript.js" charset="utf-8"></script>
+
+</head>
+
+<body class="bookingPageDatedBody" onload="showLogoutButton(); hideUserNavLinks();">
+
+<header th:replace="fragments/header :: header"></header>
+
+<div class="card d-flex justify-content-center container-fluid mt-100 deskListBox">
+    <div class="card-body" id="addDeskFormCard">
+        <div>
+            <h2 class="card-title">Add Desk Form</h2>
+        </div>
+        <form action="#" th:action="@{/admin/adddesk}" class="desk-form" th:object="${desk}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="deskName">Desk Name</label>
+                        <input class="form-control" name="deskName" id="deskName" th:field="*{deskName}" type="text"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Desk Name'"
+                               placeholder='Desk Name'>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="deskType">Desk Type</label>
+                        <input class="form-control" name="deskType" id="deskType" th:field="*{deskType}" type="text"
+                                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Desk Type'"
+                                  placeholder = 'Desk Type'>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="deskPosition">Desk Position</label>
+                        <input  class="form-control" name="deskPosition" id="deskPosition" type="text"
+                               th:field="*{deskPosition}" onfocus="this.placeholder = 'Desk Position'"
+                               onblur="this.placeholder = 'Desk Position'"
+                               placeholder='Desk Position'>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="officeId">Office Location</label>
+                        <select  class="form-control" name="officeId" id="officeId" type="text"
+                                th:field="*{Office.officeId}" onfocus="this.placeholder = 'Office Location'"
+                                onblur="this.placeholder = 'Office Location'"
+                                placeholder='Office Location'>
+                            <!-- Options currently hardcoded, could get offices from office table instead -->
+                            <option value="1">Cardiff</option>
+                            <option value="2">Bristol</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="monitorOption">Monitor Number</label>
+                        <input  class="form-control" name="monitorOption" id="monitorOption" type="number" min="0" max="5"
+                            th:field="*{monitorOption}" onfocus="this.placeholder = 'Monitor Number'"
+                                onblur="this.placeholder = 'Monitor Number'"
+                            placeholder='Monitor Number'>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="deskImage">Photos:</label>
+                        <input class="btn" type="file" value="upload" name="image" id="deskImage" accept="image/png, image/jpeg">
+                    </div>
+                </div>
+                <div class="col-12">
+                <input type="submit"  value="Add Desk" class="add_desk btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Notification when desk has been added -->
+<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

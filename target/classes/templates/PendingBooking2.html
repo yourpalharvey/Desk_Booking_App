@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>My Bookings</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/ukDateHelper.js"></script>
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideAdminNavLinks.js"></script>
+    <script src="/js/PendingBooking.js" charset="utf-8"></script>
+    <script>
+        $(document).ready(function () {
+            loadPendingBookings();
+        });
+    </script>
+</head>
+<body class="myBookingPageBody" onload="showLogoutButton(); hideAdminNavLinks()">
+<header th:replace="fragments/header :: header"></header>
+
+<div class="card col d-flex justify-content-center container-fluid mt-100" id="dateBox">
+    <div class="card-body">
+        <h5 class="card-title siteTitle">Pending Bookings</h5>
+    </div>
+</div>
+
+<div id="pendingNotification">
+    <div class="card d-flex justify-content-center container-fluid mt-100 notificationBox">
+        <div class="card-body row">
+            <h5 class="card-title col-12"><span id="pendingUsername"></span>'s booking for Desk <span id="pendingDeskId"></span>, in <span id="pendingLocation"></span> on <span id="pendingDate"></span> has been <span id="pendingCancelOrApprove"></span></h5>
+        </div>
+    </div>
+</div>
+
+
+<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox" id="mainPendingDiv">
+    <div class="card-body row" id="pendingDiv">
+<!--        <div class="desk-container col-12 col-md-6 col-lg-4 col-xl-2" id="bookings-container">-->
+<!--            <div class="card deskCardCancel" id="desk-card-45">-->
+<!--                <div class="card-header deskCardCancelHeader" id="cancel-card-45">-->
+<!--                    <h5 class="card-text">Desk 30</h5>-->
+<!--                    <div class="card-text row bookingCardDate">-->
+<!--                        <span class="deskTagsTwo col-6">16/12/2021</span>-->
+<!--                        <span class="deskTagsTwo col-6">Bristol</span>-->
+<!--                    </div>-->
+<!--                    <button class="bookDeskButton btn btn-warning" id="cancelBookingId-45" type="submit" onclick="cancelBooking()">Cancel</button>-->
+<!--                    <div class="card-title deskCardExpand">-->
+<!--                        <button class="btn btn-link" data-toggle="collapse" data-target="#deskImg30" aria-expanded="true" aria-controls="deskImg">-->
+<!--                            <svg width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
+<!--                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>-->
+<!--                            </svg>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div id="deskImg30" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">-->
+<!--                    <div class="card-body deskImg">-->
+<!--                        <img src="/desk/30/standing.jpg" class="card-img-top" alt="">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox">-->
+<!--  <div class="card-body row">-->
+
+<!--    <div class="desk-container col-12 col-md-6 col-lg-4 col-xl-2">-->
+
+<!--      &lt;!&ndash; Display this is desk is not booked (ie. boolean hashmap value = false) &ndash;&gt;-->
+<!--      <div class="card deskCardCancel">-->
+<!--        <div class="card-header deskCardCancelHeader">-->
+<!--          <h5 class="card-text">Desk 7</h5>-->
+
+
+<!--          &lt;!&ndash; form for book button &ndash;&gt;-->
+<!--          <form class="booking-button-form" action ="/user/mybookings" method="POST">-->
+<!--            <button onclick="showBookNotification()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>-->
+<!--          </form>-->
+
+<!--          <div class="card-text bookingCardDate">-->
+<!--            4/12/2021-->
+<!--          </div>-->
+
+<!--          <div class="card-title deskCardExpand">-->
+<!--            &lt;!&ndash;<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>&ndash;&gt;-->
+<!--            <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">-->
+<!--              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
+<!--                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
+<!--              </svg>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; increment the ids here to display each picture &ndash;&gt;-->
+<!--        <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">-->
+<!--          <div class="card-body deskImg">-->
+<!--            <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
