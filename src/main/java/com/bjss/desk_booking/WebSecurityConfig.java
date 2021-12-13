@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/css/**").permitAll() // all files in the Css directory can be seen by all
                 .mvcMatchers("/js/MyBookingScript.js").permitAll()
+                .mvcMatchers("/js/jquery.min.js").permitAll()
                 .mvcMatchers("/js/BookingPageScript.js").permitAll()
                 .mvcMatchers("/js/QuickBookingPageScript.js").permitAll()
                 .mvcMatchers("/js/AdminPageScript.js").permitAll()
@@ -54,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/desk/**").permitAll()
                 .mvcMatchers("/public/**").permitAll()
                 .mvcMatchers("/user/**").hasRole("USER") // Pages with /user need users to be signed in with the role USER
-                .mvcMatchers("/admin/**").hasRole("ADMIN") // Pages with /admin need users to be signed in with the role of ADMIN
+                .mvcMatchers("/admin/**").hasRole("ADMIN") //Pages with /admin need users to be signed in with the role of ADMIN
                 .anyRequest().denyAll()
                 .and()
                 .formLogin()
