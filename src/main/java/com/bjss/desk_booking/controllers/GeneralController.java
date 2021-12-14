@@ -43,5 +43,13 @@ public class GeneralController {
     @RequestMapping(path= "/admin/pending")
     public String pendingBookings(String name) { return "PendingBooking2";}
 
+    @RequestMapping(path = "/admin/comment")
+    public String adminComment(String name) {
+        return "adminComment";
+    }
+
+    @RequestMapping(path = "/user/comment")
+    public String userComment(String name){return "userComment";}
 }
+
 
