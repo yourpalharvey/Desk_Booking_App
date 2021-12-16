@@ -1,7 +1,6 @@
 const loadDailyAdminBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
 
-    console.log("LOADDAILYBOOKINGS")
     const params = {
         date: document.getElementById('date').value,
         officeId: document.getElementById("officeLocation").value
@@ -18,15 +17,12 @@ const loadDailyAdminBookings = async () => {
     let response = await fetch('/public/loadDailyBookings', options);
     response = await response.json();
 
-    console.log(response);
-
     displayDailyAdminBookings(response);
 }
 
 const cancelBookingFromAdminDash = async (bookingId,deskId,userBooked,officeLocation) => {
 
-    console.log("cancelBookingFromDash")
-    await fetch('/public/cancelMyBooking', {
+    await fetch('/admin/cancelBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
@@ -57,8 +53,6 @@ const displayAdminEmpty = () => {
 }
 
 const displayDailyAdminBookings = (jsonResponse) => {
-
-    console.log(jsonResponse);
 
     if(document.body.contains(document.getElementById("mainDiv"))){
         document.getElementById("mainDiv").remove();
@@ -105,10 +99,6 @@ const displayDailyAdminBookings = (jsonResponse) => {
         if (jsonResponse[i].booked) {
             div4.className = "card deskCardCancel";
         }
-
-        // if (jsonResponse[i].cancelButton) {
-        //     div4.className = "card deskCardCancel"
-        // }
 
         const div5 = document.createElement("div");
         div5.setAttribute('class', "card-header");

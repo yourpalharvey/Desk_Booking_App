@@ -126,7 +126,6 @@ public class AdminRestController {
         String jsonString = JSONArray.toJSONString(pendingBookingList);
 
         return jsonString;
-
     }
 
     @PostMapping(value = "/admin/getUserBookingsByAdmin")
@@ -149,7 +148,6 @@ public class AdminRestController {
 
         String jsonString = JSONArray.toJSONString(userBookingDTOList);
         return jsonString;
-
     }
 
     @DeleteMapping(value = "/admin/cancelBooking")

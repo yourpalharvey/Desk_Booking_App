@@ -23,8 +23,6 @@ public class User {
     }
 
     public void setRating(int rating) {
-
-
         this.rating = rating;
     }
 
@@ -47,7 +45,6 @@ public class User {
     }
 
     public User() {
-
     }
 
     public int getUserId() {
@@ -107,9 +104,4 @@ public class User {
         }
 
     }
-
-
-
-
-
 }

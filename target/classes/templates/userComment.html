@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>User Comment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <script src="/js/showLogout.js"></script>
+    <script src="/js/hideUserNavLinks.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <style type="text/css">
+
+        label {
+            margin-left: 20px;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        /*.dark-matter {*/
+        /*    margin-left: auto;*/
+        /*    margin-right: auto;*/
+        /*    max-width: 500px;*/
+        /*    background: #555;*/
+        /*    padding: 20px 30px 20px 30px;*/
+        /*    font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+        /*    color: #D3D3D3;*/
+        /*    text-shadow: 1px 1px 1px #444;*/
+        /*    border: none;*/
+        /*    border-radius: 5px;*/
+        /*    -webkit-border-radius: 5px;*/
+        /*    -moz-border-radius: 5px;*/
+        /*}*/
+        .dark-matter h1 {
+            padding: 0px 0px 10px 40px;
+            display: block;
+            border-bottom: 1px solid #444;
+            margin: -10px -30px 30px -30px;
+        }
+
+        .dark-matter h1 > span {
+            display: block;
+            font-size: 11px;
+        }
+
+        .dark-matter label {
+            display: block;
+            margin: 0px 0px 5px;
+        }
+
+        .dark-matter label > span {
+            float: left;
+            width: 20%;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter textarea, .dark-matter select {
+            border: none;
+            color: #525252;
+            height: 25px;
+            line-height: 15px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            outline: 0 none;
+            padding: 5px 0px 5px 5px;
+            width: 70%;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            background: #DFDFDF;
+        }
+
+        .dark-matter select {
+            background: #DFDFDF url('down-arrow.png') no-repeat right;
+            background: #DFDFDF url('down-arrow.png') no-repeat right;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 0.01px;
+            text-overflow: '';
+            width: 70%;
+            height: 35px;
+            color: #525252;
+            line-height: 25px;
+        }
+
+        .dark-matter textarea {
+            height: 1px;
+            padding: 5px 0px 0px 5px;
+            width: 70%;
+        }
+
+        .dark-matter .button {
+            background: #FFCC02;
+            border: none;
+            padding: 10px 25px 10px 25px;
+            color: #585858;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            text-shadow: 1px 1px 1px #FFE477;
+            font-weight: bold;
+            box-shadow: 1px 1px 1px #3D3D3D;
+            -webkit-box-shadow: 1px 1px 1px #3D3D3D;
+            -moz-box-shadow: 1px 1px 1px #3D3D3D;
+        }
+
+        .dark-matter .button:hover {
+            color: #333;
+            background-color: #EBEBEB;
+        }
+
+        .comment {
+            background-color: #ffffff;
+            padding-top: 5px;
+            width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body onload="showLogoutButton()">
+<header th:replace="fragments/header :: header"></header>
+
+<div class="article-container">
+
+    <div class="article_head">
+        <h1 class="title"></h1>
+
+    </div>
+    <hr/>
+    <div class="comment" style="border-radius: 10px";box-shadwo="rgb(0 0 0 / 35%) 0px 5px 15px">
+        <h1 class="title" style="color:black">User Manage Comment</h1>
+        <!--    <form action="" method="post" class="STYLE-NAME" >-->
+        <label>
+            <span>Name :</span>
+            <p></p>
+            <input style="margin-left: 50px;width: 400px;" id="name" type="text" name="name" placeholder="Your Name"/>
+        </label>
+        <p></p>
+        <label>
+            <span>Comment :</span>
+            <p></p>
+            <textarea id="comment" name="comment" placeholder="Your Message to Us"
+                      style="margin-top: 0px;margin-bottom: 20px;height: 200px;width: 400px;margin-left: 50px"></textarea>
+        </label>
+        <label>
+            <!--            <span>&nbsp;</span>-->
+            <!--            <input type="button" class="button" value="Send" style="margin-left: 420px"/>-->
+
+            <button onclick="submit()" style="margin-left: 420px ">SEND</button>
+        </label>
+        <!--    </form>-->
+    </div>
+</div>
+</body>
+<script>
+
+    function submit() {
+        let data = {
+            comment: document.getElementById("comment").value,
+            name: document.getElementById("name").value
+        }
+        let time = new Date()
+        data.createdTime = time
+        if (data.name) {
+            $.ajax({
+                url: "/user/comment/add",
+                contentType: "application/json;charsetset=UTF-8",
+                method: "POST",
+                data: JSON.stringify(data),
+                success(data) {
+                    location.reload()
+
+                }
+            })
+        }
+        console.log(data)
+    }
+
+
+</script>
+</html>

@@ -36,6 +36,7 @@
 
 <div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox" id="mainPendingDiv">
     <div class="card-body row" id="pendingDiv">
+<!--        TEMPLATE BELOW:                                                     -->
 <!--        <div class="desk-container col-12 col-md-6 col-lg-4 col-xl-2" id="bookings-container">-->
 <!--            <div class="card deskCardCancel" id="desk-card-45">-->
 <!--                <div class="card-header deskCardCancelHeader" id="cancel-card-45">-->
@@ -62,50 +63,6 @@
 <!--        </div>-->
     </div>
 </div>
-
-
-
-
-
-<!--<div class="card col d-flex justify-content-center container-fluid mt-100 deskListBox">-->
-<!--  <div class="card-body row">-->
-
-<!--    <div class="desk-container col-12 col-md-6 col-lg-4 col-xl-2">-->
-
-<!--      &lt;!&ndash; Display this is desk is not booked (ie. boolean hashmap value = false) &ndash;&gt;-->
-<!--      <div class="card deskCardCancel">-->
-<!--        <div class="card-header deskCardCancelHeader">-->
-<!--          <h5 class="card-text">Desk 7</h5>-->
-
-
-<!--          &lt;!&ndash; form for book button &ndash;&gt;-->
-<!--          <form class="booking-button-form" action ="/user/mybookings" method="POST">-->
-<!--            <button onclick="showBookNotification()" class="bookDeskButton btn btn-warning my-2 my-sm-0" type="submit">Cancel</button>-->
-<!--          </form>-->
-
-<!--          <div class="card-text bookingCardDate">-->
-<!--            4/12/2021-->
-<!--          </div>-->
-
-<!--          <div class="card-title deskCardExpand">-->
-<!--            &lt;!&ndash;<button class="bookDeskButton btn btn-success my-2 my-sm-0" th:id="'book-button'+${status.index+1}" type="submit">Book</button>&ndash;&gt;-->
-<!--            <button class="btn btn-link" data-toggle="collapse" data-target="#deskOneImg" aria-expanded="true" aria-controls="deskImg">-->
-<!--              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
-<!--                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
-<!--              </svg>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; increment the ids here to display each picture &ndash;&gt;-->
-<!--        <div id="deskOneImg" class="collapse" aria-labelledby="deskCardExpand" data-parent=".deskListBox">-->
-<!--          <div class="card-body deskImg">-->
-<!--            <img th:src="@{/images/standing.jpg}" class="card-img-top" alt="">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>

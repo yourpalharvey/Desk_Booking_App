@@ -14,6 +14,7 @@ public class UserServiceImplementation implements UserService {
 
     private User currentUser;
 
+    //this is not the best way to get the current user, but was sufficient for displaying our MVP to the client
     public void setCurrentUser(User user){
         this.currentUser = user;
     }

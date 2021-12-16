@@ -15,15 +15,12 @@ public class AdminBookingServiceImplementation implements AdminBookingService {
     @Autowired
     public AdminBookingServiceImplementation(AdminBookingRepo theAdminBookingRepo) {
         adminBookingRepo=theAdminBookingRepo;
-
     }
 
     @Override
     public List<Booking> findAll() {
-        return (List<Booking>) adminBookingRepo.findAll();
+        return adminBookingRepo.findAll();
     }
-
-
 
     @Override
     public Booking findById(int id) {

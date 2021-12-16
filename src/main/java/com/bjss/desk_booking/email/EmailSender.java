@@ -33,8 +33,6 @@ public class EmailSender {
 
     }
 
-
-
     public void confirmationEmailSender(Booking booking) throws MessagingException
     {
         if(booking.getUser().getUserEmail()!=null) {

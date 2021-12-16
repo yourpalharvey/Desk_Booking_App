@@ -2,7 +2,6 @@ package com.bjss.desk_booking.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +28,6 @@ public class BookingServiceImplementation implements BookingService{
                 .stream()
                 .filter(booking -> booking.getDesk().getOffice().getOfficeId() == officeId)
                 .collect(Collectors.toList());
-        //System.out.println(officeBookingList);
         return officeBookingList;
     }
 

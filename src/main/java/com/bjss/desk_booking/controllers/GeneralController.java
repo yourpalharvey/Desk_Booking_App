@@ -21,12 +21,6 @@ public class GeneralController {
         return "BookingPage";
     }
 
-    //Test site
-    @RequestMapping(path = "/user/dashboardtwo")
-    public String userDashboardTwo(String name) {
-        return "BookingPageDated";
-    }
-
     @RequestMapping(path = "/user/quickbooking")
     public String userQuickBooking(String name) {
         return "QuickBookingPage";
@@ -50,6 +44,9 @@ public class GeneralController {
 
     @RequestMapping(path = "/user/comment")
     public String userComment(String name){return "userComment";}
+
+    @RequestMapping(path = "/admindashboard")
+    public String adminDash(String name){return "adminpanel";}
 }
 
 

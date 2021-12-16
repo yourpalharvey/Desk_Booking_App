@@ -40,7 +40,7 @@ public class Booking {
     @JoinColumn(name = "deskId", nullable = false) //UserId from user class will be the foreign key in the booking table
     private Desk desk;
 
-    //this constructor is for the quick booking system - todo: I think we should remove the endDate and just insert one booking per day
+    //this constructor is for the quick booking system
     public Booking(Date startDate, User user, Desk desk){
         this.startDate = startDate;
         this.user = user;
@@ -81,8 +81,6 @@ public class Booking {
 
     public Booking() {
     }
-
-
 
     public int getDeskId() {
         return desk.getDeskId();

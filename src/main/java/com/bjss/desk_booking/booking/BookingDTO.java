@@ -1,11 +1,5 @@
 package com.bjss.desk_booking.booking;
 
-import com.bjss.desk_booking.desk.Desk;
-import com.bjss.desk_booking.office.Office;
-import com.bjss.desk_booking.user.User;
-
-import java.sql.Date;
-
 //this class is used for displaying Bookings as JSON. Easier to use this than Booking class
 // to create a JSON string because Booking contained other objects causing a stack overflow
 // also, the below details are all that are needed by the front end

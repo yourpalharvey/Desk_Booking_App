@@ -12,7 +12,4 @@ public interface AdminBookingRepo extends JpaRepository<Booking,Integer> {
             Date bookingStartDate,
             Date bookingEndDate);
 
-
-
-
 }
