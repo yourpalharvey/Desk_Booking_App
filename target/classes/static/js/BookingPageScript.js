@@ -19,7 +19,6 @@ const loadOffices = async () => {
 
     let response = await fetch('/public/getAllOffices', options);
     response = await response.json();
-    console.log(response);
 
     loadOfficeSelections(response);
 }
@@ -31,13 +30,11 @@ const loadOfficeSelections = (response) => {
         newOption.innerText = response[i].officeName;
         document.getElementById("officeLocation").append(newOption);
     }
-    console.log(response);
 }
 
 const loadDailyBookings = async () => {
     //load the daily bookings as JSON from /user/loadDailyBookings in BookingRestController
 
-    console.log("LOADDAILYBOOKINGS")
     const params = {
         date : document.getElementById('date').value,
         officeId: document.getElementById("officeLocation").value
@@ -54,15 +51,13 @@ const loadDailyBookings = async () => {
     let response = await fetch('/public/loadDailyBookings', options);
     response = await response.json();
 
-    console.log(response);
-
     displayDailyBookings(response);
 }
 
 const cancelBookingFromDash = async (bookingId,deskId) => {
 
     console.log("cancelBookingFromDash")
-    await fetch('/public/cancelMyBooking', {
+    await fetch('/user/cancelMyBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
@@ -93,8 +88,6 @@ const displayEmpty = () => {
 }
 
 const displayDailyBookings = (jsonResponse) => {
-
-    console.log(jsonResponse);
 
     if(document.body.contains(document.getElementById("mainDiv"))){
         document.getElementById("mainDiv").remove();

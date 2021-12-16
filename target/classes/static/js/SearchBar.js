@@ -134,9 +134,6 @@ const loadUserAdminBookings = async () => {
         return;
     }
 
-
-    console.log(document.getElementById("userName").value)
-    console.log("LOADDAILYBOOKINGS")
     const params = {
         username: document.getElementById("userName").value
     }
@@ -149,14 +146,14 @@ const loadUserAdminBookings = async () => {
         body: JSON.stringify(params)
     }
 
-    let response = await fetch('/public/getUserBookingsByAdmin', options);
+    let response = await fetch('/admin/getUserBookingsByAdmin', options);
     response = await response.json();
 
-    console.log(response);
     displayUserAdminBookings(response);
 
 }
 
+// if user has no bookings, the below function is called to show no bookings
 const displayAdminSearchEmpty = () => {
     const cardTitleDiv = document.getElementById("card-title-div");
 
@@ -221,8 +218,6 @@ const displayUserAdminBookings = (jsonResponse) => {
         let deskId = jsonResponse[i].deskId;
         let searchUsername = "\"" + jsonResponse[i].userBooked + "\"";
         let officeLocation = "\"" + jsonResponse[i].officeLocation + "\"";
-
-        console.log("IN DISPLAY FUNCTION: " + searchUsername);
 
         cancelButton.setAttribute("onclick", "adminCancelBooking(" + bookingId + ", " + deskId + ", " + bookingDate + "," + searchUsername + "," + officeLocation + ")");
         console.log(jsonResponse[i].date);
@@ -312,7 +307,7 @@ const adminCancelBooking = async (bookingId, deskId, dateString, username, offic
 
     // Call /user/cancelMyBooking to cancel a booking,
     // and delete the relevant div from the DOM
-    await fetch('/public/cancelMyBooking', {
+    await fetch('/admin/cancelBooking', {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
@@ -320,15 +315,12 @@ const adminCancelBooking = async (bookingId, deskId, dateString, username, offic
         },
         body: JSON.stringify({bookingId: bookingId})
     });
-    console.log("IN ADMIN CANCEL BOOKING" + username);
     document.getElementById("desk-card-" + bookingId).remove();
     showSearchCancelNotification(deskId, dateString, username, officeLocation);
     await loadUserAdminBookings();
 }
 
 function showSearchCancelNotification(deskId, dateString, username, officeLocation) {
-
-    console.log("IN SHOW SEARCH ADMIN CANCEL BOOKING" + username);
 
     //replace div with clone of itself, to restart the css animation
     const cancelNot = document.getElementById("cancelFromAdminDashNotification");

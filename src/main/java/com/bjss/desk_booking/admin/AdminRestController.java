@@ -1,22 +1,20 @@
 package com.bjss.desk_booking.admin;
 
 import com.bjss.desk_booking.booking.Booking;
+import com.bjss.desk_booking.booking.BookingDTO;
 import com.bjss.desk_booking.booking.BookingService;
+import com.bjss.desk_booking.email.EmailSender;
+import com.bjss.desk_booking.user.User;
+import com.bjss.desk_booking.user.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
-import javax.mail.MessagingException;
 import java.util.*;
 
 @RestController
 public class AdminRestController {
-
-    @Autowired
-    private JavaMailSender mailSender;
 
     @Autowired
     BookingService bookingService;
@@ -24,22 +22,29 @@ public class AdminRestController {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    EmailSender emailSender;
+
+    // cancel booking from admin side
     @PostMapping("/admin/cancelPending")
     public String cancelBooking(@RequestBody Map<String, Integer> bookingToCancelMap) {
 
+        //get booking objects by the ID given in request body
         int id = bookingToCancelMap.get("bookingId");
 
         Booking booking=bookingService.findById(id);
         try {
-            cancelEmailSender(booking);
+            emailSender.cancelEmailSender(booking);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         bookingService.deleteById(id);
 
-        //create PendingBookingDTO object to return to the front end
-
+        //create PendingBookingDTO object to return to the front end to display
         PendingBookingDTO cancelledBooking = new PendingBookingDTO(
                 booking.getBookingId(),
                 booking.getDate().toString(),
@@ -57,6 +62,7 @@ public class AdminRestController {
         return "";
     }
 
+    // approve a pending booking from admin side
     @PostMapping("/admin/approvePending")
     public String acceptBooking(@RequestBody Map<String, Integer> bookingToAcceptMap) {
         int id = bookingToAcceptMap.get("bookingId");
@@ -64,7 +70,7 @@ public class AdminRestController {
         Booking booking=bookingService.findById(id);
         booking.setApproved(true);
         try {
-            confirmationEmailSender(booking);
+            emailSender.confirmationEmailSender(booking);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,6 +95,7 @@ public class AdminRestController {
         return "";
     }
 
+    //get all pending bookings to display in the 'pending booking' section
     @PostMapping("/admin/getAllPending")
     public String pendingBooking(){
 
@@ -104,7 +111,7 @@ public class AdminRestController {
         //returned to front end
         for (Booking b:allBookingList){
             //If the booking requires approval
-            if(!b.isApproved() && b.getDate().after(date) ||b.getDate().equals(date)) {
+            if(!b.isApproved() && b.getDate().after(date) || b.getDate().equals(date)) {
                 PendingBookingDTO pendingBookingDTO = new PendingBookingDTO(
                         b.getBookingId(),
                         b.getDate().toString(),
@@ -122,49 +129,42 @@ public class AdminRestController {
 
     }
 
-    //the below is a copy of the email sender functions from AdminController.
-    //todo - the below functions would be better off in their own class so that they can be used in multiple places
+    @PostMapping(value = "/admin/getUserBookingsByAdmin")
+    public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
+        //get the username from the request body
+        String searchUser = username.get("username");
+        User user = userService.findByUsername(searchUser);
+        List<Booking> userBookingList = bookingService.findByUserId(user.getUserId());
 
-    public void cancelEmailSender(Booking booking) throws MessagingException
-    {
-        if(booking.getUser().getUserEmail()!=null) {
+        //sort by date
+        userBookingList.sort(Comparator.comparing(Booking::getDate));
+        List<BookingDTO> userBookingDTOList = new ArrayList<>();
 
-            String from = "deskbookingt05@gmail.com";
-            String to = booking.getUser().getUserEmail();
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            //Sending Booking confirmation
-            message.setFrom(from);
-            message.setTo(to);
-            message.setSubject("Desk Booking information");
-            message.setText("We are very sorry to say that your booking request (booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nhas been canceled.Sorry for the inconvenience");
-            mailSender.send(message);
-
+        for(Booking b: userBookingList){
+            userBookingDTOList.add(new BookingDTO(b.getBookingId(), b.getDate().toString(),b.getDeskId()
+                    ,true,b.getDesk().getDeskImageName(),b.getDesk().getOffice().getOfficeName()
+                    ,b.getDesk().getMonitorOption(),b.getDesk().getDeskPosition()
+                    ,b.getDesk().getDeskType(), b.getUser().getUsername(), false, true));
         }
+
+        String jsonString = JSONArray.toJSONString(userBookingDTOList);
+        return jsonString;
 
     }
 
+    @DeleteMapping(value = "/admin/cancelBooking")
+    public void cancelABooking(@RequestBody Map<String, Integer> bookingIdToCancel){
+        //delete the booking
 
-
-    public void confirmationEmailSender(Booking booking) throws MessagingException
-    {
-        if(booking.getUser().getUserEmail()!=null) {
-
-            String from = "deskbookingt05@gmail.com";
-            String to = booking.getUser().getUserEmail();
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            //Sending Booking confirmation
-            message.setFrom(from);
-            message.setTo(to);
-            message.setSubject("Desk Booking Confirmation");
-            message.setText("Your booking(booking ID:"+booking.getBookingId()+"\tBooking Date: "+booking.getDate()+" is confirmed \nThis is a "+booking.getDesk().getDeskType()+"\nThe Desk ID is: "+booking.getDesk().getDeskId()
-                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
-            mailSender.send(message);
-
+        Booking booking = bookingService.findById(bookingIdToCancel.get("bookingId"));
+        try {
+            emailSender.cancelEmailSender(booking);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    }
+        bookingService.deleteById(bookingIdToCancel.get("bookingId"));
 
+    }
 
 }

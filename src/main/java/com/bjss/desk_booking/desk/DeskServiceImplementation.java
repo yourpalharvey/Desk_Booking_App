@@ -1,5 +1,5 @@
 package com.bjss.desk_booking.desk;
-import com.bjss.desk_booking.booking.Booking;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,6 @@ public class DeskServiceImplementation implements DeskService {
                 .stream()
                 .filter(desk -> desk.getOffice().getOfficeId() == officeId)
                 .collect(Collectors.toList());
-        //System.out.println(officeBookingList);
         return officeDeskList;
     }
 
@@ -33,7 +32,7 @@ public class DeskServiceImplementation implements DeskService {
     public Desk findById(int id) {
         Optional<Desk> result = deskRepo.findById(id);
 
-        Desk   thedesk = null;
+        Desk thedesk = null;
 
         if (result.isPresent()) {
             thedesk = result.get();

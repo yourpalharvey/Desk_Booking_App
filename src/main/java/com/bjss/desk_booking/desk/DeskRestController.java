@@ -25,17 +25,22 @@ public class DeskRestController {
 
     @PostMapping(path = "/admin/viewDesksByOffice")
     public String viewDesks(@RequestBody Map<String, Integer> officeId){
-        //create a list of desk transfer objects (by office) to return as json
-        System.out.println("OFFICE Id: ----------- " + officeId.get("officeId"));
+        //create a list of desk transfer objects (by chosen office) to return as json
         List<Desk> deskList = deskService.findAllByOfficeId(officeId.get("officeId"));
         List<DeskDTO> deskDTOList = new ArrayList<>();
 
         for(Desk d: deskList){
             System.out.println(d.getOffice());
-            deskDTOList.add(new DeskDTO(d.getDeskId(),d.getDeskName(),d.getDeskType()
-                    ,d.getDeskPosition(),d.getMonitorOption(),d.getDeskStatus(),d.getDeskImageName(),d.getOffice().getOfficeName()));
+            deskDTOList.add(new DeskDTO(
+                    d.getDeskId(),
+                    d.getDeskName(),
+                    d.getDeskType(),
+                    d.getDeskPosition(),
+                    d.getMonitorOption(),
+                    d.getDeskStatus(),
+                    d.getDeskImageName(),
+                    d.getOffice().getOfficeName()));
         }
-
         return JSONArray.toJSONString(deskDTOList);
     }
 
@@ -51,9 +56,10 @@ public class DeskRestController {
         List<BookingDTO> deletedBookingDTOList = new ArrayList<>();
         bookingsForDelete.forEach(
                 b -> deletedBookingDTOList.add(
-                        new BookingDTO(b.getDate().toString()
-                                ,b.getUser().getUsername()
-                                ,b.getDeskId())
+                        new BookingDTO(
+                                b.getDate().toString(),
+                                b.getUser().getUsername(),
+                                b.getDeskId())
         ));
 
         //delete each booking for the desk
@@ -62,11 +68,8 @@ public class DeskRestController {
         //delete the desk
         deskService.deleteById(deskIdToDelete);
 
+        //return list of deleted bookings to display so the admin knows
         String jsonString = JSONArray.toJSONString(deletedBookingDTOList);
         return jsonString;
     }
-
-
-
-
 }
