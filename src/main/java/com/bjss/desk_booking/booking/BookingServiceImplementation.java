@@ -22,6 +22,7 @@ public class BookingServiceImplementation implements BookingService{
         return bookingRepo.findAll();
     }
 
+    // returns a list of all the bookings that have the same office ID
     @Override
     public List<Booking> findAllByOfficeId(int officeId) {
         List<Booking> officeBookingList = bookingRepo.findAll()
@@ -31,6 +32,7 @@ public class BookingServiceImplementation implements BookingService{
         return officeBookingList;
     }
 
+    // returns a list of all the booking that have the same desk ID (same desk)
     public List<Booking> findAllByDeskId(int deskId){
         List<Booking> deskBookingList = bookingRepo.findAll()
                 .stream()
@@ -39,6 +41,7 @@ public class BookingServiceImplementation implements BookingService{
         return deskBookingList;
     }
 
+    // returns the booking from the booking ID in the booking table
     @Override
     public Booking findById(int bookingId) {
         Optional<Booking> result = bookingRepo.findById(bookingId);
@@ -54,16 +57,19 @@ public class BookingServiceImplementation implements BookingService{
         return booking;
     }
 
+    // Returns a list of all the bookings that share the same User ID
     public List<Booking> findByUserId(int userId){
         List<Booking> userBookings = new ArrayList<>();
         List<Booking> allBookings = bookingRepo.findAll();
 
+        // If the booking in the table has the user ID entered, add it to the new list
         for(Booking b: allBookings){
             if(b.getUser().getUserId() == userId){
                 userBookings.add(b);
             }
         }
 
+        // print statement for debugging. Can be deleted.
         for(Booking b : userBookings){
             System.out.println(b);
         }

@@ -128,6 +128,7 @@ public class AdminRestController {
         return jsonString;
     }
 
+    // Get all bookings associated with the User searched for
     @PostMapping(value = "/admin/getUserBookingsByAdmin")
     public String getUserBookingsByAdmin(@RequestBody Map<String, String> username){
         //get the username from the request body
