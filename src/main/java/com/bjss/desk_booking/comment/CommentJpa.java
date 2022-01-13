@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface CommentJpa extends JpaRepository<Comment,Long> {
+    //interface to delete comment data
     int deleteById(int id);
-//    int add(Comment comment);
-    Page<Comment> findAll(Specification<Comment> spec, Pageable pageable);
 }
