@@ -24,173 +24,115 @@ import java.util.Date;
 import java.util.List;
 
 
-@Controller
+@Controller     //Defining it is a Controller class of spring boot application
 public class AdminController {
 
 
-    @Autowired
+    @Autowired //Injecting DeskService Class
     DeskService deskService;
 
-    @Autowired
+    @Autowired //Injecting BookingService Class
     BookingService bookingService;
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-
+/*HTTP Request mapping for admin dashboard page */
     @RequestMapping(path = "/admindashboard")
-    public String adminDashboard(Model model)
-    {
+    public String adminDashboard(Model model) {
 
-        List<Booking> bookingList=bookingService.findAll();
+        List<Booking> bookingList = bookingService.findAll();
         model.addAttribute("bookingList", bookingList);
 
         return "adminPanel";
     }
 
 
-/*Controller for showing all the previous booking*/
+    /*Controller for showing all the previous booking*/
     @RequestMapping(path = "/previousbooking")
     public String previousBooking(Model model) {
 
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        System.out.println(formatter.format(date));
-        System.out.println();
-
-        List<Booking> allbookingList=bookingService.findAll();
-        List<Booking> bookingList=new ArrayList<>();
-        for (Booking b:allbookingList)
-        {
-            if(b.getDate().after(date) || b.getDate().equals(date))
-            {bookingList.add(b);
+        Date date = new Date(); //Storing Today's date in date variable
+        List<Booking> allbookingList = bookingService.findAll();
+        List<Booking> bookingList = new ArrayList<>();
+        for (Booking b : allbookingList) {
+            if (b.getDate().after(date) || b.getDate().equals(date))   //Finding out all the booking which are scheduled today or on any future date
+            {
+                bookingList.add(b);
 
             }
-
         }
-
-
-        model.addAttribute("bookingList",bookingList);
+        model.addAttribute("bookingList", bookingList);
 
         return "previousbooking";
 
     }
-
+    /*HTTP GEt Request mapping for deleting a booking using the id passed as path variable from client side server  */
     @GetMapping("/previousbooking/{id}")
     public String deleteBooking(@PathVariable("id") int id, Model model) {
         bookingService.deleteById(id);
 
-
         return "redirect:/previousbooking";
     }
 
-
-
+    /*HTTP GEt Request mapping for deleting a desk using the id passed as path variable from client side server  */
     @GetMapping("/admindeskstatus/{id}")
     public String deleteDesk(@PathVariable("id") int id, Model model) {
-       deskService.deleteById(id);
-
+        deskService.deleteById(id);
 
         return "redirect:/admindeskstatus";
     }
 
-    @GetMapping(value = "/admindeskstatus")
-    public String deskstatus(Model model)
-
-    {
-        List<Desk> deskList=deskService.findAll();
+    /*HTTP GEt Request mapping for showing all desk   */
+    @GetMapping(value = "/admineskstatus")
+    public String deskStatus(Model model) {
+        List<Desk> deskList = deskService.findAll();
         model.addAttribute("deskList", deskList);
+
         return "deskStatus";
 
 
-
     }
 
-    @GetMapping(value = "/admingetBookingsByDate")
-    public String bookingByDate(Model model,@RequestParam (required = false)java.sql.Date date)
-
-    {
-        if(date==null)
+    /*HTTP GEt Request mapping for showing all booking according to date  */
+    @GetMapping(value = "/adminGetBookingsByDate")
+    public String bookingByDate(Model model, @RequestParam(required = false) java.sql.Date date) {
+        if (date == null)
         {
+
             return "previousbooking";
         }
 
-
-        List<Booking> allbookingList=bookingService.findAll();
-        List<Booking> bookingList=new ArrayList<>();
-        for (Booking b:allbookingList)
-        {
-            if(b.getDate().equals(date))  //Search by Date
-            {bookingList.add(b);
-
+        List<Booking> allBookingList = bookingService.findAll();
+        List<Booking> bookingList = new ArrayList<>();
+        for (Booking b : allBookingList) {
+            if (b.getDate().equals(date))  //Search any booking by date taken from input from client server.
+            {
+                bookingList.add(b);
             }
-
         }
+        model.addAttribute("bookingList", bookingList);
 
-        model.addAttribute("bookingList",bookingList);
         return "adminPanelDated";
 
 
-
     }
-
+    /*HTTP GEt Request mapping for showing all booking according to User Name  */
     @GetMapping(value = "/admingetBookingsByUserName")
-    public String bookingByUser(Model model,@RequestParam (required = false)java.sql.Date date,String name)
+    public String bookingByUser(Model model, @RequestParam(required = false) java.sql.Date date, String name) {
 
-    {
-
-
-
-
-        List<Booking> allbookingList=bookingService.findAll();
-        List<Booking> bookingList=new ArrayList<>();
-        for (Booking b:allbookingList)
-        {
-            if(b.getUser().getUsername().equals(name))  //Search by name
-            {bookingList.add(b);
-
+        List<Booking> allbookingList = bookingService.findAll();
+        List<Booking> bookingList = new ArrayList<>();
+        for (Booking b : allbookingList) {
+            if (b.getUser().getUsername().equals(name))  //Search by name
+            {
+                bookingList.add(b);
             }
 
         }
-
-        model.addAttribute("bookingList",bookingList);
+        model.addAttribute("bookingList", bookingList);
+        
         return "adminPanelDated";
 
 
-
     }
-
-
-
-   /* public void emailSender(Booking booking) throws MessagingException
-    {
-        if(booking.getUser().getUserEmail()!=null) {
-
-            String from = "deskbookingt05@gmail.com";
-            String to = booking.getUser().getUserEmail();
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            //Sending Booking confirmation
-            message.setFrom(from);
-            message.setTo(to);
-            message.setSubject("Desk Booking information");
-            message.setText("We are very sorry to say that your booking(booking ID:"+booking.getBookingId()+"\nBooking Date: "+booking.getDate()+"\nThis is a "+booking.getDesk().getDesktype()+"\nThe Desk ID is: "+booking.getDesk().getDeskID()
-                    +"The location of the Desk is: "+booking.getDesk().getDeskPosition()+"\nIt has "+booking.getDesk().getMonitorOption()+" monitors");
-            mailSender.send(message);
-
-
-
-
-
-
-
-
-
-
-        }
-
-    }*/
 
 
 }

@@ -24,54 +24,27 @@ public class DeskController {
     private OfficeService officeService;
 
 
-
     /*Adding Desk Method*/
-    @RequestMapping(path = "/admin/adddesk")
-    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image",required = false) MultipartFile file
-//                          @RequestParam String deskName,
-//                          @RequestParam int officeId
-//                          @RequestParam String desktype,
-//                          @RequestParam String deskPosition,
-//                          @RequestParam int monitorOption
-                          ) throws IOException,NullPointerException {
+    @RequestMapping(path = "/admin/adddesk") //Mapped HTTP request
+    public String addDesk(@ModelAttribute("desk") Desk desk, @RequestParam(value = "image", required = false) MultipartFile file //Request parameter not required and Mapping model name desk to Desk object desk, Expecting a file type from the request
 
-        String fileName = "";
+    ) throws IOException, NullPointerException {
+
+        String fileName =null;
         try {
-            fileName = StringUtils.cleanPath(file.getOriginalFilename()); //get the acrual file name
+            fileName = StringUtils.cleanPath(file.getOriginalFilename()); //get the actual file name
             desk.setDeskImageName(fileName);
-
-
         } catch (Exception e) {
+            throw  new NullPointerException("No file name"); //Handle the exception
 
         }
-
-        if (desk.getDeskName() != null) {
-
-            deskService.save(desk);
-            System.out.println("done");
-
-
-
-            String uploadDir = "desk/" + desk.getDeskID();
-
-            DeskFileUploadUtil.saveFile(uploadDir, fileName, file); //sending upload dir,filename and the file to the upload utility
+        if (desk.getDeskName() != null) { //if the desk name is not empty it will save the object
+            deskService.save(desk); //Calling deskService save method to save the file
+            String uploadDir = "desk/" + desk.getDeskID(); //Setting the local folder name as desk and sub folder according to the desk id
+            DeskFileUploadUtil.saveFile(uploadDir, fileName, file); //sending upload dir,filename and the file to the upload utility class
         }
-
-
-        return "adddesk";
-
-
+        return "adddesk"; //return HTML file name adddesk
     }
-
-
-    /*Show Desk*/
-
-
-
-
-
-
-
 }
 
 
