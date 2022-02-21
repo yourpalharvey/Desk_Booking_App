@@ -51,3 +51,12 @@ create table if not exists booking (
     constraint FKkgseyy7t56x7lkjgu3wah5s3t foreign key (user_id) references user (user_id),
     constraint FKs8u9q0251nmlnoahefiakkmm foreign key (desk_id) references desk (desk_id)
 );
+
+insert into user(is_admin, password, rating, username) values (false, "password", 100, "user1");
+insert into user(is_admin, password, rating, username) values (true, "admin", 100, "admin");
+
+insert into office(office_name) values ("Cardiff");
+insert into office(office_name) values ("Bristol");
+
+insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 1);
+insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 1);insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 1);insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 1);insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 2);insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 2);insert into desk(desk_image_name, desk_position, desk_type, monitor_option, office_id) values ("standing.jpg", "Main Floor", "Standard", 1, 2);
