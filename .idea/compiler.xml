@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="team_5_office_desk_booking" />
         <module name="desk_booking" />
+        <module name="dev-ops-desk-app" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="desk_booking" options="-parameters" />
+      <module name="dev-ops-desk-app" options="-parameters" />
       <module name="team_5_office_desk_booking" options="-parameters" />
     </option>
   </component>
