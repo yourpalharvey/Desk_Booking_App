@@ -1,3 +1,7 @@
+create database desk_booking;
+use desk_booking;
+
+
 drop table if exists comment;
 drop table if exists office;
 drop table if exists desk;
