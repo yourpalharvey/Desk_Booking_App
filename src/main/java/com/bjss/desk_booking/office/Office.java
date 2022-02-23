@@ -16,11 +16,10 @@ public class Office {
     private int officeId;
     private String officeName;
 
-    @OneToMany(mappedBy = "office")  //Creating one to many relation with booking class and Using user object from Booking class
+    @OneToMany(mappedBy = "office") // One to many add the office_id to the desk table
     List<Desk> deskList = new ArrayList<>();
 
     public Office() {
-
     }
 
     public Office(int officeId, String officeName) {
@@ -43,7 +42,6 @@ public class Office {
     public void setOfficeName(String officeName) {
         this.officeName = officeName;
     }
-
 
 }
 

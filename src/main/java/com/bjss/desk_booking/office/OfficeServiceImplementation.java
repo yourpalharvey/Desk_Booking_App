@@ -21,7 +21,7 @@ public class OfficeServiceImplementation implements OfficeService {
         return officeRepo.findAll();
     }
 
-    //if a booking with the selected id is found in the db, return Booking object.
+    //if office with the selected id is found in the db, return office object.
     //else, return null
     @Override
     public Office findById(int officeId) {

@@ -12,6 +12,7 @@ public class OfficeRestController {
     @Autowired
     OfficeService officeService;
 
+    // returns a Json string of all the office information
     @PostMapping (value = "/public/getAllOffices")
     public String myOfficeStatus() {
 
