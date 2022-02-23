@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: com.bjss.desk_booking.MockMVCTests
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1.328 s <<< FAILURE! - in com.bjss.desk_booking.MockMVCTests
+getOfficeLocTest  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: 
+Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #2 of URL [file:/C:/Users/c1863110/OneDrive%20-%20Cardiff%20University/Documents/MSc%20Work/CMT654_DevOps/Desk_App_Tests/dev-ops-desk-app/target/test-classes/schema.sql]: drop table if exists office; nested exception is org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: 
+Failed to execute SQL script statement #2 of URL [file:/C:/Users/c1863110/OneDrive%20-%20Cardiff%20University/Documents/MSc%20Work/CMT654_DevOps/Desk_App_Tests/dev-ops-desk-app/target/test-classes/schema.sql]: drop table if exists office; nested exception is org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+
+TestHomePagePath  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: 
+Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #2 of URL [file:/C:/Users/c1863110/OneDrive%20-%20Cardiff%20University/Documents/MSc%20Work/CMT654_DevOps/Desk_App_Tests/dev-ops-desk-app/target/test-classes/schema.sql]: drop table if exists office; nested exception is org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+Caused by: org.springframework.jdbc.datasource.init.ScriptStatementFailedException: 
+Failed to execute SQL script statement #2 of URL [file:/C:/Users/c1863110/OneDrive%20-%20Cardiff%20University/Documents/MSc%20Work/CMT654_DevOps/Desk_App_Tests/dev-ops-desk-app/target/test-classes/schema.sql]: drop table if exists office; nested exception is org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Cannot drop "OFFICE" because "FKBSHJ16DGG95I9USK8B23YUQYY" depends on it; SQL statement:
+drop table if exists office [90107-200]
+
